@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>펫 에이전트 가이드</title>
+<style>
+    :root {
+        --bg-main: #050a15;
+        --bg-panel: #0b1528;
+        --border-color: #1a3256;
+        --text-main: #ffffff;
+        --text-muted: #aaaaaa;
+        --color-gold: #ffcc00;
+        --color-blue: #4ebaff;
+        --color-green: #5bc236;
+        --color-purple: #c074ff;
+        --color-red: #ff5555;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body { 
+        background-color: var(--bg-main); 
+        color: var(--text-main); 
+        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; 
+        margin: 0; 
+        padding: 10px; 
+        font-size: 14px; 
+    }
+    
+    .container { 
+        position: relative;
+        max-width: 1100px; 
+        margin: auto; 
+        background-color: #0a1122; 
+        border: 2px solid var(--border-color); 
+        border-radius: 12px; 
+        padding: 20px; 
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    
+    /* 언어 선택 콤보박스 스타일 */
+    .lang-selector {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #1a3256;
+        color: white;
+        border: 1px solid var(--color-gold);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+        z-index: 100;
+    }
+    .lang-selector:focus {
+        border-color: var(--color-blue);
+    }
+    
+    h1, h2, h3, h4 { margin: 0; }
+    
+    .text-gold { color: var(--color-gold); }
+    .text-blue { color: var(--color-blue); }
+    .text-green { color: var(--color-green); }
+    .text-purple { color: var(--color-purple); }
+    .text-red { color: var(--color-red); }
+    
+    /* Header */
+    .header { text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
+    .header h1 { font-size: 46px; color: var(--color-gold); font-weight: 900; letter-spacing: 2px; text-shadow: 3px 3px 6px #000; -webkit-text-stroke: 1.5px var(--color-gold); margin-bottom: 5px; }
+    .header .subtitle { font-size: 17px; color: var(--color-blue); font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 2px #000; }
+    
+    /* Panel */
+    .panel { border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; background-color: var(--bg-panel); margin-bottom: 15px; }
+    .section-title { text-align: center; color: var(--color-blue); font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+    .desc-text { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
+    
+    /* Pet Unlock Order */
+    .pet-grid { display: flex; gap: 8px; justify-content: space-between; align-items: stretch; }
+    .pet-card { flex: 1; border: 2px solid var(--border-color); border-radius: 8px; text-align: center; padding: 10px; display: flex; flex-direction: column; background: #08101d; }
+    .pet-card-header { font-weight: bold; font-size: 16px; margin-bottom: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+    
+    .pet-card.sentinel { border-color: var(--color-green); } .pet-card.sentinel .pet-card-header { color: var(--color-green); }
+    .pet-card.shining { border-color: var(--color-blue); } .pet-card.shining .pet-card-header { color: var(--color-blue); }
+    .pet-card.zeus { border-color: var(--color-blue); } .pet-card.zeus .pet-card-header { color: var(--color-blue); }
+    .pet-card.specter { border-color: var(--color-purple); } .pet-card.specter .pet-card-header { color: var(--color-purple); }
+    .pet-card.frost { border-color: var(--color-purple); } .pet-card.frost .pet-card-header { color: var(--color-purple); }
+    .pet-card.titan { border-color: var(--color-gold); } .pet-card.titan .pet-card-header { color: var(--color-gold); }
+    
+    .pet-role { font-size: 12px; font-weight: bold; margin: 8px 0; min-height: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; gap: 4px; }
+    .pet-desc { font-size: 11px; color: #ccc; flex-grow: 1; margin-bottom: 10px; line-height: 1.4; }
+    .pet-unlock { background-color: var(--border-color); font-size: 11px; padding: 6px; border-radius: 4px; color: #fff; }
+    .arrow { color: var(--color-blue); font-size: 18px; display: flex; align-items: center; justify-content: center; margin: 0 -4px; z-index: 10; }
+    
+    .key-rule { background-color: #1a1505; border: 1px solid var(--color-gold); color: var(--color-gold); text-align: center; padding: 12px; font-weight: bold; margin-top: 15px; border-radius: 5px; font-size: 14px; }
+    
+    /* Middle Section */
+    .middle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    
+    /* Roles List */
+    .roles-list { display: flex; flex-direction: column; gap: 8px; }
+    .role-item { display: flex; align-items: center; font-size: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .role-item:last-child { border: none; padding-bottom: 0; }
+    .r-num { background-color: var(--border-color); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px; font-weight: bold; flex-shrink: 0; }
+    .r-name { width: 80px; font-weight: bold; font-size: 13px; flex-shrink: 0; }
+    .r-tier { width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 8px; color: #000; flex-shrink: 0; }
+    .r-tier.c { background-color: var(--color-green); }
+    .r-tier.b { background-color: var(--color-blue); }
+    .r-tier.a { background-color: var(--color-purple); }
+    .r-tier.s { background-color: var(--color-gold); }
+    .r-role { width: 85px; color: var(--text-muted); line-height: 1.2; font-weight: bold; flex-shrink: 0; }
+    .r-skill { flex: 1; line-height: 1.4; }
+    .r-skill strong { color: var(--color-blue); display: inline-flex; align-items: center; gap: 4px; margin-bottom: 2px; }
+    
+    /* Priority Path */
+    .priority-path { display: flex; gap: 5px; text-align: center; align-items: flex-start; margin-bottom: 15px; }
+    .path-step { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .p-num { background-color: var(--border-color); color: var(--color-gold); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid var(--color-gold); margin-bottom: 8px; font-size: 14px; }
+    .p-icon { font-size: 20px; margin-bottom: 6px; }
+    .p-title { font-size: 12px; font-weight: bold; color: var(--color-gold); margin-bottom: 6px; min-height: 30px; line-height: 1.2; }
+    .p-desc { font-size: 11px; color: #ccc; line-height: 1.3; }
+    .p-arrow { color: var(--color-blue); font-size: 16px; margin-top: 25px; font-weight: bold; }
+    
+    /* Team Roles Summary */
+    .team-roles-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 15px; font-size: 11px; }
+    .tr-item { display: flex; gap: 8px; }
+    .tr-item strong { display: block; margin-bottom: 2px; font-size: 12px; }
+    
+    /* Bottom Grid */
+    .bottom-grid { display: grid; grid-template-columns: 1fr 1.5fr 1.2fr 1.2fr; gap: 15px; }
+    .bottom-grid .panel-title { text-align: left; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 12px; font-size: 15px; font-weight: bold; color: var(--color-blue); display: flex; align-items: center; gap: 6px; }
+    
+    .list-item { font-size: 12px; margin-bottom: 10px; display: flex; gap: 8px; align-items: flex-start; }
+    .list-num { background-color: var(--color-blue); color: #000; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+    
+    .res-item { font-size: 11px; margin-bottom: 10px; display: flex; gap: 6px; align-items: flex-start; }
+    .res-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .res-content { flex: 1; }
+    .res-item strong { color: var(--color-gold); font-size: 12px; display: block; margin-bottom: 2px; }
+    
+    .skill-guide-section { font-size: 12px; margin-bottom: 15px; }
+    .skill-guide-section h4 { color: var(--color-red); margin-bottom: 6px; font-size: 13px; border-bottom: 1px solid #333; padding-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+    .skill-guide-section.dev h4 { color: var(--color-green); }
+    .skill-guide-section ul { padding-left: 15px; margin: 0; color: #ddd; }
+    .skill-guide-section li { margin-bottom: 4px; }
+    
+    .pro-tip { display: flex; gap: 6px; font-size: 12px; margin-bottom: 10px; align-items: flex-start; line-height: 1.4; }
+    .pro-tip::before { content: '★'; color: var(--color-gold); font-weight: bold; }
+    
+    /* Footer Grid */
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+    .purchases { display: flex; gap: 8px; justify-content: space-between; }
+    .purchase-item { background-color: #111d35; padding: 10px 5px; border-radius: 6px; text-align: center; flex: 1; font-size: 11px; border: 1px solid #23406a; display: flex; flex-direction: column; align-items: center; }
+    .purchase-icon { font-size: 18px; margin-bottom: 4px; }
+    .purchase-item strong { display: block; color: var(--color-gold); font-size: 12px; margin-bottom: 6px; height: 28px; }
+    
+    .remember-panel { border-color: var(--color-gold); background-color: #1a1505; }
+    .remember-panel .panel-title { color: var(--color-gold); border-bottom-color: rgba(255, 204, 0, 0.3); display: flex; align-items: center; gap: 6px; }
+    .remember-list { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+    .remember-list li { margin-bottom: 6px; display: flex; gap: 6px; }
+    .remember-list li::before { content: '✔'; color: var(--color-green); font-weight: bold; }
+    
+    .very-bottom { text-align: center; margin-top: 10px; font-size: 18px; font-weight: bold; color: var(--color-gold); letter-spacing: 2px; text-transform: uppercase; }
+
+    /* =========================================================
+       모바일 반응형 레이아웃 (Media Queries)
+       ========================================================= */
+    @media (max-width: 900px) {
+        .bottom-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .lang-selector {
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        .header h1 { font-size: 32px; -webkit-text-stroke: 1px var(--color-gold); margin-top: 35px; }
+        .header .subtitle { font-size: 13px; }
+        
+        .pet-grid { flex-direction: column; gap: 15px; }
+        .arrow { transform: rotate(90deg); margin: 5px 0; }
+        
+        .middle-grid { grid-template-columns: 1fr; }
+        .priority-path { flex-direction: column; align-items: center; gap: 10px; }
+        .p-arrow { transform: rotate(90deg); margin: 0; }
+        .path-step { width: 100%; max-width: 350px; padding-bottom: 10px; }
+        
+        .role-item { flex-wrap: wrap; padding-bottom: 12px; }
+        .r-name { width: auto; flex-grow: 1; margin-right: 5px; }
+        .r-role { width: auto; }
+        .r-skill { 
+            flex-basis: 100%; 
+            margin-top: 8px; 
+            margin-left: 30px; 
+        }
+        
+        .team-roles-summary { grid-template-columns: 1fr; }
+        
+        .bottom-grid { grid-template-columns: 1fr; }
+        
+        .purchases { flex-wrap: wrap; }
+        .purchase-item { min-width: 45%; flex: 1 1 45%; margin-bottom: 5px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 다국어 콤보박스 -->
+    <select class="lang-selector" id="langSelect" onchange="changeLanguage()">
+        <option value="ko" selected>🇰🇷 한국어</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+    </select>
+
+    <div class="header">
+        <h1 data-i18n="titleMain">🛡️ 펫 에이전트 가이드 🛡️</h1>
+        <div class="subtitle" data-i18n="titleSub">🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾</div>
+    </div>
+
+    <!-- Section 1: Unlock Order -->
+    <div class="panel">
+        <div class="section-title" data-i18n="sec1Title">🐾 펫 해금 순서 및 성장 경로 🐾</div>
+        <div class="desc-text" data-i18n="sec1Desc">펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.</div>
+        
+        <div class="pet-grid">
+            <div class="pet-card sentinel">
+                <div class="pet-card-header" data-i18n="p1Name">① 센티넬</div>
+                <div class="pet-role text-green" data-i18n="p1Role">🌱 경제 / 채집</div>
+                <div class="pet-desc" data-i18n="p1Desc">1개 부대의 진행 중인 채집을 즉시 완료합니다.</div>
+                <div class="pet-unlock" data-i18n="p1Unlock">📈 펫 #2 해금<br>Reach Lv.30</div>
+            </div>
+            <div class="arrow">▶</div>
+            <div class="pet-card shining">
+                <div class="pet-card-header" data-i18n="p2Name">② 샤이닝</div>
+                <div class="pet-role text-blue" data-i18n="p2Role">📦 유틸리티 / 지원</div>
+                <div class="pet-desc" data-i18n="p2Desc">정예 전사를 즉시 획득합니다.</div>
+                <div class="pet-unlock" data-i18n="p2Unlock">📈 펫 #3 해금<br>Reach Lv.30</div>
+            </div>
+            <div class="arrow">▶</div>
+            <div class="pet-card zeus">
+                <div class="pet-card-header" data-i18n="p3Name">③ 제우스</div>
+                <div class="pet-role text-blue" data-i18n="p3Role">🥫 유틸리티 / 지원</div>
+                <div class="pet-desc" data-i18n="p3Desc">고급 전술 식량을 즉시 획득합니다.</div>
+                <div class="pet-unlock" data-i18n="p3Unlock">📈 펫 #4 해금<br>Reach Lv.30</div>
+            </div>
+            <div class="arrow">▶</div>
+            <div class="pet-card specter">
+                <div class="pet-card-header" data-i18n="p4Name">④ 스펙터</div>
+                <div class="pet-role text-purple" data-i18n="p4Role">📦 유틸리티 / 지원</div>
+                <div class="pet-desc" data-i18n="p4Desc">무작위 아이템을 즉시 부여합니다.</div>
+                <div class="pet-unlock" data-i18n="p4Unlock">📈 펫 #5 해금<br>Reach Lv.30</div>
+            </div>
+            <div class="arrow">▶</div>
+            <div class="pet-card frost">
+                <div class="pet-card-header" data-i18n="p5Name">⑤ 프로스트</div>
+                <div class="pet-role text-purple" data-i18n="p5Role">⚔️ 메인 딜러</div>
+                <div class="pet-desc" data-i18n="p5Desc">2시간 동안 모든 부대의 공격력을 증가시킵니다.</div>
+                <div class="pet-unlock" data-i18n="p5Unlock">📈 펫 #6 해금<br>Reach Lv.30</div>
+            </div>
+            <div class="arrow">▶</div>
+            <div class="pet-card titan">
+                <div class="pet-card-header" data-i18n="p6Name">⑥ 타이탄</div>
+                <div class="pet-role text-gold" data-i18n="p6Role">🛡️ 메인 탱커 / 방어</div>
+                <div class="pet-desc" data-i18n="p6Desc">거대한 방어 버프. 팀을 생존시킵니다!</div>
+                <div class="pet-unlock" data-i18n="p6Unlock">👑 모든 펫 해금<br>Reach Lv.30</div>
+            </div>
+        </div>
+
+        <div class="key-rule" data-i18n="keyRule">
+            ⭐ 핵심 규칙: 우선순위 = 모든 펫을 먼저 해금하세요. 초반에 한 마리의 펫에 과투자하지 마세요!
+        </div>
+    </div>
+
+    <!-- Section 2: Middle Grid -->
+    <div class="middle-grid">
+        <div class="panel">
+            <div class="section-title" data-i18n="mid1Title">📋 모든 펫 - 역할 및 스킬 개요</div>
+            <div class="roles-list">
+                <div class="role-item">
+                    <div class="r-num">1</div><div class="r-name text-green" data-i18n="r1Name">🐶 센티넬</div><div class="r-tier c">C</div>
+                    <div class="r-role" data-i18n="r1Role">🌱 채집/경제</div>
+                    <div class="r-skill"><strong data-i18n="r1SName">🌱 즉시 획득</strong> <span data-i18n="r1SDesc">1개 부대의 진행 중인 채집을 즉시 완료합니다.</span></div>
+                </div>
+                <div class="role-item">
+                    <div class="r-num">2</div><div class="r-name text-blue" data-i18n="r2Name">🦝 샤이닝</div><div class="r-tier b">B</div>
+                    <div class="r-role" data-i18n="r2Role">🛠️ 유틸/지원</div>
+                    <div class="r-skill"><strong data-i18n="r2SName">📦 쾌속 개조</strong> <span data-i18n="r2SDesc">정예 전사를 즉시 획득합니다.</span></div>
+                </div>
+                <div class="role-item">
+                    <div class="r-num">3</div><div class="r-name text-blue" data-i18n="r3Name">🦍 제우스</div><div class="r-tier b">B</div>
+                    <div class="r-role" data-i18n="r3Role">🛠️ 유틸/지원</div>
+                    <div class="r-skill"><strong data-i18n="r3SName">🥫 야생의 선물</strong> <span data-i18n="r3SDesc">고급 전술 식량을 즉시 획득합니다.</span></div>
+                </div>
+                <div class="role-item">
+                    <div class="r-num">4</div><div class="r-name text-purple" data-i18n="r4Name">🦊 스펙터</div><div class="r-tier a">A</div>
+                    <div class="r-role" data-i18n="r4Role">🛠️ 유틸/지원</div>
+                    <div class="r-skill"><strong data-i18n="r4SName">📦 극지 탐색</strong> <span data-i18n="r4SDesc">무작위 아이템을 즉시 부여합니다.</span></div>
+                </div>
+                <div class="role-item">
+                    <div class="r-num">5</div><div class="r-name text-purple" data-i18n="r5Name">🐯 프로스트</div><div class="r-tier a">A</div>
+                    <div class="r-role" data-i18n="r5Role">⚔️ 메인 딜러</div>
+                    <div class="r-skill"><strong data-i18n="r5SName">⚔️ 치명적 본능</strong> <span data-i18n="r5SDesc">2시간 동안 모든 부대의 공격력을 증가시킵니다.</span></div>
+                </div>
+                <div class="role-item">
+                    <div class="r-num">6</div><div class="r-name text-gold" data-i18n="r6Name">🐻 타이탄</div><div class="r-tier s">S</div>
+                    <div class="r-role" data-i18n="r6Role">🛡️ 탱커/방어</div>
+                    <div class="r-skill"><strong data-i18n="r6SName">🛡️ 야만의 포효</strong> <span data-i18n="r6SDesc">거대한 방어 버프. 팀을 생존시킵니다!</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="section-title" data-i18n="mid2Title">🚀 업그레이드 및 우선순위 경로</div>
+            <div class="priority-path">
+                <div class="path-step">
+                    <div class="p-num">1</div>
+                    <div class="p-icon">🥫</div>
+                    <div class="p-title" data-i18n="path1Title">모든 펫 우선 해금</div>
+                    <div class="p-desc" data-i18n="path1Desc">다음 펫 해금을 위해 각 펫 30레벨 달성 (1→2→3→4→5→6)</div>
+                </div>
+                <div class="p-arrow text-gold">▶</div>
+                <div class="path-step">
+                    <div class="p-num">2</div>
+                    <div class="p-icon">🔺</div>
+                    <div class="p-title" data-i18n="path2Title">핵심 전투력 구축</div>
+                    <div class="p-desc" data-i18n="path2Desc">해금 완료 후 프로스트(딜)와 타이탄(탱)에 집중해 전투력 극대화</div>
+                </div>
+                <div class="p-arrow text-gold">▶</div>
+                <div class="path-step">
+                    <div class="p-num">3</div>
+                    <div class="p-icon">📦</div>
+                    <div class="p-title" data-i18n="path3Title">유틸리티 펫 투자</div>
+                    <div class="p-desc" data-i18n="path3Desc">장기 성장을 위해 스펙터(템)와 센티넬(채집) 육성</div>
+                </div>
+                <div class="p-arrow text-blue">▶</div>
+                <div class="path-step">
+                    <div class="p-num">4</div>
+                    <div class="p-icon">👥</div>
+                    <div class="p-title" data-i18n="path4Title">벤치 펫은 상황별</div>
+                    <div class="p-desc" data-i18n="path4Desc">샤이닝과 제우스는 초반용으로 우선순위가 낮음, 필요시 사용</div>
+                </div>
+                <div class="p-arrow text-green">▶</div>
+                <div class="path-step">
+                    <div class="p-num">5</div>
+                    <div class="p-icon">✅</div>
+                    <div class="p-title" data-i18n="path5Title">꾸준함 유지</div>
+                    <div class="p-desc" data-i18n="path5Desc">매일 로그인, 펫 패스, 스킬 사용으로 연맹 성장 기여</div>
+                </div>
+            </div>
+            
+            <div class="section-title" style="font-size: 14px; margin-top: 15px; border-top: 1px solid #1a3256; padding-top: 15px;" data-i18n="trTitle">📊 팀 역할 요약</div>
+            <div class="team-roles-summary">
+                <div class="tr-item">
+                    <span style="font-size:18px">🛡️</span>
+                    <div><strong class="text-gold" data-i18n="tr1Name">탱커 / 방어 (TANK / DEFENSE)</strong><span data-i18n="tr1Desc">팀을 보호하고 피해를 흡수합니다.</span></div>
+                </div>
+                <div class="tr-item">
+                    <span style="font-size:18px">⚔️</span>
+                    <div><strong class="text-purple" data-i18n="tr2Name">데미지 딜러 (DAMAGE DEALER)</strong><span data-i18n="tr2Desc">강력한 피해를 입히고 전투에서 승리합니다.</span></div>
+                </div>
+                <div class="tr-item">
+                    <span style="font-size:18px">🛠️</span>
+                    <div><strong class="text-blue" data-i18n="tr3Name">유틸리티 / 지원 (UTILITY / SUPPORT)</strong><span data-i18n="tr3Desc">아이템, 버프, 부대 부스트를 제공합니다.</span></div>
+                </div>
+                <div class="tr-item">
+                    <span style="font-size:18px">🌱</span>
+                    <div><strong class="text-green" data-i18n="tr4Name">경제 / 발전 (ECONOMY / DEVELOPMENT)</strong><span data-i18n="tr4Desc">자원 및 계정 성장을 가속합니다.</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Bottom Grid -->
+    <div class="bottom-grid">
+        <div class="panel">
+            <div class="panel-title" data-i18n="bot1Title">📅 일일 루틴</div>
+            <div class="list-item"><div class="list-num">1</div><div data-i18n="bot1L1">현재 펫 먹이 주기로 Lv.30 달성하기.</div></div>
+            <div class="list-item"><div class="list-num">2</div><div data-i18n="bot1L2">다음 펫 해금 및 레벨업 즉시 시작.</div></div>
+            <div class="list-item"><div class="list-num">3</div><div data-i18n="bot1L3">쿨다운마다 발전 스킬 아끼지 말고 사용.</div></div>
+            <div class="list-item"><div class="list-num">4</div><div data-i18n="bot1L4">고레벨 자원 지대 위주로 채집 진행.</div></div>
+            <div class="list-item"><div class="list-num">5</div><div data-i18n="bot1L5">일일 펫 패스 미션 필수 완료.</div></div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" data-i18n="bot2Title">💎 주요 자원 및 역할</div>
+            <div class="res-item">
+                <div class="res-icon">🥫</div>
+                <div class="res-content"><strong data-i18n="bot2N1">고급 전술 식량</strong><span data-i18n="bot2D1">펫 먹이 지급 및 레벨업 자원.</span></div>
+            </div>
+            <div class="res-item">
+                <div class="res-icon">🧪</div>
+                <div class="res-content"><strong data-i18n="bot2N2">영양 물약</strong><span data-i18n="bot2D2">펫 한계 돌파(Breakthrough)에 사용.</span></div>
+            </div>
+            <div class="res-item">
+                <div class="res-icon">💾</div>
+                <div class="res-content"><strong data-i18n="bot2N3">한계 돌파 칩</strong><span data-i18n="bot2D3">펫 에이전트의 돌파 진행에 필수.</span></div>
+            </div>
+            <div class="res-item">
+                <div class="res-icon">📘</div>
+                <div class="res-content"><strong data-i18n="bot2N4">표준 훈련 프로토콜</strong><span data-i18n="bot2D4">일반 펫 훈련 및 성장에 사용.</span></div>
+            </div>
+            <div class="res-item">
+                <div class="res-icon">🏅</div>
+                <div class="res-content"><strong data-i18n="bot2N5">특수 작전 명예 훈장</strong><span data-i18n="bot2D5">고등급 펫 에이전트의 돌파 자원.</span></div>
+            </div>
+            <div class="res-item">
+                <div class="res-icon">📙</div>
+                <div class="res-content"><strong data-i18n="bot2N6">고급 훈련 프로토콜</strong><span data-i18n="bot2D6">고레벨 펫의 고급 훈련에 사용.</span></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" data-i18n="bot3Title">💡 스킬 사용 가이드</div>
+            <div class="skill-guide-section">
+                <h4 data-i18n="bot3S1Title">⚔️ 전투 스킬 (프로스트, 타이탄)</h4>
+                <ul>
+                    <li><strong data-i18n="bot3S1U1Label">주요 사용처:</strong> <span data-i18n="bot3S1U1Desc">집결, 요새전, 연맹전, 강력 보스전.</span></li>
+                    <li data-i18n="bot3S1U2">쉬운 전투나 소규모 이벤트에는 아끼세요.</li>
+                </ul>
+            </div>
+            <div class="skill-guide-section dev">
+                <h4 data-i18n="bot3S2Title">🌱 발전 스킬 (모든 펫)</h4>
+                <ul>
+                    <li data-i18n="bot3S2U1">쿨다운이 돌아올 때마다 아낌없이 사용하세요.</li>
+                    <li><strong data-i18n="bot3S2U2Label">최고 효율:</strong> <span data-i18n="bot3S2U2Desc">장시간 채집이나 고가치 자원 타겟팅.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" data-i18n="bot4Title">⭐ 프로 팁 (PRO TIPS)</div>
+            <div class="pro-tip" data-i18n="bot4L1">무조건 모든 펫 해금이 우선입니다 - 최고 속도 성장 공식.</div>
+            <div class="pro-tip" data-i18n="bot4L2">가장 강력한 전투 시너지는 프로스트와 타이탄 듀오입니다.</div>
+            <div class="pro-tip" data-i18n="bot4L3">장시간 자리 비움이나 고가치 자원 채집 시 센티넬 스킬 필수.</div>
+            <div class="pro-tip" data-i18n="bot4L4">자원 낭비 없이 핵심 위주로 압축 투자하세요.</div>
+            <div class="pro-tip" data-i18n="bot4L5">매일의 작은 꾸준함이 모여 연맹의 승리를 만듭니다!</div>
+        </div>
+    </div>
+
+    <!-- Section 4: Footer Grid -->
+    <div class="footer-grid">
+        <div class="panel">
+            <div class="panel-title text-blue" data-i18n="foot1Title">🛒 최고 효율 추천 상품 (BEST VALUE PURCHASES)</div>
+            <div class="purchases">
+                <div class="purchase-item">
+                    <div class="purchase-icon">🥫</div>
+                    <strong data-i18n="foot1N1">펫 주간 패스</strong><span data-i18n="foot1D1">최고의 매일 가치 보장!</span>
+                </div>
+                <div class="purchase-item">
+                    <div class="purchase-icon">📙</div>
+                    <strong data-i18n="foot1N2">펫 배틀 패스</strong><span data-i18n="foot1D2">엄청난 누적 보상 제공!</span>
+                </div>
+                <div class="purchase-item">
+                    <div class="purchase-icon">📙</div>
+                    <strong data-i18n="foot1N3">고급 훈련 팩</strong><span data-i18n="foot1D3">훈련 스피드업에 최고!</span>
+                </div>
+                <div class="purchase-item">
+                    <div class="purchase-icon">🧪</div>
+                    <strong data-i18n="foot1N4">영양 물약 팩</strong><span data-i18n="foot1D4">돌파 정체 구간 해결사!</span>
+                </div>
+                <div class="purchase-item">
+                    <div class="purchase-icon">🥫</div>
+                    <strong data-i18n="foot1N5">전술 식량 패키지</strong><span data-i18n="foot1D5">성장은 느리지만 필수 식량.</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel remember-panel">
+            <div class="panel-title" data-i18n="foot2Title">🏆 꼭 기억하세요 (REMEMBER)</div>
+            <ul class="remember-list">
+                <li data-i18n="foot2L1">6마리의 펫을 순서대로 최우선 해금하기.</li>
+                <li data-i18n="foot2L2">전투(딜/탱) 및 유틸리티 핵심 코어 구축하기.</li>
+                <li data-i18n="foot2L3">스킬은 타이밍과 효율에 맞춰 알맞게 쓰기.</li>
+                <li data-i18n="foot2L4">강력한 펫 = 강한 연맹 = 최종 승리!</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="very-bottom" data-i18n="veryBottom">
+        🐾 STRONG PETS • STRONG ALLIANCE • VICTORY TOGETHER! 🐾
+    </div>
+</div>
+
+<script>
+// 다국어 번역 데이터
+const translations = {
+    ko: {
+        titleMain: "🛡️ 펫 에이전트 가이드 🛡️", titleSub: "🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾",
+        sec1Title: "🐾 펫 해금 순서 및 성장 경로 🐾", sec1Desc: "펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.",
+        p1Name: "① 센티넬", p1Role: "🌱 경제 / 채집", p1Desc: "1개 부대의 진행 중인 채집을 즉시 완료합니다.", p1Unlock: "📈 펫 #2 해금<br>Reach Lv.30",
+        p2Name: "② 샤이닝", p2Role: "📦 유틸리티 / 지원", p2Desc: "정예 전사를 즉시 획득합니다.", p2Unlock: "📈 펫 #3 해금<br>Reach Lv.30",
+        p3Name: "③ 제우스", p3Role: "🥫 유틸리티 / 지원", p3Desc: "고급 전술 식량을 즉시 획득합니다.", p3Unlock: "📈 펫 #4 해금<br>Reach Lv.30",
+        p4Name: "④ 스펙터", p4Role: "📦 유틸리티 / 지원", p4Desc: "무작위 아이템을 즉시 부여합니다.", p4Unlock: "📈 펫 #5 해금<br>Reach Lv.30",
+        p5Name: "⑤ 프로스트", p5Role: "⚔️ 메인 딜러", p5Desc: "2시간 동안 모든 부대의 공격력을 증가시킵니다.", p5Unlock: "📈 펫 #6 해금<br>Reach Lv.30",
+        p6Name: "⑥ 타이탄", p6Role: "🛡️ 메인 탱커 / 방어", p6Desc: "거대한 방어 버프. 팀을 생존시킵니다!", p6Unlock: "👑 모든 펫 해금<br>Reach Lv.30",
+        keyRule: "⭐ 핵심 규칙: 우선순위 = 모든 펫을 먼저 해금하세요. 초반에 한 마리의 펫에 과투자하지 마세요!",
+        mid1Title: "📋 모든 펫 - 역할 및 스킬 개요",
+        r1Name: "🐶 센티넬", r1Role: "🌱 채집/경제", r1SName: "🌱 즉시 획득", r1SDesc: "1개 부대의 진행 중인 채집을 즉시 완료합니다.",
+        r2Name: "🦝 샤이닝", r2Role: "🛠️ 유틸/지원", r2SName: "📦 쾌속 개조", r2SDesc: "정예 전사를 즉시 획득합니다.",
+        r3Name: "🦍 제우스", r3Role: "🛠️ 유틸/지원", r3SName: "🥫 야생의 선물", r3SDesc: "고급 전술 식량을 즉시 획득합니다.",
+        r4Name: "🦊 스펙터", r4Role: "🛠️ 유틸/지원", r4SName: "📦 극지 탐색", r4SDesc: "무작위 아이템을 즉시 부여합니다.",
+        r5Name: "🐯 프로스트", r5Role: "⚔️ 메인 딜러", r5SName: "⚔️ 치명적 본능", r5SDesc: "2시간 동안 모든 부대의 공격력을 증가시킵니다.",
+        r6Name: "🐻 타이탄", r6Role: "🛡️ 탱커/방어", r6SName: "🛡️ 야만의 포효", r6SDesc: "거대한 방어 버프. 팀을 생존시킵니다!",
+        mid2Title: "🚀 업그레이드 및 우선순위 경로",
+        path1Title: "모든 펫 우선 해금", path1Desc: "다음 펫 해금을 위해 각 펫 30레벨 달성 (1→2→3→4→5→6)",
+        path2Title: "핵심 전투력 구축", path2Desc: "해금 완료 후 프로스트(딜)와 타이탄(탱)에 집중해 전투력 극대화",
+        path3Title: "유틸리티 펫 투자", path3Desc: "장기 성장을 위해 스펙터(템)와 센티넬(채집) 육성",
+        path4Title: "벤치 펫은 상황별", path4Desc: "샤이닝과 제우스는 초반용으로 우선순위가 낮음, 필요시 사용",
+        path5Title: "꾸준함 유지", path5Desc: "매일 로그인, 펫 패스, 스킬 사용으로 연맹 성장 기여",
+        trTitle: "📊 팀 역할 요약",
+        tr1Name: "탱커 / 방어", tr1Desc: "팀을 보호하고 피해를 흡수합니다.",
+        tr2Name: "데미지 딜러", tr2Desc: "강력한 피해를 입히고 전투에서 승리합니다.",
+        tr3Name: "유틸리티 / 지원", tr3Desc: "아이템, 버프, 부대 부스트를 제공합니다.",
+        tr4Name: "경제 / 발전", tr4Desc: "자원 및 계정 성장을 가속합니다.",
+        bot1Title: "📅 일일 루틴",
+        bot1L1: "현재 펫 먹이 주기로 Lv.30 달성하기.", bot1L2: "다음 펫 해금 및 레벨업 즉시 시작.", bot1L3: "쿨다운마다 발전 스킬 아끼지 말고 사용.", bot1L4: "고레벨 자원 지대 위주로 채집 진행.", bot1L5: "일일 펫 패스 미션 필수 완료.",
+        bot2Title: "💎 주요 자원 및 역할",
+        bot2N1: "고급 전술 식량", bot2D1: "펫 먹이 지급 및 레벨업 자원.",
+        bot2N2: "영양 물약", bot2D2: "펫 한계 돌파(Breakthrough)에 사용.",
+        bot2N3: "한계 돌파 칩", bot2D3: "펫 에이전트의 돌파 진행에 필수.",
+        bot2N4: "표준 훈련 프로토콜", bot2D4: "일반 펫 훈련 및 성장에 사용.",
+        bot2N5: "특수 작전 명예 훈장", bot2D5: "고등급 펫 에이전트의 돌파 자원.",
+        bot2N6: "고급 훈련 프로토콜", bot2D6: "고레벨 펫의 고급 훈련에 사용.",
+        bot3Title: "💡 스킬 사용 가이드",
+        bot3S1Title: "⚔️ 전투 스킬 (프로스트, 타이탄)", bot3S1U1Label: "주요 사용처:", bot3S1U1Desc: "집결, 요새전, 연맹전, 강력 보스전.", bot3S1U2: "쉬운 전투나 소규모 이벤트에는 아끼세요.",
+        bot3S2Title: "🌱 발전 스킬 (모든 펫)", bot3S2U1: "쿨다운이 돌아올 때마다 아낌없이 사용하세요.", bot3S2U2Label: "최고 효율:", bot3S2U2Desc: "장시간 채집이나 고가치 자원 타겟팅.",
+        bot4Title: "⭐ 프로 팁 (PRO TIPS)",
+        bot4L1: "무조건 모든 펫 해금이 우선입니다 - 최고 속도 성장 공식.", bot4L2: "가장 강력한 전투 시너지는 프로스트와 타이탄 듀오입니다.", bot4L3: "장시간 자리 비움이나 고가치 자원 채집 시 센티넬 스킬 필수.", bot4L4: "자원 낭비 없이 핵심 위주로 압축 투자하세요.", bot4L5: "매일의 작은 꾸준함이 모여 연맹의 승리를 만듭니다!",
+        foot1Title: "🛒 최고 효율 추천 상품 (BEST VALUE PURCHASES)",
+        foot1N1: "펫 주간 패스", foot1D1: "최고의 매일 가치 보장!",
+        foot1N2: "펫 배틀 패스", foot1D2: "엄청난 누적 보상 제공!",
+        foot1N3: "고급 훈련 팩", foot1D3: "훈련 스피드업에 최고!",
+        foot1N4: "영양 물약 팩", foot1D4: "돌파 정체 구간 해결사!",
+        foot1N5: "전술 식량 패키지", foot1D5: "성장은 느리지만 필수 식량.",
+        foot2Title: "🏆 꼭 기억하세요 (REMEMBER)",
+        foot2L1: "6마리의 펫을 순서대로 최우선 해금하기.", foot2L2: "전투(딜/탱) 및 유틸리티 핵심 코어 구축하기.", foot2L3: "스킬은 타이밍과 효율에 맞춰 알맞게 쓰기.", foot2L4: "강력한 펫 = 강한 연맹 = 최종 승리!",
+        veryBottom: "🐾 STRONG PETS • STRONG ALLIANCE • VICTORY TOGETHER! 🐾"
+    },
+    en: {
+        titleMain: "🛡️ PET AGENT GUIDE 🛡️", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
+        sec1Title: "🐾 Pet Unlock Order & Progression Path 🐾", sec1Desc: "Pets are released in a fixed order. Level each pet to Lv.30 to get a clue and unlock the next one.",
+        p1Name: "① SENTINEL", p1Role: "🌱 Economy/Gather", p1Desc: "Instantly completes ongoing gathering for 1 troop.", p1Unlock: "📈 Unlock Pet #2<br>Reach Lv.30",
+        p2Name: "② SHINING", p2Role: "📦 Utility/Support", p2Desc: "Instantly gains elite warriors.", p2Unlock: "📈 Unlock Pet #3<br>Reach Lv.30",
+        p3Name: "③ ZEUS", p3Role: "🥫 Utility/Support", p3Desc: "Instantly receives Advanced Tactical Rations.", p3Unlock: "📈 Unlock Pet #4<br>Reach Lv.30",
+        p4Name: "④ SPECTER", p4Role: "📦 Utility/Support", p4Desc: "Instantly grants random items.", p4Unlock: "📈 Unlock Pet #5<br>Reach Lv.30",
+        p5Name: "⑤ FROST", p5Role: "⚔️ Main Damage", p5Desc: "Increases all troops' ATK for 2 hours.", p5Unlock: "📈 Unlock Pet #6<br>Reach Lv.30",
+        p6Name: "⑥ TITAN", p6Role: "🛡️ Tank/Defense", p6Desc: "Massive defense buff. Keeps the team alive!", p6Unlock: "👑 Unlock All<br>Reach Lv.30",
+        keyRule: "⭐ KEY RULE: PRIORITY = UNLOCK ALL PETS FIRST. Do not over-invest in one pet early!",
+        mid1Title: "📋 ALL PETS - ROLES & SKILLS OVERVIEW",
+        r1Name: "🐶 Sentinel", r1Role: "🌱 Eco/Gather", r1SName: "🌱 Instant Loot", r1SDesc: "Instantly completes ongoing gathering for 1 troop.",
+        r2Name: "🦝 Shining", r2Role: "🛠️ Utility", r2SName: "📦 Rapid Mod", r2SDesc: "Instantly gains elite warriors.",
+        r3Name: "🦍 Zeus", r3Role: "🛠️ Utility", r3SName: "🥫 Wild Gift", r3SDesc: "Instantly receives Advanced Tactical Rations.",
+        r4Name: "🦊 Specter", r4Role: "🛠️ Utility", r4SName: "📦 Polar Search", r4SDesc: "Instantly grants random items.",
+        r5Name: "🐯 Frost", r5Role: "⚔️ Damage", r5SName: "⚔️ Lethal Instinct", r5SDesc: "Increases all troops' ATK for 2 hours.",
+        r6Name: "🐻 Titan", r6Role: "🛡️ Defense", r6SName: "🛡️ Savage Roar", r6SDesc: "Massive defense buff. Keeps the team alive!",
+        mid2Title: "🚀 UPGRADE & PRIORITY PATH",
+        path1Title: "Unlock All Pets First", path1Desc: "Level each pet to Lv.30 to unlock the next. (1→2→3→4→5→6)",
+        path2Title: "Build Core Combat", path2Desc: "After unlocking all, focus on Frost (dmg) and Titan (tank).",
+        path3Title: "Invest in Utility", path3Desc: "Develop Specter (items) & Sentinel (gather) for long-term growth.",
+        path4Title: "Use Bench Situational", path4Desc: "Shining & Zeus are good early, lower priority later.",
+        path5Title: "Keep Consistent", path5Desc: "Daily login, pass tasks, and skill use build steady progress.",
+        trTitle: "📊 TEAM ROLES SUMMARY",
+        tr1Name: "TANK / DEFENSE", tr1Desc: "Protects the team and absorbs damage.",
+        tr2Name: "DAMAGE DEALER", tr2Desc: "Deals heavy damage and wins fights.",
+        tr3Name: "UTILITY / SUPPORT", tr3Desc: "Provides items, buffs, and troop boosts.",
+        tr4Name: "ECONOMY / DEVELOPMENT", tr4Desc: "Speeds up resources and account growth.",
+        bot1Title: "📅 DAILY ROUTINE",
+        bot1L1: "Feed current pet to reach Lv.30.", bot1L2: "Unlock next pet and start leveling.", bot1L3: "Use development skills on cooldown.", bot1L4: "Gather on high-level resources.", bot1L5: "Complete Pet Pass tasks.",
+        bot2Title: "💎 KEY RESOURCES & WHAT THEY DO",
+        bot2N1: "Adv. Tactical Rations", bot2D1: "Used to FEED pets and level them up.",
+        bot2N2: "Nutrition Potions", bot2D2: "Used to BREAKTHROUGH pets.",
+        bot2N3: "Limit Break Chip", bot2D3: "Used to BREAKTHROUGH a pet agent.",
+        bot2N4: "Standard Training Protocol", bot2D4: "Used to TRAIN pets.",
+        bot2N5: "Special Ops Honor Medal", bot2D5: "Used for higher pet agent BREAKTHROUGH.",
+        bot2N6: "Advance Training Protocol", bot2D6: "Used to TRAIN higher level pets.",
+        bot3Title: "💡 SKILL USAGE GUIDE",
+        bot3S1Title: "⚔️ COMBAT SKILLS (Frost, Titan)", bot3S1U1Label: "Use for:", bot3S1U1Desc: "Rallies, Strongholds, Alliance Wars, Bosses.", bot3S1U2: "Don't waste on easy fights or small events.",
+        bot3S2Title: "🌱 DEVELOPMENT SKILLS (All Pets)", bot3S2U1: "Use on cooldown.", bot3S2U2Label: "Highest value:", bot3S2U2Desc: "Long gathers and needed resources.",
+        bot4Title: "⭐ PRO TIPS",
+        bot4L1: "Unlock all pets first – that's the fastest way to grow.", bot4L2: "Focus Frost and Titan for the strongest combat power.", bot4L3: "Use Sentinel skill on long, high-value gathers.", bot4L4: "Don't spread resources too thin.", bot4L5: "Consistency every day builds a stronger alliance!",
+        foot1Title: "🛒 BEST VALUE PURCHASES",
+        foot1N1: "Pet Weekly Pass", foot1D1: "Best daily value!",
+        foot1N2: "Pet Battle Pass", foot1D2: "Huge total rewards!",
+        foot1N3: "Adv. Training Pack", foot1D3: "Great for training!",
+        foot1N4: "Nutrition Potion Pack", foot1D4: "Important for breakthroughs!",
+        foot1N5: "Tactical Ration Pack", foot1D5: "Food is critical, leveling is slow.",
+        foot2Title: "🏆 REMEMBER",
+        foot2L1: "Unlock all 6 pets in order.", foot2L2: "Build your combat and utility cores.", foot2L3: "Use skills at the right time.", foot2L4: "Strong pets = Strong alliance = Victory!",
+        veryBottom: "🐾 STRONG PETS • STRONG ALLIANCE • VICTORY TOGETHER! 🐾"
+    },
+    vi: {
+        titleMain: "🛡️ HƯỚNG DẪN PET AGENT 🛡️", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
+        sec1Title: "🐾 Thứ tự mở khóa Pet & Con đường thăng tiến 🐾", sec1Desc: "Pet được ra mắt theo thứ tự. Nâng cấp mỗi pet lên Lv.30 để lấy manh mối và mở khóa pet tiếp theo.",
+        p1Name: "① SENTINEL", p1Role: "🌱 Kinh tế / Thu thập", p1Desc: "Lập tức hoàn thành thu thập cho 1 đạo quân.", p1Unlock: "📈 Mở khóa Pet #2<br>Đạt Lv.30",
+        p2Name: "② SHINING", p2Role: "📦 Tiện ích / Hỗ trợ", p2Desc: "Lập tức nhận chiến binh tinh nhuệ.", p2Unlock: "📈 Mở khóa Pet #3<br>Đạt Lv.30",
+        p3Name: "③ ZEUS", p3Role: "🥫 Tiện ích / Hỗ trợ", p3Desc: "Lập tức nhận Khẩu phần chiến thuật cao cấp.", p3Unlock: "📈 Mở khóa Pet #4<br>Đạt Lv.30",
+        p4Name: "④ SPECTER", p4Role: "📦 Tiện ích / Hỗ trợ", p4Desc: "Lập tức nhận vật phẩm ngẫu nhiên.", p4Unlock: "📈 Mở khóa Pet #5<br>Đạt Lv.30",
+        p5Name: "⑤ FROST", p5Role: "⚔️ Sát thương chính", p5Desc: "Tăng Tấn công cho mọi đạo quân trong 2 giờ.", p5Unlock: "📈 Mở khóa Pet #6<br>Đạt Lv.30",
+        p6Name: "⑥ TITAN", p6Role: "🛡️ Tank chính / Đỡ đòn", p6Desc: "Buff phòng thủ khổng lồ. Giữ đội sống sót!", p6Unlock: "👑 Mở khóa TẤT CẢ<br>Đạt Lv.30",
+        keyRule: "⭐ QUY TẮC: ƯU TIÊN = MỞ KHÓA TẤT CẢ PET TRƯỚC. Không đầu tư quá nhiều vào 1 pet sớm!",
+        mid1Title: "📋 TẤT CẢ PET - TỔNG QUAN VAI TRÒ & KỸ NĂNG",
+        r1Name: "🐶 Sentinel", r1Role: "🌱 Kinh tế", r1SName: "🌱 Nhận ngay", r1SDesc: "Lập tức hoàn thành thu thập cho 1 đạo quân.",
+        r2Name: "🦝 Shining", r2Role: "🛠️ Hỗ trợ", r2SName: "📦 Sửa đổi", r2SDesc: "Lập tức nhận chiến binh tinh nhuệ.",
+        r3Name: "🦍 Zeus", r3Role: "🛠️ Hỗ trợ", r3SName: "🥫 Quà hoang dã", r3SDesc: "Lập tức nhận Khẩu phần chiến thuật cao cấp.",
+        r4Name: "🦊 Specter", r4Role: "🛠️ Hỗ trợ", r4SName: "📦 Khám phá", r4SDesc: "Lập tức nhận vật phẩm ngẫu nhiên.",
+        r5Name: "🐯 Frost", r5Role: "⚔️ Sát thương", r5SName: "⚔️ Bản năng", r5SDesc: "Tăng Tấn công cho mọi đạo quân trong 2 giờ.",
+        r6Name: "🐻 Titan", r6Role: "🛡️ Đỡ đòn", r6SName: "🛡️ Gầm thét", r6SDesc: "Buff phòng thủ khổng lồ. Giữ đội sống sót!",
+        mid2Title: "🚀 ĐƯỜNG LỐI NÂNG CẤP & ƯU TIÊN",
+        path1Title: "Mở khóa tất cả trước", path1Desc: "Đạt cấp 30 cho mỗi pet để mở khóa pet tiếp theo.",
+        path2Title: "Xây dựng lực lượng", path2Desc: "Sau khi mở khóa tất cả, tập trung Frost (ST) và Titan (Tank).",
+        path3Title: "Đầu tư Tiện ích", path3Desc: "Phát triển Specter (vật phẩm) & Sentinel (thu thập) lâu dài.",
+        path4Title: "Sử dụng linh hoạt", path4Desc: "Shining và Zeus tốt lúc đầu nhưng ưu tiên thấp về sau.",
+        path5Title: "Kiên trì mỗi ngày", path5Desc: "Đăng nhập, làm nhiệm vụ và xả skill giúp liên minh phát triển.",
+        trTitle: "📊 TÓM TẮT VAI TRÒ ĐỘI",
+        tr1Name: "TANK / PHÒNG THỦ", tr1Desc: "Bảo vệ đồng đội và gánh chịu sát thương.",
+        tr2Name: "SÁT THƯƠNG CHÍNH", tr2Desc: "Gây sát thương lớn để giành chiến thắng.",
+        tr3Name: "TIỆN ÍCH / HỖ TRỢ", tr3Desc: "Cung cấp vật phẩm và buff sức mạnh.",
+        tr4Name: "KINH TẾ / PHÁT TRIỂN", tr4Desc: "Tăng tốc tài nguyên và phát triển tài khoản.",
+        bot1Title: "📅 THÓI QUEN HÀNG NGÀY",
+        bot1L1: "Cho pet hiện tại ăn để đạt Lv.30.", bot1L2: "Mở khóa pet tiếp theo và nâng cấp.", bot1L3: "Sử dụng kỹ năng phát triển khi hết thời gian hồi.", bot1L4: "Thu thập tài nguyên cấp cao.", bot1L5: "Hoàn thành nhiệm vụ Pet Pass.",
+        bot2Title: "💎 TÀI NGUYÊN CHÍNH & TÁC DỤNG",
+        bot2N1: "Khẩu phần cao cấp", bot2D1: "Dùng để CHO ĂN và tăng cấp.",
+        bot2N2: "Thuốc dinh dưỡng", bot2D2: "Dùng để ĐỘT PHÁ pet.",
+        bot2N3: "Chip đột phá", bot2D3: "Dùng để ĐỘT PHÁ Pet Agent.",
+        bot2N4: "Giao thức đào tạo", bot2D4: "Dùng để ĐÀO TẠO pet.",
+        bot2N5: "Huân chương đặc nhiệm", bot2D5: "Dùng để ĐỘT PHÁ cấp cao.",
+        bot2N6: "Giao thức nâng cao", bot2D6: "Dùng để ĐÀO TẠO pet cấp cao.",
+        bot3Title: "💡 HƯỚNG DẪN SỬ DỤNG KỸ NĂNG",
+        bot3S1Title: "⚔️ KỸ NĂNG CHIẾN ĐẤU (Frost, Titan)", bot3S1U1Label: "Sử dụng cho:", bot3S1U1Desc: "Tập hợp, Pháo đài, Liên minh chiến, Boss.", bot3S1U2: "Đừng lãng phí vào trận đấu nhỏ.",
+        bot3S2Title: "🌱 KỸ NĂNG PHÁT TRIỂN (Mọi pet)", bot3S2U1: "Dùng ngay khi hồi chiêu xong.", bot3S2U2Label: "Hiệu quả cao nhất:", bot3S2U2Desc: "Thu thập lâu và tài nguyên cần thiết.",
+        bot4Title: "⭐ MẸO CHUYÊN NGHIỆP",
+        bot4L1: "Mở khóa tất cả pet trước - cách phát triển nhanh nhất.", bot4L2: "Tập trung Frost và Titan để có sức mạnh cao nhất.", bot4L3: "Dùng Sentinel cho mỏ thu thập lâu, giá trị cao.", bot4L4: "Đừng dàn trải tài nguyên lung tung.", bot4L5: "Kiên trì mỗi ngày tạo nên liên minh vững mạnh!",
+        foot1Title: "🛒 MUA HÀNG GIÁ TRỊ NHẤT",
+        foot1N1: "Vé tuần Pet", foot1D1: "Giá trị tốt nhất mỗi ngày!",
+        foot1N2: "Vé Battle Pass", foot1D2: "Phần thưởng tổng cực lớn!",
+        foot1N3: "Gói Đào tạo", foot1D3: "Tuyệt vời để đẩy nhanh đào tạo!",
+        foot1N4: "Gói Dinh dưỡng", foot1D4: "Rất quan trọng để đột phá!",
+        foot1N5: "Gói Khẩu phần", foot1D5: "Thức ăn thiếu hụt rất chậm lớn.",
+        foot2Title: "🏆 HÃY NHỚ RẰNG",
+        foot2L1: "Mở khóa 6 pet theo thứ tự.", foot2L2: "Xây dựng lõi chiến đấu và tiện ích.", foot2L3: "Sử dụng kỹ năng đúng lúc.", foot2L4: "Pet mạnh = Liên minh mạnh = Chiến thắng!",
+        veryBottom: "🐾 PET MẠNH MẼ • LIÊN MINH MẠNH MẼ • CÙNG CHIẾN THẮNG! 🐾"
+    }
+};
+
+// 언어 변경 함수
+function changeLanguage() {
+    const lang = document.getElementById("langSelect").value;
+    const elements = document.querySelectorAll("[data-i18n]");
+    
+    elements.forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+}
+</script>
+</body>
+</html>
