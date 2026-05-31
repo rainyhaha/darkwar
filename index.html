@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FROM Information List</title>
+<title>FROM Notice</title>
 <style>
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
@@ -21,11 +21,40 @@
     .container {
         width: 100%;
         max-width: 650px;
+        position: relative; /* 콤보박스 절대 배치를 위해 추가 */
+    }
+
+    /* 언어 선택 콤보박스 우측 상단 배치 */
+    .lang-selector {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+    }
+    
+    .lang-selector select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+
+    .lang-selector select:hover, .lang-selector select:focus {
+        border-color: #007bff;
     }
     
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
+        margin-top: 40px; /* 콤보박스와 겹치지 않도록 여백 추가 */
     }
 
     h1 {
@@ -172,7 +201,8 @@
     }
 
     @media (max-width: 480px) {
-        .header-wrapper { margin-bottom: 30px; }
+        .lang-selector { position: static; display: flex; justify-content: flex-end; margin-bottom: 20px; }
+        .header-wrapper { margin-top: 0; margin-bottom: 30px; }
         h1 { font-size: 24px; }
         .version-text { font-size: 13px; margin-bottom: 12px; }
         .subtitle { font-size: 14px; }
@@ -187,16 +217,28 @@
 <body>
 
 <div class="container">
-    <div class="header-wrapper">
-        <h1>📚 [FROM] Notice</h1>
-        <p class="version-text">Last Updated: June 1, 2026</p>
-        <p class="subtitle">Please select a menu item to navigate to the link</p>
-        <p class="support-text">All screens are supported on PC and mobile</p>
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+        </select>
     </div>
+
+    <div class="header-wrapper">
+        <h1 id="page-title">📚 [FROM] Notice</h1>
+        <p class="version-text" id="version-text"></p>
+        <p class="subtitle" id="subtitle-text"></p>
+        <p class="support-text" id="support-text"></p>
+    </div>
+    
     <div id="accordion-container"></div>
 </div>
 
 <script>
+    // 💡 날짜를 YYYYMMDD 형식으로 입력
+    const sysdate = "20260601";
+
     const rainbowColors = [
         '#ffadad',
         '#ffd6a5',
@@ -207,68 +249,141 @@
         '#bdb2ff'
     ];
 
+    // 헤더 다국어 데이터
+    const headerTranslations = {
+        ko: {
+            title: "📚 [FROM] 공지사항",
+            subtitle: "메뉴를 선택하여 링크로 이동해 주세요",
+            support: "PC와 모바일 화면을 모두 지원합니다"
+        },
+        en: {
+            title: "📚 [FROM] Notice",
+            subtitle: "Please select a menu item to navigate to the link",
+            support: "All screens are supported on PC and mobile"
+        },
+        vi: {
+            title: "📚 [FROM] Thông báo",
+            subtitle: "Vui lòng chọn một mục menu để chuyển đến liên kết",
+            support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động"
+        }
+    };
+
+    // 메뉴 항목 다국어 데이터
     const guideData = [
         {
-            groupTitle: "Rules",
+            groupTitle: { ko: "규칙", en: "Rules", vi: "Quy tắc" },
+            prefix: { ko: "규칙", en: "Rule", vi: "Quy tắc" },
             links: [
-                { title: "Alliance Rules", url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html" },
-                { title: "Seating Chart", url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html" }
+                { 
+                    title: { ko: "연맹 규칙", en: "Alliance Rules", vi: "Quy tắc liên minh" }, 
+                    url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html" 
+                },
+                { 
+                    title: { ko: "자리 배치도", en: "Seating Chart", vi: "Sơ đồ chỗ ngồi" }, 
+                    url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html" 
+                }
             ]
         },
         {
-            groupTitle: "Tips",
+            groupTitle: { ko: "팁", en: "Tips", vi: "Mẹo" },
+            prefix: { ko: "팁", en: "Tip", vi: "Mẹo" },
             links: [
-                { title: "Pet Agent Guide", url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html" }
+                { 
+                    title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, 
+                    url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html" 
+                }
             ]
         }
     ];
 
+    // 날짜 포맷 변환 함수
+    function getFormattedVersionText(dateStr, lang) {
+        if (!dateStr || dateStr.length !== 8) return "";
+
+        const year = dateStr.substring(0, 4);
+        const monthNum = parseInt(dateStr.substring(4, 6), 10);
+        const dayNum = parseInt(dateStr.substring(6, 8), 10);
+
+        if (lang === 'ko') {
+            return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        } else if (lang === 'en') {
+            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
+        } else if (lang === 'vi') {
+            return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
+        }
+        return "";
+    }
+
     const container = document.getElementById('accordion-container');
+    const langSelect = document.getElementById('langSelect');
 
-    guideData.forEach((group, groupIndex) => {
-        const details = document.createElement('details');
-        details.open = true;
+    // 화면 렌더링 함수
+    function renderPage(lang) {
+        // 헤더 렌더링
+        document.getElementById('page-title').textContent = headerTranslations[lang].title;
+        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
+        document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
+        document.getElementById('support-text').textContent = headerTranslations[lang].support;
 
-        const summary = document.createElement('summary');
-        summary.textContent = group.groupTitle;
-        summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
-        details.appendChild(summary);
+        // 메뉴 컨테이너 초기화
+        container.innerHTML = '';
 
-        const ul = document.createElement('ul');
-        ul.className = 'menu-list';
+        // 메뉴 항목 렌더링
+        guideData.forEach((group, groupIndex) => {
+            const details = document.createElement('details');
+            details.open = true;
 
-        group.links.forEach((linkItem, itemIndex) => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            
-            a.href = linkItem.url;
-            
-            const prefix = group.groupTitle.endsWith('s') 
-                ? group.groupTitle.slice(0, -1) 
-                : group.groupTitle;
-            
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'item-content';
+            const summary = document.createElement('summary');
+            summary.textContent = group.groupTitle[lang];
+            summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
+            details.appendChild(summary);
 
-            const badge = document.createElement('span');
-            badge.className = 'item-badge';
-            badge.textContent = `${prefix} ${itemIndex + 1}`;
+            const ul = document.createElement('ul');
+            ul.className = 'menu-list';
 
-            const titleSpan = document.createElement('span');
-            titleSpan.className = 'item-title';
-            titleSpan.textContent = linkItem.title;
+            group.links.forEach((linkItem, itemIndex) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                
+                a.href = linkItem.url;
+                
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'item-content';
 
-            contentWrapper.appendChild(badge);
-            contentWrapper.appendChild(titleSpan);
-            a.appendChild(contentWrapper);
-            
-            li.appendChild(a);
-            ul.appendChild(li);
+                const badge = document.createElement('span');
+                badge.className = 'item-badge';
+                badge.textContent = `${group.prefix[lang]} ${itemIndex + 1}`;
+
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'item-title';
+                titleSpan.textContent = linkItem.title[lang];
+
+                contentWrapper.appendChild(badge);
+                contentWrapper.appendChild(titleSpan);
+                a.appendChild(contentWrapper);
+                
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+
+            details.appendChild(ul);
+            container.appendChild(details);
         });
+    }
 
-        details.appendChild(ul);
-        container.appendChild(details);
+    // 콤보박스 변경 이벤트 - 로컬 스토리지 저장
+    langSelect.addEventListener('change', function(e) {
+        const selectedLang = e.target.value;
+        localStorage.setItem('lang', selectedLang); // 💡 lang 키로 원복
+        renderPage(selectedLang);
     });
+
+    // 초기 로드 시 설정 적용 ('ko' 기본값)
+    const savedLang = localStorage.getItem('lang') || 'ko'; // 💡 lang 키로 원복
+    langSelect.value = savedLang; 
+    renderPage(savedLang); 
+
 </script>
 
 </body>
