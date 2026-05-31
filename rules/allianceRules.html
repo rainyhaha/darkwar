@@ -151,6 +151,17 @@
             background-color: #f8fbff;
         }
 
+        /* 하위 규칙 스타일 */
+        .rule-item.sub-rule {
+            padding-left: 52px;
+            background-color: #fcfdfe;
+            border-top: none;
+        }
+
+        .rule-item.sub-rule:hover {
+            background-color: #f5f9ff;
+        }
+
         .item-content {
             display: flex;
             align-items: flex-start;
@@ -172,6 +183,21 @@
             border-radius: 50%;
             margin-top: 2px;
             transition: all 0.2s ease;
+        }
+
+        .sub-badge {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            background-color: #e6f0ff;
+            color: #007bff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-top: 2px;
+            line-height: 1;
         }
 
         .rule-item:hover .item-badge {
@@ -210,6 +236,7 @@
             .support-text { font-size: 13px; margin-top: 8px; }
             summary { font-size: 16px; padding: 16px 20px; }
             .rule-item { padding: 14px 20px; }
+            .rule-item.sub-rule { padding-left: 36px; }
             .item-badge { width: 24px; height: 24px; font-size: 13px; }
             .footer-wrapper { font-size: 15px; padding: 16px; }
         }
@@ -235,7 +262,6 @@
     
     <div id="accordion-container"></div>
 
-    <!-- 하단 경고 문구 -->
     <div class="footer-wrapper" id="footer-text">
         ⚠️ 연맹 규칙을 위반할 경우, 연맹 차원의 보호 및 지원을 받을 수 없습니다.
     </div>
@@ -281,53 +307,68 @@
         vi: "⚠️ Những thành viên vi phạm quy tắc liên minh sẽ không nhận được sự bảo vệ và hỗ trợ từ liên minh."
     };
 
-    // 연맹 규칙 데이터
+    // 연맹 규칙 데이터 (객체 구조로 개편하여 subRules 지원)
     const allianceRulesData = [
         {
             type: "basic",
             title: { ko: "기본 규칙", en: "Basic Rules", vi: "Quy tắc cơ bản" },
             rules: {
                 ko: [
-                    "연맹 공지를 수시로 확인할 것 (미확인으로 인한 불이익은 본인 책임입니다).",
-                    "24시간 이상 미접속 시 R4, R5 임원진에게 사전에 고지할 것.",
-                    "연맹원 간 항상 예의를 갖추고 상호 존중할 것.",
-                    "연맹 대결에 적극 기여할 것 (수준에 맞지 않는 무리한 기여를 요구하지 않습니다. 우리는 충분한 경험을 통해 상황별로 어느 정도의 기여가 가능한지 이미 파악하고 있습니다).",
-                    "고투력 유저의 지원과 도움을 당연하게 여기지 말 것.",
-                    "안건에 대한 의견은 자유롭게 제시하되, 기본적인 예의를 지킬 것.",
-                    "월드 채팅에서 연맹의 이미지를 실추시킬 수 있는 불필요한 언행을 삼갈 것.",
-                    "이미 결정된 공식 지시사항에 대해서는 불만 제기 없이 적극 협조할 것.",
-                    "채팅을 작성하기 전 타인을 배려하여 한 번 더 신중하게 생각할 것.",
-                    "연맹 내 편 가르기나 분란을 조장하는 행위를 절대 금지할 것.",
-                    "서로 배려하고 화합하는 끈끈한 연맹 분위기를 함께 만들어 갈 것.",
-                    "다양한 국적의 연맹원이 원활하게 소통하고 호명할 수 있도록 닉네임에 영문을 포함할 것."
+                    {
+                        text: "연맹 공지를 수시로 확인할 것 (미확인으로 인한 불이익은 본인 책임입니다).",
+                        subRules: [
+                            "서버전, 수도전 등 대규모 이벤트는 시작 1~2시간 전에 중요 공지가 안내될 수 있습니다. 인게임 일정을 미리 확인하시고, 해당 시간대에는 가급적 공지사항을 확인해 주시기 바랍니다."
+                        ]
+                    },
+                    { text: "24시간 이상 미접속 시 R4, R5 임원진에게 사전에 고지할 것." },
+                    { text: "연맹원 간 항상 예의를 갖추고 상호 존중할 것." },
+                    { text: "연맹 대결에 적극 기여할 것 (수준에 맞지 않는 무리한 기여를 요구하지 않습니다. 우리는 충분한 경험을 통해 상황별로 어느 정도의 기여가 가능한지 이미 파악하고 있습니다)." },
+                    { text: "고투력 유저의 지원과 도움을 당연하게 여기지 말 것." },
+                    { text: "안건에 대한 의견은 자유롭게 제시하되, 기본적인 예의를 지킬 것." },
+                    { text: "월드 채팅에서 연맹의 이미지를 실추시킬 수 있는 불필요한 언행을 삼갈 것." },
+                    { text: "이미 결정된 공식 지시사항에 대해서는 불만 제기 없이 적극 협조할 것." },
+                    { text: "채팅을 작성하기 전 타인을 배려하여 한 번 더 신중하게 생각할 것." },
+                    { text: "연맹 내 편 가르기나 분란을 조장하는 행위를 절대 금지할 것." },
+                    { text: "서로 배려하고 화합하는 끈끈한 연맹 분위기를 함께 만들어 갈 것." },
+                    { text: "다양한 국적의 연맹원이 원활하게 소통하고 호명할 수 있도록 닉네임에 영문을 포함할 것." }
                 ],
                 en: [
-                    "Frequently check alliance notices (You are responsible for any disadvantages caused by not checking).",
-                    "Notify R4 or R5 officers in advance if you will be offline for more than 24 hours.",
-                    "Always be polite and mutually respect other alliance members.",
-                    "Actively contribute to alliance duels (We do not demand unreasonable contributions beyond your level. Through ample experience, we already know what level of contribution is feasible in various situations).",
-                    "Do not take the support and help of high-power players for granted.",
-                    "Feel free to share your opinions on agendas, but maintain basic etiquette.",
-                    "Refrain from unnecessary remarks in the world chat that could tarnish the alliance's image.",
-                    "Actively cooperate without complaints regarding official directives that have already been decided.",
-                    "Think carefully and be considerate of others before typing in chat.",
-                    "Taking sides or causing division within the alliance is strictly prohibited.",
-                    "Let's work together to create a strong alliance atmosphere of mutual care and harmony.",
-                    "Include English characters in your nickname so that alliance members of various nationalities can easily communicate and address you."
+                    {
+                        text: "Frequently check alliance notices (You are responsible for any disadvantages caused by not checking).",
+                        subRules: [
+                            "For major events like Server Wars or Capital Wars, important announcements may be posted 1 to 2 hours before the start. Please check the in-game schedule in advance and try to keep an eye on the announcements around that time."
+                        ]
+                    },
+                    { text: "Notify R4 or R5 officers in advance if you will be offline for more than 24 hours." },
+                    { text: "Always be polite and mutually respect other alliance members." },
+                    { text: "Actively contribute to alliance duels (We do not demand unreasonable contributions beyond your level. Through ample experience, we already know what level of contribution is feasible in various situations)." },
+                    { text: "Do not take the support and help of high-power players for granted." },
+                    { text: "Feel free to share your opinions on agendas, but maintain basic etiquette." },
+                    { text: "Refrain from unnecessary remarks in the world chat that could tarnish the alliance's image." },
+                    { text: "Actively cooperate without complaints regarding official directives that have already been decided." },
+                    { text: "Think carefully and be considerate of others before typing in chat." },
+                    { text: "Taking sides or causing division within the alliance is strictly prohibited." },
+                    { text: "Let's work together to create a strong alliance atmosphere of mutual care and harmony." },
+                    { text: "Include English characters in your nickname so that alliance members of various nationalities can easily communicate and address you." }
                 ],
                 vi: [
-                    "Thường xuyên kiểm tra thông báo liên minh (Bạn phải tự chịu trách nhiệm cho mọi bất lợi do không kiểm tra).",
-                    "Thông báo trước cho các quan chức R4 hoặc R5 nếu bạn offline hơn 24 giờ.",
-                    "Luôn lịch sự và tôn trọng lẫn nhau giữa các thành viên liên minh.",
-                    "Tích cực đóng góp cho các trận đấu liên minh (Chúng tôi không yêu cầu những đóng góp vô lý vượt quá cấp độ của bạn. Thông qua nhiều kinh nghiệm, chúng tôi đã nắm rõ mức độ đóng góp khả thi trong các tình huống khác nhau).",
-                    "Đừng coi sự hỗ trợ và giúp đỡ của những người chơi lực chiến cao là điều hiển nhiên.",
-                    "Thoải mái chia sẻ ý kiến của bạn về các chương trình nghị sự, nhưng hãy giữ phép lịch sự cơ bản.",
-                    "Hạn chế những lời nói không cần thiết trên kênh thế giới có thể làm xấu hình ảnh của liên minh.",
-                    "Tích cực hợp tác không phàn nàn về các chỉ thị chính thức đã được quyết định.",
-                    "Suy nghĩ cẩn thận và quan tâm đến người khác trước khi gõ tin nhắn.",
-                    "Việc chia bè phái hoặc gây chia rẽ trong liên minh bị nghiêm cấm.",
-                    "Hãy cùng nhau làm việc để tạo ra một bầu không khí liên minh vững mạnh, quan tâm và hòa hợp lẫn nhau.",
-                    "Bao gồm các ký tự tiếng Anh trong biệt danh của bạn để các thành viên liên minh từ nhiều quốc gia khác nhau có thể dễ dàng giao tiếp và gọi tên bạn."
+                    {
+                        text: "Thường xuyên kiểm tra thông báo liên minh (Bạn phải tự chịu trách nhiệm cho mọi bất lợi do không kiểm tra).",
+                        subRules: [
+                            "Đối với các sự kiện quy mô lớn như Chiến tranh Máy chủ (Server War) và Chiến tranh Thủ đô (Capital War), thông báo quan trọng có thể được đưa ra từ 1 đến 2 giờ trước khi bắt đầu. Vui lòng kiểm tra lịch trình trong game từ trước và chú ý theo dõi thông báo trong khoảng thời gian đó."
+                        ]
+                    },
+                    { text: "Thông báo trước cho các quan chức R4 hoặc R5 nếu bạn offline hơn 24 giờ." },
+                    { text: "Luôn lịch sự và tôn trọng lẫn nhau giữa các thành viên liên minh." },
+                    { text: "Tích cực đóng góp cho các trận đấu liên minh (Chúng tôi không yêu cầu những đóng góp vô lý vượt quá cấp độ của bạn. Thông qua nhiều kinh nghiệm, chúng tôi đã nắm rõ mức độ đóng góp khả thi trong các tình huống khác nhau)." },
+                    { text: "Đừng coi sự hỗ trợ và giúp đỡ của những người chơi lực chiến cao là điều hiển nhiên." },
+                    { text: "Thoải mái chia sẻ ý kiến của bạn về các chương trình nghị sự, nhưng hãy giữ phép lịch sự cơ bản." },
+                    { text: "Hạn chế những lời nói không cần thiết trên kênh thế giới có thể làm xấu hình ảnh của liên minh." },
+                    { text: "Tích cực hợp tác không phàn nàn về các chỉ thị chính thức đã được quyết định." },
+                    { text: "Suy nghĩ cẩn thận và quan tâm đến người khác trước khi gõ tin nhắn." },
+                    { text: "Việc chia bè phái hoặc gây chia rẽ trong liên minh bị nghiêm cấm." },
+                    { text: "Hãy cùng nhau làm việc để tạo ra một bầu không khí liên minh vững mạnh, quan tâm và hòa hợp lẫn nhau." },
+                    { text: "Bao gồm các ký tự tiếng Anh trong biệt danh của bạn để các thành viên liên minh từ nhiều quốc gia khác nhau có thể dễ dàng giao tiếp và gọi tên bạn." }
                 ]
             }
         },
@@ -336,19 +377,19 @@
             title: { ko: "게임 규칙", en: "Game Rules", vi: "Quy tắc trò chơi" },
             rules: {
                 ko: [
-                    "경기장에서 같은 연맹원을 공격하지 말 것.",
-                    "NAP 기준에 해당되는 연맹을 공격하지 말 것.",
-                    "같은 서버 내의 트럭을 공격하거나 약탈하지 말 것."
+                    { text: "경기장에서 같은 연맹원을 공격하지 말 것." },
+                    { text: "NAP 기준에 해당되는 연맹을 공격하지 말 것." },
+                    { text: "같은 서버 내의 트럭을 공격하거나 약탈하지 말 것." }
                 ],
                 en: [
-                    "Do not attack alliance members in the Arena.",
-                    "Do not attack alliances that meet the NAP criteria.",
-                    "Do not attack or plunder trucks within the same server."
+                    { text: "Do not attack alliance members in the Arena." },
+                    { text: "Do not attack alliances that meet the NAP criteria." },
+                    { text: "Do not attack or plunder trucks within the same server." }
                 ],
                 vi: [
-                    "Không tấn công các thành viên liên minh trong Đấu trường.",
-                    "Không tấn công các liên minh đáp ứng tiêu chí NAP.",
-                    "Không tấn công hoặc cướp bóc xe tải trong cùng một máy chủ."
+                    { text: "Không tấn công các thành viên liên minh trong Đấu trường." },
+                    { text: "Không tấn công các liên minh đáp ứng tiêu chí NAP." },
+                    { text: "Không tấn công hoặc cướp bóc xe tải trong cùng một máy chủ." }
                 ]
             }
         }
@@ -384,7 +425,7 @@
             const ul = document.createElement('ul');
             ul.className = 'menu-list';
 
-            group.rules[lang].forEach((ruleText, itemIndex) => {
+            group.rules[lang].forEach((ruleObj, itemIndex) => {
                 const li = document.createElement('li');
                 
                 const ruleItem = document.createElement('div');
@@ -399,13 +440,41 @@
 
                 const titleSpan = document.createElement('span');
                 titleSpan.className = 'item-title';
-                titleSpan.textContent = ruleText;
+                titleSpan.textContent = ruleObj.text;
 
                 contentWrapper.appendChild(badge);
                 contentWrapper.appendChild(titleSpan);
                 ruleItem.appendChild(contentWrapper);
                 li.appendChild(ruleItem);
                 ul.appendChild(li);
+
+                // 하위 규칙(subRules)이 존재하는 경우 하단에 계층형 렌더링
+                if (ruleObj.subRules && ruleObj.subRules.length > 0) {
+                    ruleObj.subRules.forEach((subText, subIndex) => {
+                        const subLi = document.createElement('li');
+                        
+                        const subRuleItem = document.createElement('div');
+                        subRuleItem.className = 'rule-item sub-rule';
+                        
+                        const subContentWrapper = document.createElement('div');
+                        subContentWrapper.className = 'item-content';
+
+                        const subBadge = document.createElement('span');
+                        subBadge.className = 'sub-badge';
+                        subBadge.textContent = `${itemIndex + 1}-${subIndex + 1}`;
+
+                        const subTitleSpan = document.createElement('span');
+                        subTitleSpan.className = 'item-title';
+                        subTitleSpan.style.color = '#555'; // 상위 규칙보다 약간 연한 톤
+                        subTitleSpan.textContent = subText;
+
+                        subContentWrapper.appendChild(subBadge);
+                        subContentWrapper.appendChild(subTitleSpan);
+                        subRuleItem.appendChild(subContentWrapper);
+                        subLi.appendChild(subRuleItem);
+                        ul.appendChild(subLi);
+                    });
+                }
             });
 
             details.appendChild(ul);
