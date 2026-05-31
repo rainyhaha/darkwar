@@ -266,7 +266,6 @@
 </div>
 
 <script>
-    // 💡 이곳에 원하는 날짜를 YYYYMMDD 형식으로 입력하세요.
     const sysdate = "20260601";
 
     const rainbowColors = [
@@ -279,7 +278,6 @@
         '#bdb2ff'
     ];
 
-    // 헤더 정적 텍스트 번역 데이터 (버전 텍스트는 함수에서 처리)
     const headerTranslations = {
         ko: {
             title: "🛡️ 연맹 규칙",
@@ -298,7 +296,6 @@
         }
     };
 
-    // YYYYMMDD 날짜를 각 언어 형식에 맞춰 변환하는 함수
     function getFormattedVersionText(dateStr, lang) {
         if (!dateStr || dateStr.length !== 8) return "";
 
@@ -317,14 +314,12 @@
         return "";
     }
 
-    // 푸터(경고 문구) 번역 데이터
     const footerTranslations = {
         ko: "⚠️ 연맹 규칙을 위반할 경우, 연맹 차원의 보호 및 지원을 받을 수 없습니다.",
         en: "⚠️ Members who violate the alliance rules will be excluded from the alliance's protection and support.",
         vi: "⚠️ Những thành viên vi phạm quy tắc liên minh sẽ không nhận được sự bảo vệ và hỗ trợ từ liên minh."
     };
 
-    // 연맹 규칙 데이터
     const allianceRulesData = [
         {
             type: "basic",
@@ -415,25 +410,18 @@
     const container = document.getElementById('accordion-container');
     const langSelect = document.getElementById('langSelect');
 
-    // 화면 렌더링 함수
     function renderPage(lang) {
-        // 1. 헤더 텍스트 변경
         document.getElementById('page-title').textContent = headerTranslations[lang].title;
-        // 💡 함수를 통해 각 언어에 맞게 변환된 sysdate 적용
         document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
         document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
         document.getElementById('support-text').textContent = headerTranslations[lang].support;
-
-        // 2. 푸터 텍스트 변경
         document.getElementById('footer-text').textContent = footerTranslations[lang];
 
-        // 3. 기존 규칙 리스트 초기화
         container.innerHTML = '';
 
-        // 4. 선택된 언어에 맞춰 규칙 리스트 생성
         allianceRulesData.forEach((group, groupIndex) => {
             const details = document.createElement('details');
-            details.open = true; // 기본적으로 펼쳐두기
+            details.open = true;
 
             const summary = document.createElement('summary');
             summary.textContent = group.title[lang];
@@ -466,7 +454,6 @@
                 li.appendChild(ruleItem);
                 ul.appendChild(li);
 
-                // 하위 규칙(subRules)이 존재하는 경우 하단에 계층형 렌더링
                 if (ruleObj.subRules && ruleObj.subRules.length > 0) {
                     ruleObj.subRules.forEach((subText, subIndex) => {
                         const subLi = document.createElement('li');
@@ -500,13 +487,17 @@
         });
     }
 
-    // 콤보박스 변경 이벤트 리스너 추가
+    // 💡 콤보박스 변경 시 로컬 스토리지에 'lang'으로 저장
     langSelect.addEventListener('change', function(e) {
-        renderPage(e.target.value);
+        const selectedLang = e.target.value;
+        localStorage.setItem('lang', selectedLang);
+        renderPage(selectedLang);
     });
 
-    // 초기 로드 시 한국어 렌더링
-    renderPage('ko');
+    // 💡 초기 로드 시 'lang' 키로 확인 및 렌더링
+    const savedLang = localStorage.getItem('lang') || 'ko';
+    langSelect.value = savedLang; 
+    renderPage(savedLang); 
 
 </script>
 </body>
