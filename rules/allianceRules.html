@@ -10,53 +10,50 @@
         background-color: #fafbfc; 
         color: #333;
         margin: 0;
-        padding: 20px 20px 40px 20px;
+        padding: 40px 20px; /* 여백 통일 */
         display: flex;
         flex-direction: column;
         align-items: center;
         min-height: 100vh;
         box-sizing: border-box;
     }
-            
+                
     .container {
         width: 100%;
         max-width: 650px;
+        margin: 0 auto;
         position: relative;
     }
-            
-    /* 콤보박스 우측 상단 배치 */
+                
+    /* 콤보박스 통일 디자인 */
     .lang-selector {
         display: flex;
         justify-content: flex-end;
         margin-bottom: 20px;
+        width: 100%;
     }
-            
+                
     .lang-selector select {
-    /* 우측 패딩을 36px로 늘려 화살표가 들어갈 넉넉한 공간 확보 */
-    padding: 8px 36px 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #d1d5da;
-    background-color: #ffffff;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    outline: none;
-    transition: border-color 0.2s ease;
-    
-    /* 브라우저 기본 콤보박스 화살표 숨기기 */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    
-    /* 커스텀 화살표(SVG)를 배경으로 삽입하고 우측 여백(12px) 지정 */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 14px;
-}
+        padding: 8px 36px 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
 
     .lang-selector select:hover, .lang-selector select:focus {
         border-color: #007bff;
@@ -65,10 +62,10 @@
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 40px;
+        margin-top: 0; /* 여백 통일 */
         display: flex;
         flex-direction: column;
-        align-items: center; /* 추가: 내부 요소 중앙 정렬 */
+        align-items: center;
     }
 
     h1 {
@@ -86,7 +83,7 @@
         margin: 0 0 16px 0;
         letter-spacing: 0.5px;
     }
-            
+                
     .subtitle {
         font-size: 16px;
         color: #333333; 
@@ -128,7 +125,7 @@
         color: #111;
         letter-spacing: -0.3px;
     }
-            
+                
     summary::-webkit-details-marker {
         display: none;
     }
@@ -139,7 +136,7 @@
         opacity: 0.7;
         transition: transform 0.3s ease;
     }
-            
+                
     details[open] summary::after {
         transform: rotate(180deg);
     }
@@ -150,11 +147,11 @@
         list-style: none;
         background-color: #fff;
     }
-            
+                
     .menu-list li {
         border-top: 1px solid #f0f0f0;
     }
-            
+                
     .rule-item {
         display: flex;
         align-items: flex-start;
@@ -167,7 +164,6 @@
         background-color: #f8fbff;
     }
 
-    /* 하위 규칙 스타일 */
     .rule-item.sub-rule {
         padding-left: 52px;
         background-color: #fcfdfe;
@@ -214,10 +210,9 @@
         border-radius: 6px;
         margin-top: 2px;
         line-height: 1;
-        transition: all 0.2s ease; /* 자연스러운 효과를 위해 transition 추가 */
+        transition: all 0.2s ease; 
     }
 
-    /* 상위 및 하위 배지 모두 Hover 시 파란색 변경 */
     .rule-item:hover .item-badge,
     .rule-item:hover .sub-badge {
         background-color: #007bff;
@@ -231,7 +226,6 @@
         word-break: keep-all;
     }
 
-    /* 하단 경고 문구 (Footer) 스타일 */
     .footer-wrapper {
         margin-top: 30px;
         padding: 20px;
@@ -289,48 +283,25 @@
     const sysdate = "20260601";
 
     const rainbowColors = [
-        '#ffadad',
-        '#ffd6a5',
-        '#fdffb6',
-        '#caffbf',
-        '#9bf6ff',
-        '#a0c4ff',
-        '#bdb2ff'
+        '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff'
     ];
 
     const headerTranslations = {
-        ko: {
-            title: "🛡️ 연맹 규칙",
-            subtitle: "모든 연맹원은 아래 규칙을 숙지해 주시기 바랍니다.",
-            support: "상호 존중하고 배려하는 연맹을 만들어갑시다."
-        },
-        en: {
-            title: "🛡️ Alliance Rules",
-            subtitle: "All alliance members, please familiarize yourselves with the rules.",
-            support: "Let's build an alliance of mutual respect and care."
-        },
-        vi: {
-            title: "🛡️ Quy tắc liên minh",
-            subtitle: "Tất cả các thành viên liên minh vui lòng làm quen với các quy tắc.",
-            support: "Hãy cùng xây dựng một liên minh tôn trọng và quan tâm lẫn nhau."
-        }
+        ko: { title: "🛡️ 연맹 규칙", subtitle: "모든 연맹원은 아래 규칙을 숙지해 주시기 바랍니다.", support: "상호 존중하고 배려하는 연맹을 만들어갑시다." },
+        en: { title: "🛡️ Alliance Rules", subtitle: "All alliance members, please familiarize yourselves with the rules.", support: "Let's build an alliance of mutual respect and care." },
+        vi: { title: "🛡️ Quy tắc liên minh", subtitle: "Tất cả các thành viên liên minh vui lòng làm quen với các quy tắc.", support: "Hãy cùng xây dựng một liên minh tôn trọng và quan tâm lẫn nhau." }
     };
 
     function getFormattedVersionText(dateStr, lang) {
         if (!dateStr || dateStr.length !== 8) return "";
-
         const year = dateStr.substring(0, 4);
         const monthNum = parseInt(dateStr.substring(4, 6), 10);
         const dayNum = parseInt(dateStr.substring(6, 8), 10);
-
-        if (lang === 'ko') {
-            return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
-        } else if (lang === 'en') {
+        if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        else if (lang === 'en') {
             const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
-        } else if (lang === 'vi') {
-            return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
-        }
+        } else if (lang === 'vi') return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
         return "";
     }
 
@@ -345,84 +316,18 @@
             type: "basic",
             title: { ko: "기본 규칙", en: "Basic Rules", vi: "Quy tắc cơ bản" },
             rules: {
-                ko: [
-                    {
-                        text: "연맹 공지를 수시로 확인할 것 (미확인으로 인한 불이익은 본인 책임입니다).",
-                        subRules: [
-                            "서버전, 수도전 등 대규모 이벤트는 시작 1~2시간 전에 중요 공지가 안내될 수 있습니다. 인게임 일정을 미리 확인하시고, 해당 시간대에는 가급적 공지사항을 확인해 주시기 바랍니다."
-                        ]
-                    },
-                    { text: "24시간 이상 미접속 시 R4, R5 임원진에게 사전에 고지할 것." },
-                    { text: "연맹원 간 항상 예의를 갖추고 상호 존중할 것." },
-                    { text: "연맹 대결에 적극 기여할 것 (수준에 맞지 않는 무리한 기여를 요구하지 않습니다. 우리는 충분한 경험을 통해 상황별로 어느 정도의 기여가 가능한지 이미 파악하고 있습니다)." },
-                    { text: "고투력 유저의 지원과 도움을 당연하게 여기지 말 것." },
-                    { text: "안건에 대한 의견은 자유롭게 제시하되, 기본적인 예의를 지킬 것." },
-                    { text: "월드 채팅에서 연맹의 이미지를 실추시킬 수 있는 불필요한 언행을 삼갈 것." },
-                    { text: "이미 결정된 공식 지시사항에 대해서는 불만 제기 없이 적극 협조할 것." },
-                    { text: "채팅을 작성하기 전 타인을 배려하여 한 번 더 신중하게 생각할 것." },
-                    { text: "연맹 내 편 가르기나 분란을 조장하는 행위를 절대 금지할 것." },
-                    { text: "서로 배려하고 화합하는 끈끈한 연맹 분위기를 함께 만들어 갈 것." },
-                    { text: "다양한 국적의 연맹원이 원활하게 소통하고 호명할 수 있도록 닉네임에 영문을 포함할 것." }
-                ],
-                en: [
-                    {
-                        text: "Frequently check alliance notices (You are responsible for any disadvantages caused by not checking).",
-                        subRules: [
-                            "For major events like Server Wars or Capital Wars, important announcements may be posted 1 to 2 hours before the start. Please check the in-game schedule in advance and try to keep an eye on the announcements around that time."
-                        ]
-                    },
-                    { text: "Notify R4 or R5 officers in advance if you will be offline for more than 24 hours." },
-                    { text: "Always be polite and mutually respect other alliance members." },
-                    { text: "Actively contribute to alliance duels (We do not demand unreasonable contributions beyond your level. Through ample experience, we already know what level of contribution is feasible in various situations)." },
-                    { text: "Do not take the support and help of high-power players for granted." },
-                    { text: "Feel free to share your opinions on agendas, but maintain basic etiquette." },
-                    { text: "Refrain from unnecessary remarks in the world chat that could tarnish the alliance's image." },
-                    { text: "Actively cooperate without complaints regarding official directives that have already been decided." },
-                    { text: "Think carefully and be considerate of others before typing in chat." },
-                    { text: "Taking sides or causing division within the alliance is strictly prohibited." },
-                    { text: "Let's work together to create a strong alliance atmosphere of mutual care and harmony." },
-                    { text: "Include English characters in your nickname so that alliance members of various nationalities can easily communicate and address you." }
-                ],
-                vi: [
-                    {
-                        text: "Thường xuyên kiểm tra thông báo liên minh (Bạn phải tự chịu trách nhiệm cho mọi bất lợi do không kiểm tra).",
-                        subRules: [
-                            "Đối với các sự kiện quy mô lớn như Chiến tranh Máy chủ (Server War) và Chiến tranh Thủ đô (Capital War), thông báo quan trọng có thể được đưa ra từ 1 đến 2 giờ trước khi bắt đầu. Vui lòng kiểm tra lịch trình trong game từ trước và chú ý theo dõi thông báo trong khoảng thời gian đó."
-                        ]
-                    },
-                    { text: "Thông báo trước cho các quan chức R4 hoặc R5 nếu bạn offline hơn 24 giờ." },
-                    { text: "Luôn lịch sự và tôn trọng lẫn nhau giữa các thành viên liên minh." },
-                    { text: "Tích cực đóng góp cho các trận đấu liên minh (Chúng tôi không yêu cầu những đóng góp vô lý vượt quá cấp độ của bạn. Thông qua nhiều kinh nghiệm, chúng tôi đã nắm rõ mức độ đóng góp khả thi trong các tình huống khác nhau)." },
-                    { text: "Đừng coi sự hỗ trợ và giúp đỡ của những người chơi lực chiến cao là điều hiển nhiên." },
-                    { text: "Thoải mái chia sẻ ý kiến của bạn về các chương trình nghị sự, nhưng hãy giữ phép lịch sự cơ bản." },
-                    { text: "Hạn chế những lời nói không cần thiết trên kênh thế giới có thể làm xấu hình ảnh của liên minh." },
-                    { text: "Tích cực hợp tác không phàn nàn về các chỉ thị chính thức đã được quyết định." },
-                    { text: "Suy nghĩ cẩn thận và quan tâm đến người khác trước khi gõ tin nhắn." },
-                    { text: "Việc chia bè phái hoặc gây chia rẽ trong liên minh bị nghiêm cấm." },
-                    { text: "Hãy cùng nhau làm việc để tạo ra một bầu không khí liên minh vững mạnh, quan tâm và hòa hợp lẫn nhau." },
-                    { text: "Bao gồm các ký tự tiếng Anh trong biệt danh của bạn để các thành viên liên minh từ nhiều quốc gia khác nhau có thể dễ dàng giao tiếp và gọi tên bạn." }
-                ]
+                ko: [{ text: "연맹 공지를 수시로 확인할 것 (미확인으로 인한 불이익은 본인 책임입니다).", subRules: ["서버전, 수도전 등 대규모 이벤트는 시작 1~2시간 전에 중요 공지가 안내될 수 있습니다. 인게임 일정을 미리 확인하시고, 해당 시간대에는 가급적 공지사항을 확인해 주시기 바랍니다."]}, { text: "24시간 이상 미접속 시 R4, R5 임원진에게 사전에 고지할 것." }, { text: "연맹원 간 항상 예의를 갖추고 상호 존중할 것." }, { text: "연맹 대결에 적극 기여할 것." }, { text: "고투력 유저의 지원과 도움을 당연하게 여기지 말 것." }, { text: "안건에 대한 의견은 자유롭게 제시하되, 기본적인 예의를 지킬 것." }, { text: "월드 채팅에서 연맹의 이미지를 실추시킬 수 있는 불필요한 언행을 삼갈 것." }, { text: "이미 결정된 공식 지시사항에 대해서는 불만 제기 없이 적극 협조할 것." }, { text: "채팅을 작성하기 전 타인을 배려하여 한 번 더 신중하게 생각할 것." }, { text: "연맹 내 편 가르기나 분란을 조장하는 행위를 절대 금지할 것." }, { text: "서로 배려하고 화합하는 끈끈한 연맹 분위기를 함께 만들어 갈 것." }, { text: "다양한 국적의 연맹원이 원활하게 소통하고 호명할 수 있도록 닉네임에 영문을 포함할 것." }],
+                en: [{ text: "Frequently check alliance notices (You are responsible for any disadvantages caused by not checking).", subRules: ["For major events like Server Wars or Capital Wars, important announcements may be posted 1 to 2 hours before the start. Please check the in-game schedule in advance and try to keep an eye on the announcements around that time."]}, { text: "Notify R4 or R5 officers in advance if you will be offline for more than 24 hours." }, { text: "Always be polite and mutually respect other alliance members." }, { text: "Actively contribute to alliance duels." }, { text: "Do not take the support and help of high-power players for granted." }, { text: "Feel free to share your opinions on agendas, but maintain basic etiquette." }, { text: "Refrain from unnecessary remarks in the world chat that could tarnish the alliance's image." }, { text: "Actively cooperate without complaints regarding official directives that have already been decided." }, { text: "Think carefully and be considerate of others before typing in chat." }, { text: "Taking sides or causing division within the alliance is strictly prohibited." }, { text: "Let's work together to create a strong alliance atmosphere of mutual care and harmony." }, { text: "Include English characters in your nickname so that alliance members of various nationalities can easily communicate and address you." }],
+                vi: [{ text: "Thường xuyên kiểm tra thông báo liên minh (Bạn phải tự chịu trách nhiệm cho mọi bất lợi do không kiểm tra).", subRules: ["Đối với các sự kiện quy mô lớn như Chiến tranh Máy chủ (Server War) và Chiến tranh Thủ đô (Capital War), thông báo quan trọng có thể được đưa ra từ 1 đến 2 giờ trước khi bắt đầu. Vui lòng kiểm tra lịch trình trong game từ trước và chú ý theo dõi thông báo trong khoảng thời gian đó."]}, { text: "Thông báo trước cho các quan chức R4 hoặc R5 nếu bạn offline hơn 24 giờ." }, { text: "Luôn lịch sự và tôn trọng lẫn nhau giữa các thành viên liên minh." }, { text: "Tích cực đóng góp cho các trận đấu liên minh." }, { text: "Đừng coi sự hỗ trợ và giúp đỡ của những người chơi lực chiến cao là điều hiển nhiên." }, { text: "Thoải mái chia sẻ ý kiến của bạn về các chương trình nghị sự, nhưng hãy giữ phép lịch sự cơ bản." }, { text: "Hạn chế những lời nói không cần thiết trên kênh thế giới có thể làm xấu hình ảnh của liên minh." }, { text: "Tích cực hợp tác không phàn nàn về các chỉ thị chính thức đã được quyết định." }, { text: "Suy nghĩ cẩn thận và quan tâm đến người khác trước khi gõ tin nhắn." }, { text: "Việc chia bè phái hoặc gây chia rẽ trong liên minh bị nghiêm cấm." }, { text: "Hãy cùng nhau làm việc để tạo ra một bầu không khí liên minh vững mạnh, quan tâm và hòa hợp lẫn nhau." }, { text: "Bao gồm các ký tự tiếng Anh trong biệt danh của bạn để các thành viên liên minh từ nhiều quốc gia khác nhau có thể dễ dàng giao tiếp và gọi tên bạn." }]
             }
         },
         {
             type: "game",
             title: { ko: "게임 규칙", en: "Game Rules", vi: "Quy tắc trò chơi" },
             rules: {
-                ko: [
-                    { text: "경기장에서 같은 연맹원을 공격하지 말 것." },
-                    { text: "NAP 기준에 해당되는 연맹을 공격하지 말 것." },
-                    { text: "같은 서버 내의 트럭을 공격하거나 약탈하지 말 것." }
-                ],
-                en: [
-                    { text: "Do not attack alliance members in the Arena." },
-                    { text: "Do not attack alliances that meet the NAP criteria." },
-                    { text: "Do not attack or plunder trucks within the same server." }
-                ],
-                vi: [
-                    { text: "Không tấn công các thành viên liên minh trong Đấu trường." },
-                    { text: "Không tấn công các liên minh đáp ứng tiêu chí NAP." },
-                    { text: "Không tấn công hoặc cướp bóc xe tải trong cùng một máy chủ." }
-                ]
+                ko: [{ text: "경기장에서 같은 연맹원을 공격하지 말 것." }, { text: "NAP 기준에 해당되는 연맹을 공격하지 말 것." }, { text: "같은 서버 내의 트럭을 공격하거나 약탈하지 말 것." }],
+                en: [{ text: "Do not attack alliance members in the Arena." }, { text: "Do not attack alliances that meet the NAP criteria." }, { text: "Do not attack or plunder trucks within the same server." }],
+                vi: [{ text: "Không tấn công các thành viên liên minh trong Đấu trường." }, { text: "Không tấn công các liên minh đáp ứng tiêu chí NAP." }, { text: "Không tấn công hoặc cướp bóc xe tải trong cùng một máy chủ." }]
             }
         }
     ];
@@ -436,63 +341,47 @@
         document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
         document.getElementById('support-text').textContent = headerTranslations[lang].support;
         document.getElementById('footer-text').textContent = footerTranslations[lang];
-
         container.innerHTML = '';
-
         allianceRulesData.forEach((group, groupIndex) => {
             const details = document.createElement('details');
             details.open = true;
-
             const summary = document.createElement('summary');
             summary.textContent = group.title[lang];
             summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
             details.appendChild(summary);
-
             const ul = document.createElement('ul');
             ul.className = 'menu-list';
-
             group.rules[lang].forEach((ruleObj, itemIndex) => {
                 const li = document.createElement('li');
-                
                 const ruleItem = document.createElement('div');
                 ruleItem.className = 'rule-item';
-                
                 const contentWrapper = document.createElement('div');
                 contentWrapper.className = 'item-content';
-
                 const badge = document.createElement('span');
                 badge.className = 'item-badge';
                 badge.textContent = itemIndex + 1;
-
                 const titleSpan = document.createElement('span');
                 titleSpan.className = 'item-title';
                 titleSpan.textContent = ruleObj.text;
-
                 contentWrapper.appendChild(badge);
                 contentWrapper.appendChild(titleSpan);
                 ruleItem.appendChild(contentWrapper);
                 li.appendChild(ruleItem);
                 ul.appendChild(li);
-
                 if (ruleObj.subRules && ruleObj.subRules.length > 0) {
                     ruleObj.subRules.forEach((subText, subIndex) => {
                         const subLi = document.createElement('li');
-                        
                         const subRuleItem = document.createElement('div');
                         subRuleItem.className = 'rule-item sub-rule';
-                        
                         const subContentWrapper = document.createElement('div');
                         subContentWrapper.className = 'item-content';
-
                         const subBadge = document.createElement('span');
                         subBadge.className = 'sub-badge';
                         subBadge.textContent = `${itemIndex + 1}-${subIndex + 1}`;
-
                         const subTitleSpan = document.createElement('span');
                         subTitleSpan.className = 'item-title';
                         subTitleSpan.style.color = '#555';
                         subTitleSpan.textContent = subText;
-
                         subContentWrapper.appendChild(subBadge);
                         subContentWrapper.appendChild(subTitleSpan);
                         subRuleItem.appendChild(subContentWrapper);
@@ -501,24 +390,20 @@
                     });
                 }
             });
-
             details.appendChild(ul);
             container.appendChild(details);
         });
     }
 
-    // 💡 콤보박스 변경 시 로컬 스토리지에 'lang'으로 저장
     langSelect.addEventListener('change', function(e) {
         const selectedLang = e.target.value;
         localStorage.setItem('lang', selectedLang);
         renderPage(selectedLang);
     });
 
-    // 💡 초기 로드 시 'lang' 키로 확인 및 렌더링
     const savedLang = localStorage.getItem('lang') || 'ko';
     langSelect.value = savedLang; 
     renderPage(savedLang); 
-
 </script>
 </body>
 </html>
