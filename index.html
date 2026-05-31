@@ -21,10 +21,10 @@
     .container {
         width: 100%;
         max-width: 650px;
-        position: relative; /* 콤보박스 절대 배치를 위해 추가 */
+        margin: 0 auto; /* 추가: 중앙 정렬 */
+        position: relative;
     }
 
-    /* 언어 선택 콤보박스 우측 상단 배치 */
     .lang-selector {
         position: absolute;
         top: 0;
@@ -33,7 +33,7 @@
     }
     
     .lang-selector select {
-        padding: 8px 12px;
+        padding: 8px 36px 8px 12px;
         border-radius: 8px;
         border: 1px solid #d1d5da;
         background-color: #ffffff;
@@ -45,48 +45,27 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.04);
         outline: none;
         transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
     }
 
-    .lang-selector select:hover, .lang-selector select:focus {
-        border-color: #007bff;
-    }
-    
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 40px; /* 콤보박스와 겹치지 않도록 여백 추가 */
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 추가: 내부 요소 중앙 정렬 */
     }
 
-    h1 {
-        font-size: 28px;
-        font-weight: 800;
-        margin: 0 0 6px 0;
-        color: #1a1a1a;
-        letter-spacing: -0.5px;
-    }
-
-    .version-text {
-        font-size: 14px;
-        font-weight: 600;
-        color: #007bff; 
-        margin: 0 0 16px 0;
-        letter-spacing: 0.5px;
-    }
-    
-    .subtitle {
-        font-size: 16px;
-        color: #333333; 
-        font-weight: 500;
-        margin: 0;
-    }
-
-    /* 초록색 텍스트 스타일 */
-    .support-text {
-        font-size: 15px;
-        color: #2e8b57; /* 가독성 좋은 초록색 (SeaGreen) */
-        font-weight: 600;
-        margin: 10px 0 0 0;
-    }
+    h1 { font-size: 28px; font-weight: 800; margin: 0 0 6px 0; color: #1a1a1a; letter-spacing: -0.5px; }
+    .version-text { font-size: 14px; font-weight: 600; color: #007bff; margin: 0 0 16px 0; }
+    .subtitle { font-size: 16px; color: #333333; font-weight: 500; margin: 0; }
+    .support-text { font-size: 15px; color: #2e8b57; font-weight: 600; margin: 10px 0 0 0; }
 
     details {
         margin-bottom: 20px;
@@ -94,297 +73,42 @@
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    details:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
     }
 
     summary {
-        font-size: 18px;
-        font-weight: 700;
-        padding: 18px 24px;
-        cursor: pointer;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        user-select: none;
-        color: #111;
-        letter-spacing: -0.3px;
-    }
-    
-    summary::-webkit-details-marker {
-        display: none;
+        font-size: 18px; font-weight: 700; padding: 18px 24px; cursor: pointer; list-style: none;
+        display: flex; justify-content: space-between; align-items: center;
     }
 
-    summary::after {
-        content: '▼';
-        font-size: 13px;
-        opacity: 0.7;
-        transition: transform 0.3s ease;
-    }
-    
-    details[open] summary::after {
-        transform: rotate(180deg);
-    }
-
-    .menu-list {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        background-color: #fff;
-    }
-    
-    .menu-list li {
-        border-top: 1px solid #f0f0f0;
-    }
-    
-    .menu-list a {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 24px;
-        text-decoration: none;
-        color: #444;
-        transition: all 0.2s ease;
-    }
-
-    .item-content {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .item-badge {
-        display: inline-block;
-        background-color: #f0f2f5;
-        color: #555;
-        font-size: 13px;
-        font-weight: 700;
-        padding: 4px 12px;
-        border-radius: 20px;
-        transition: all 0.2s ease;
-    }
-
-    .item-title {
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .menu-list a::after {
-        content: '➔';
-        font-size: 15px;
-        color: #bbb;
-        transition: transform 0.2s ease, color 0.2s ease;
-    }
-    
-    .menu-list a:hover {
-        background-color: #f8fbff;
-        color: #000;
-    }
-
-    .menu-list a:hover .item-title {
-        font-weight: 700;
-    }
-
-    .menu-list a:hover .item-badge {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .menu-list a:hover::after {
-        transform: translateX(5px);
-        color: #007bff;
-    }
+    .menu-list { margin: 0; padding: 0; list-style: none; background-color: #fff; }
+    .menu-list li { border-top: 1px solid #f0f0f0; }
+    .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; text-decoration: none; color: #444; }
+    .item-content { display: flex; align-items: center; gap: 12px; }
+    .item-badge { background-color: #f0f2f5; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+    .item-title { font-size: 16px; font-weight: 500; }
 
     @media (max-width: 480px) {
         .lang-selector { position: static; display: flex; justify-content: flex-end; margin-bottom: 20px; }
-        .header-wrapper { margin-top: 0; margin-bottom: 30px; }
-        h1 { font-size: 24px; }
-        .version-text { font-size: 13px; margin-bottom: 12px; }
-        .subtitle { font-size: 14px; }
-        .support-text { font-size: 13px; margin-top: 8px; }
-        summary { font-size: 16px; padding: 16px 20px; }
-        .menu-list a { padding: 14px 20px; }
-        .item-title { font-size: 15px; }
-        .item-badge { font-size: 12px; padding: 3px 10px; }
+        .header-wrapper { margin-top: 0; }
     }
 </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="lang-selector">
-        <select id="langSelect">
-            <option value="ko">🇰🇷 한국어</option>
-            <option value="en">🇺🇸 English</option>
-            <option value="vi">🇻🇳 Tiếng Việt</option>
-        </select>
+    <div class="container">
+        <div class="lang-selector">
+            <select id="langSelect">
+                <option value="ko">🇰🇷 한국어</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="vi">🇻🇳 Tiếng Việt</option>
+            </select>
+        </div>
+        <div class="header-wrapper">
+            <h1 id="page-title">📚 [FROM] Notice</h1>
+            <p class="version-text" id="version-text"></p>
+            <p class="subtitle" id="subtitle-text"></p>
+            <p class="support-text" id="support-text"></p>
+        </div>
+        <div id="accordion-container"></div>
     </div>
-
-    <div class="header-wrapper">
-        <h1 id="page-title">📚 [FROM] Notice</h1>
-        <p class="version-text" id="version-text"></p>
-        <p class="subtitle" id="subtitle-text"></p>
-        <p class="support-text" id="support-text"></p>
-    </div>
-    
-    <div id="accordion-container"></div>
-</div>
-
-<script>
-    // 💡 날짜를 YYYYMMDD 형식으로 입력
-    const sysdate = "20260601";
-
-    const rainbowColors = [
-        '#ffadad',
-        '#ffd6a5',
-        '#fdffb6',
-        '#caffbf',
-        '#9bf6ff',
-        '#a0c4ff',
-        '#bdb2ff'
-    ];
-
-    // 헤더 다국어 데이터
-    const headerTranslations = {
-        ko: {
-            title: "📚 [FROM] 공지사항",
-            subtitle: "메뉴를 선택하여 링크로 이동해 주세요",
-            support: "PC와 모바일 화면을 모두 지원합니다"
-        },
-        en: {
-            title: "📚 [FROM] Notice",
-            subtitle: "Please select a menu item to navigate to the link",
-            support: "All screens are supported on PC and mobile"
-        },
-        vi: {
-            title: "📚 [FROM] Thông báo",
-            subtitle: "Vui lòng chọn một mục menu để chuyển đến liên kết",
-            support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động"
-        }
-    };
-
-    // 메뉴 항목 다국어 데이터
-    const guideData = [
-        {
-            groupTitle: { ko: "규칙", en: "Rules", vi: "Quy tắc" },
-            prefix: { ko: "규칙", en: "Rule", vi: "Quy tắc" },
-            links: [
-                { 
-                    title: { ko: "연맹 규칙", en: "Alliance Rules", vi: "Quy tắc liên minh" }, 
-                    url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html" 
-                },
-                { 
-                    title: { ko: "자리 배치도", en: "Seating Chart", vi: "Sơ đồ chỗ ngồi" }, 
-                    url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html" 
-                }
-            ]
-        },
-        {
-            groupTitle: { ko: "팁", en: "Tips", vi: "Mẹo" },
-            prefix: { ko: "팁", en: "Tip", vi: "Mẹo" },
-            links: [
-                { 
-                    title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, 
-                    url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html" 
-                }
-            ]
-        }
-    ];
-
-    // 날짜 포맷 변환 함수
-    function getFormattedVersionText(dateStr, lang) {
-        if (!dateStr || dateStr.length !== 8) return "";
-
-        const year = dateStr.substring(0, 4);
-        const monthNum = parseInt(dateStr.substring(4, 6), 10);
-        const dayNum = parseInt(dateStr.substring(6, 8), 10);
-
-        if (lang === 'ko') {
-            return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
-        } else if (lang === 'en') {
-            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
-        } else if (lang === 'vi') {
-            return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
-        }
-        return "";
-    }
-
-    const container = document.getElementById('accordion-container');
-    const langSelect = document.getElementById('langSelect');
-
-    // 화면 렌더링 함수
-    function renderPage(lang) {
-        // 헤더 렌더링
-        document.getElementById('page-title').textContent = headerTranslations[lang].title;
-        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
-        document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
-        document.getElementById('support-text').textContent = headerTranslations[lang].support;
-
-        // 메뉴 컨테이너 초기화
-        container.innerHTML = '';
-
-        // 메뉴 항목 렌더링
-        guideData.forEach((group, groupIndex) => {
-            const details = document.createElement('details');
-            details.open = true;
-
-            const summary = document.createElement('summary');
-            summary.textContent = group.groupTitle[lang];
-            summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
-            details.appendChild(summary);
-
-            const ul = document.createElement('ul');
-            ul.className = 'menu-list';
-
-            group.links.forEach((linkItem, itemIndex) => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                
-                a.href = linkItem.url;
-                
-                const contentWrapper = document.createElement('div');
-                contentWrapper.className = 'item-content';
-
-                const badge = document.createElement('span');
-                badge.className = 'item-badge';
-                badge.textContent = `${group.prefix[lang]} ${itemIndex + 1}`;
-
-                const titleSpan = document.createElement('span');
-                titleSpan.className = 'item-title';
-                titleSpan.textContent = linkItem.title[lang];
-
-                contentWrapper.appendChild(badge);
-                contentWrapper.appendChild(titleSpan);
-                a.appendChild(contentWrapper);
-                
-                li.appendChild(a);
-                ul.appendChild(li);
-            });
-
-            details.appendChild(ul);
-            container.appendChild(details);
-        });
-    }
-
-    // 콤보박스 변경 이벤트 - 로컬 스토리지 저장
-    langSelect.addEventListener('change', function(e) {
-        const selectedLang = e.target.value;
-        localStorage.setItem('lang', selectedLang); // 💡 lang 키로 원복
-        renderPage(selectedLang);
-    });
-
-    // 초기 로드 시 설정 적용 ('ko' 기본값)
-    const savedLang = localStorage.getItem('lang') || 'ko'; // 💡 lang 키로 원복
-    langSelect.value = savedLang; 
-    renderPage(savedLang); 
-
-</script>
-
-</body>
+    </body>
 </html>
