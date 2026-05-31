@@ -10,7 +10,7 @@
         background-color: #fafbfc; 
         color: #333;
         margin: 0;
-        padding: 40px 20px;
+        padding: 20px 20px 40px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -21,15 +21,14 @@
     .container {
         width: 100%;
         max-width: 650px;
-        position: relative; /* 콤보박스 절대 배치를 위해 추가 */
+        position: relative;
     }
             
-    /* 언어 선택 콤보박스 우측 상단 배치 */
+    /* 콤보박스 우측 상단 배치 */
     .lang-selector {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 10;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
     }
             
     .lang-selector select {
@@ -54,7 +53,6 @@
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 40px; /* 콤보박스와 겹치지 않도록 여백 추가 */
     }
 
     h1 {
@@ -193,15 +191,19 @@
         align-items: center;
         flex-shrink: 0;
         background-color: #f0f2f5;
+        color: #555;
         font-size: 12px;
         font-weight: 700;
         padding: 3px 8px;
         border-radius: 6px;
         margin-top: 2px;
         line-height: 1;
+        transition: all 0.2s ease; /* 자연스러운 효과를 위해 transition 추가 */
     }
 
-    .rule-item:hover .item-badge {
+    /* 상위 및 하위 배지 모두 Hover 시 파란색 변경 */
+    .rule-item:hover .item-badge,
+    .rule-item:hover .sub-badge {
         background-color: #007bff;
         color: #fff;
     }
@@ -230,8 +232,7 @@
     }
 
     @media (max-width: 480px) {
-        .lang-selector { position: static; display: flex; justify-content: flex-end; margin-bottom: 20px; }
-        .header-wrapper { margin-top: 0; margin-bottom: 30px; }
+        .header-wrapper { margin-bottom: 30px; }
         h1 { font-size: 24px; }
         .version-text { font-size: 13px; margin-bottom: 12px; }
         .subtitle { font-size: 14px; }
