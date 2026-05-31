@@ -13,11 +13,40 @@
         margin: 0 auto;
         max-width: 100%;
     }
+    
+    .button-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .download-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .download-btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
 </style>
 </head>
 <body>
     <h1>[FROM] Seating Chart</h1>
     <h2>2026/05/31 Version</h2>
+    
+    <div class="button-container">
+        <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" download="SeatingChart_20260531.png" class="download-btn">
+            💾 Save Image
+        </a>
+    </div>
+
     <img src="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" alt="Seating Chart">
 </body>
 </html>
