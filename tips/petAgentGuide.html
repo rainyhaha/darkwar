@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[536:FROM] Pet Agent Guide</title>
+<title>Pet Agent Guide</title>
 <style>
     :root {
         --bg-main: #050a15;
@@ -11,7 +11,7 @@
         --border-color: #1a3256;
         --text-main: #ffffff;
         --text-muted: #aaaaaa;
-        --color-gold: #ffcc00;
+        --color-gold: #FFD700; /* 더 밝고 선명한 노란색으로 변경 */
         --color-blue: #4ebaff;
         --color-green: #5bc236;
         --color-purple: #c074ff;
@@ -71,9 +71,31 @@
     .text-red { color: var(--color-red); }
     
     /* Header */
-    .header { text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
-    .header h1 { font-size: 46px; color: var(--color-gold); font-weight: 900; letter-spacing: 2px; text-shadow: 3px 3px 6px #000; -webkit-text-stroke: 1.5px var(--color-gold); margin-bottom: 5px; }
-    .header .subtitle { font-size: 17px; color: var(--color-blue); font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 2px #000; }
+    .header { 
+        text-align: center; 
+        border-bottom: 2px solid var(--border-color); 
+        padding-bottom: 15px; 
+        margin-bottom: 20px; 
+        width: 100%; 
+    }
+    .header h1 { 
+        font-size: 38px; /* 기존 46px에서 축소 */
+        color: var(--color-gold); 
+        font-weight: 900; 
+        letter-spacing: 1px; 
+        text-shadow: 3px 3px 6px #000; 
+        -webkit-text-stroke: 1.5px #b39700; 
+        margin-bottom: 5px; 
+        word-break: keep-all; /* 단어 단위로 깔끔하게 떨어지도록 설정 */
+    }
+    .header .subtitle { 
+        font-size: 15px; /* 기존 17px에서 축소 */
+        color: var(--color-blue); 
+        font-weight: 900; 
+        letter-spacing: 0.5px; 
+        text-shadow: 1px 1px 2px #000; 
+        word-break: keep-all;
+    }
     
     /* Panel */
     .panel { border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; background-color: var(--bg-panel); margin-bottom: 15px; }
@@ -160,15 +182,15 @@
     .purchase-item strong { display: block; color: var(--color-gold); font-size: 12px; margin-bottom: 6px; height: 28px; }
     
     .remember-panel { border-color: var(--color-gold); background-color: #1a1505; }
-    .remember-panel .panel-title { color: var(--color-gold); border-bottom-color: rgba(255, 204, 0, 0.3); display: flex; align-items: center; gap: 6px; }
+    .remember-panel .panel-title { color: var(--color-gold); border-bottom-color: rgba(255, 215, 0, 0.3); display: flex; align-items: center; gap: 6px; }
     .remember-list { list-style: none; padding: 0; margin: 0; font-size: 13px; }
     .remember-list li { margin-bottom: 6px; display: flex; gap: 6px; }
     .remember-list li::before { content: '✔'; color: var(--color-green); font-weight: bold; }
     
     .very-bottom { text-align: center; margin-top: 10px; font-size: 18px; font-weight: bold; color: var(--color-gold); letter-spacing: 2px; text-transform: uppercase; }
 
-    /* =========================================================
-       모바일 반응형 레이아웃 (Media Queries)
+    /* ========================================================= 
+       모바일 반응형 레이아웃 (Media Queries) 
        ========================================================= */
     @media (max-width: 900px) {
         .bottom-grid {
@@ -186,8 +208,15 @@
             padding: 4px 8px;
             font-size: 12px;
         }
-        .header h1 { font-size: 32px; -webkit-text-stroke: 1px var(--color-gold); margin-top: 35px; }
-        .header .subtitle { font-size: 13px; }
+        /* 잘림 최소화를 위해 모바일용 폰트 사이즈 살짝 조정 */
+        .header h1 { 
+            font-size: clamp(18px, 5.5vw, 24px); 
+            -webkit-text-stroke: 1px #b39700; 
+            margin-top: 35px; 
+        }
+        .header .subtitle { 
+            font-size: clamp(10px, 2.8vw, 13px); 
+        }
         
         .pet-grid { flex-direction: column; gap: 15px; }
         .arrow { transform: rotate(90deg); margin: 5px 0; }
@@ -214,11 +243,10 @@
         .purchase-item { min-width: 45%; flex: 1 1 45%; margin-bottom: 5px; }
     }
 </style>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=23601"></script>
 </head>
 <body>
-
 <div class="container">
-    <!-- 다국어 콤보박스 -->
     <select class="lang-selector" id="langSelect" onchange="changeLanguage()">
         <option value="ko" selected>🇰🇷 한국어</option>
         <option value="en">🇺🇸 English</option>
@@ -226,11 +254,10 @@
     </select>
 
     <div class="header">
-        <h2 data-i18n="titleMain">🛡️ 펫 에이전트 가이드 🛡️</h2>
-        <div class="subtitle" data-i18n="titleSub">🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾</div>
+        <h1 data-i18n="titleMain">🛡️ 펫 에이전트 가이드 🛡️</h1>
+        <div class="subtitle" data-i18n="titleSub"></div>
     </div>
 
-    <!-- Section 1: Unlock Order -->
     <div class="panel">
         <div class="section-title" data-i18n="sec1Title">🐾 펫 해금 순서 및 성장 경로 🐾</div>
         <div class="desc-text" data-i18n="sec1Desc">펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.</div>
@@ -284,7 +311,6 @@
         </div>
     </div>
 
-    <!-- Section 2: Middle Grid -->
     <div class="middle-grid">
         <div class="panel">
             <div class="section-title" data-i18n="mid1Title">📋 모든 펫 - 역할 및 스킬 개요</div>
@@ -383,7 +409,6 @@
         </div>
     </div>
 
-    <!-- Section 3: Bottom Grid -->
     <div class="bottom-grid">
         <div class="panel">
             <div class="panel-title" data-i18n="bot1Title">📅 일일 루틴</div>
@@ -450,7 +475,6 @@
         </div>
     </div>
 
-    <!-- Section 4: Footer Grid -->
     <div class="footer-grid">
         <div class="panel">
             <div class="panel-title text-blue" data-i18n="foot1Title">🛒 최고 효율 추천 상품 (BEST VALUE PURCHASES)</div>
@@ -490,7 +514,7 @@
     </div>
 
     <div class="very-bottom" data-i18n="veryBottom">
-        🐾 강력한 펫 • 강력한 연맹 • 다 함께 승리! 🐾
+        536 State - FROM
     </div>
 </div>
 
@@ -546,8 +570,7 @@ const translations = {
         foot1N4: "영양 물약 팩", foot1D4: "돌파 정체 구간 해결사!",
         foot1N5: "전술 식량 패키지", foot1D5: "성장은 느리지만 필수 식량.",
         foot2Title: "🏆 꼭 기억하세요 (REMEMBER)",
-        foot2L1: "6마리의 펫을 순서대로 최우선 해금하기.", foot2L2: "전투(딜/탱) 및 유틸리티 핵심 코어 구축하기.", foot2L3: "스킬은 타이밍과 효율에 맞춰 알맞게 쓰기.", foot2L4: "강력한 펫 = 강한 연맹 = 최종 승리!",
-        veryBottom: "🐾 강력한 펫 • 강력한 연맹 • 다 함께 승리! 🐾"
+        foot2L1: "6마리의 펫을 순서대로 최우선 해금하기.", foot2L2: "전투(딜/탱) 및 유틸리티 핵심 코어 구축하기.", foot2L3: "스킬은 타이밍과 효율에 맞춰 알맞게 쓰기.", foot2L4: "강력한 펫 = 강한 연맹 = 최종 승리!"
     },
     en: {
         titleMain: "🛡️ PET AGENT GUIDE 🛡️", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
@@ -598,8 +621,7 @@ const translations = {
         foot1N4: "Nutrition Potion Pack", foot1D4: "Important for breakthroughs!",
         foot1N5: "Tactical Ration Pack", foot1D5: "Food is critical, leveling is slow.",
         foot2Title: "🏆 REMEMBER",
-        foot2L1: "Unlock all 6 pets in order.", foot2L2: "Build your combat and utility cores.", foot2L3: "Use skills at the right time.", foot2L4: "Strong pets = Strong alliance = Victory!",
-        veryBottom: "🐾 STRONG PETS • STRONG ALLIANCE • VICTORY TOGETHER! 🐾"
+        foot2L1: "Unlock all 6 pets in order.", foot2L2: "Build your combat and utility cores.", foot2L3: "Use skills at the right time.", foot2L4: "Strong pets = Strong alliance = Victory!"
     },
     vi: {
         titleMain: "🛡️ HƯỚNG DẪN PET AGENT 🛡️", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
@@ -621,7 +643,7 @@ const translations = {
         mid2Title: "🚀 ĐƯỜNG LỐI NÂNG CẤP & ƯU TIÊN",
         path1Title: "Mở khóa tất cả trước", path1Desc: "Đạt cấp 30 cho mỗi pet để mở khóa pet tiếp theo.",
         path2Title: "Xây dựng lực lượng", path2Desc: "Sau khi mở khóa tất cả, tập trung Frost (ST) và Titan (Tank).",
-        path3Title: "Đầu tư Tiện ích", path3Desc: "Phát triển Specter (vật phẩm) & Sentinel (thu thập) lâu dài.",
+        path3Title: "Đầu tư Tiện ích", path3Desc: "Phát triển Specter (vật phẩm) & Sentinel (thu thập lâu dài.",
         path4Title: "Sử dụng linh hoạt", path4Desc: "Shining và Zeus tốt lúc đầu nhưng ưu tiên thấp về sau.",
         path5Title: "Kiên trì mỗi ngày", path5Desc: "Đăng nhập, làm nhiệm vụ và xả skill giúp liên minh phát triển.",
         trTitle: "📊 TÓM TẮT VAI TRÒ ĐỘI",
@@ -650,8 +672,7 @@ const translations = {
         foot1N4: "Gói Dinh dưỡng", foot1D4: "Rất quan trọng để đột phá!",
         foot1N5: "Gói Khẩu phần", foot1D5: "Thức ăn thiếu hụt rất chậm lớn.",
         foot2Title: "🏆 HÃY NHỚ RẰNG",
-        foot2L1: "Mở khóa 6 pet theo thứ tự.", foot2L2: "Xây dựng lõi chiến đấu và tiện ích.", foot2L3: "Sử dụng kỹ năng đúng lúc.", foot2L4: "Pet mạnh = Liên minh mạnh = Chiến thắng!",
-        veryBottom: "🐾 PET MẠNH MẼ • LIÊN MINH MẠNH MẼ • CÙNG CHIẾN THẮNG! 🐾"
+        foot2L1: "Mở khóa 6 pet theo thứ tự.", foot2L2: "Xây dựng lõi chiến đấu và tiện ích.", foot2L3: "Sử dụng kỹ năng đúng lúc.", foot2L4: "Pet mạnh = Liên minh mạnh = Chiến thắng!"
     }
 };
 
