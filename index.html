@@ -7,8 +7,8 @@
 <style>
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
-        /* 배경을 은은한 사선 그라데이션으로 변경하여 입체감 부여 */
-        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+        /* 회색빛이 돌던 배경을 아주 밝고 화사한 화이트/아이보리 톤으로 변경했습니다 */
+        background-color: #fafbfc; 
         color: #333;
         margin: 0;
         padding: 40px 20px;
@@ -24,30 +24,40 @@
         max-width: 650px;
     }
     
-    h1 {
+    .header-wrapper {
         text-align: center;
-        font-size: 28px;
-        font-weight: 800;
         margin-bottom: 40px;
-        color: #2c3e50;
-        letter-spacing: -0.5px;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
     }
 
-    /* 카드 형태의 토글 그룹 스타일 */
+    h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 12px 0;
+        color: #1a1a1a;
+        letter-spacing: -0.5px;
+    }
+    
+    /* 부제목(Subtitle)이 더 잘 보이도록 진하게 수정 */
+    .subtitle {
+        font-size: 16px;
+        color: #333333; /* 기존 #666에서 훨씬 진한 색으로 변경 */
+        font-weight: 500; /* 글씨 굵기도 살짝 두껍게 */
+        margin: 0;
+    }
+
     details {
         margin-bottom: 20px;
         background-color: #ffffff;
         border-radius: 12px;
         overflow: hidden;
-        /* 부드럽고 고급스러운 그림자 효과 추가 */
-        box-shadow: 0 8px 16px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.02);
+        /* 배경이 밝아진 만큼 그림자를 살짝 더 선명하게 조정 */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     details:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 20px rgba(0,0,0,0.06), 0 4px 6px rgba(0,0,0,0.03);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
     }
 
     summary {
@@ -60,7 +70,7 @@
         justify-content: space-between;
         align-items: center;
         user-select: none;
-        color: #222;
+        color: #111;
         letter-spacing: -0.3px;
     }
     
@@ -71,7 +81,7 @@
     summary::after {
         content: '▼';
         font-size: 13px;
-        opacity: 0.6;
+        opacity: 0.7;
         transition: transform 0.3s ease;
     }
     
@@ -100,18 +110,16 @@
         transition: all 0.2s ease;
     }
 
-    /* 좌측 영역 (배지 + 타이틀) 정렬 */
     .item-content {
         display: flex;
         align-items: center;
         gap: 12px;
     }
 
-    /* 넘버링 배지 디자인 추가 */
     .item-badge {
         display: inline-block;
         background-color: #f0f2f5;
-        color: #666;
+        color: #555;
         font-size: 13px;
         font-weight: 700;
         padding: 4px 12px;
@@ -131,9 +139,8 @@
         transition: transform 0.2s ease, color 0.2s ease;
     }
     
-    /* 호버(Hover) 시 디자인 변화 */
     .menu-list a:hover {
-        background-color: #fafbfe;
+        background-color: #f8fbff;
         color: #000;
     }
 
@@ -141,7 +148,6 @@
         font-weight: 700;
     }
 
-    /* 호버 시 배지 색상도 브랜드 컬러로 변경 */
     .menu-list a:hover .item-badge {
         background-color: #007bff;
         color: #fff;
@@ -152,9 +158,10 @@
         color: #007bff;
     }
 
-    /* 모바일 반응형 */
     @media (max-width: 480px) {
-        h1 { font-size: 24px; margin-bottom: 30px; }
+        .header-wrapper { margin-bottom: 30px; }
+        h1 { font-size: 24px; }
+        .subtitle { font-size: 14px; }
         summary { font-size: 16px; padding: 16px 20px; }
         .menu-list a { padding: 14px 20px; }
         .item-title { font-size: 15px; }
@@ -165,23 +172,24 @@
 <body>
 
 <div class="container">
-    <h1>📚 [FROM] Information List</h1>
+    <div class="header-wrapper">
+        <h1>📚 [FROM] Information List (2026/05/31 Version)</h1>
+        <p class="subtitle">Please select a menu item to navigate to the link.</p>
+    </div>
     <div id="accordion-container"></div>
 </div>
 
 <script>
-    // 파스텔 톤 무지개 색상 배열
     const rainbowColors = [
-        '#ffadad', // 빨
-        '#ffd6a5', // 주
-        '#fdffb6', // 노
-        '#caffbf', // 초
-        '#9bf6ff', // 파
-        '#a0c4ff', // 남
-        '#bdb2ff'  // 보
+        '#ffadad',
+        '#ffd6a5',
+        '#fdffb6',
+        '#caffbf',
+        '#9bf6ff',
+        '#a0c4ff',
+        '#bdb2ff'
     ];
 
-    // 그룹 및 링크 데이터 설정
     const guideData = [
         {
             groupTitle: "Rules",
@@ -199,14 +207,12 @@
 
     const container = document.getElementById('accordion-container');
 
-    // 데이터 기반 화면 렌더링
     guideData.forEach((group, groupIndex) => {
         const details = document.createElement('details');
         details.open = true;
 
         const summary = document.createElement('summary');
         summary.textContent = group.groupTitle;
-        // 무지개색 순환 적용
         summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
         details.appendChild(summary);
 
@@ -223,21 +229,17 @@
                 ? group.groupTitle.slice(0, -1) 
                 : group.groupTitle;
             
-            // 배지와 텍스트를 담을 래퍼 요소 생성
             const contentWrapper = document.createElement('div');
             contentWrapper.className = 'item-content';
 
-            // 동그란 배지(Badge) 요소 생성
             const badge = document.createElement('span');
             badge.className = 'item-badge';
             badge.textContent = `${prefix} ${itemIndex + 1}`;
 
-            // 메뉴 텍스트 요소 생성
             const titleSpan = document.createElement('span');
             titleSpan.className = 'item-title';
             titleSpan.textContent = linkItem.title;
 
-            // 래퍼에 배지와 텍스트 추가 후 링크(a)에 조립
             contentWrapper.appendChild(badge);
             contentWrapper.appendChild(titleSpan);
             a.appendChild(contentWrapper);
