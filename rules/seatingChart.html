@@ -74,18 +74,43 @@
 <body>
     <h1>[FROM] Seating Chart</h1>
     
-    <p class="version-text">May 31, 2026 Version</p>
+    <p class="version-text" id="version-text"></p>
     
     <div class="notice-wrapper">
-        <p class="notice-text">🚨 Seating arrangements will begin in Season 3</p>
+        <p class="notice-text">🚨 Seating arrangements will begin in Season 3(June 8, 2026)</p>
     </div>
     
     <div class="button-container">
-        <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" download="SeatingChart_20260531.png" class="download-btn">
+        <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" id="download-btn" class="download-btn">
             💾 Save Image
         </a>
     </div>
 
     <img src="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" alt="Seating Chart">
+
+    <script>
+        const sysdate = "20260601";
+
+        // YYYYMMDD 형식을 영문 날짜 포맷으로 변환하는 함수
+        const formatToEnglishDate = (dateString) => {
+            if (!dateString || dateString.length !== 8) return dateString;
+            
+            const year = dateString.substring(0, 4);
+            const monthIndex = parseInt(dateString.substring(4, 6), 10) - 1;
+            const day = parseInt(dateString.substring(6, 8), 10); 
+            
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            if (monthIndex < 0 || monthIndex > 11) return dateString; 
+            
+            return `${months[monthIndex]} ${day}, ${year}`;
+        };
+
+        // 1. 상단 version-text 에 변환된 영문 날짜 적용
+        document.getElementById('version-text').textContent = `Last Updated: ${formatToEnglishDate(sysdate)}`;
+
+        // 2. 다운로드 버튼의 파일명(download 속성)을 sysdate에 맞춰 동적 할당
+        document.getElementById('download-btn').setAttribute("download", `SeatingChart_${sysdate}.png`);
+    </script>
 </body>
 </html>
