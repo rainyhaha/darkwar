@@ -85,7 +85,16 @@
         letter-spacing: 0.5px;
     }
     
+    /* 일반 부제목 스타일 원복 */
     .subtitle {
+        font-size: 16px;
+        color: #333333; 
+        font-weight: 500;
+        margin: 0;
+    }
+
+    /* 💡 누락되었던 긴급 공지(빨간색 박스) 스타일 추가 */
+    .urgent-text {
         display: inline-block;
         font-size: 16px;
         color: #d93025; 
@@ -141,7 +150,8 @@
         .header-wrapper { margin-bottom: 30px; }
         h1 { font-size: 24px; }
         .version-text { font-size: 13px; margin-bottom: 12px; }
-        .subtitle { font-size: 14px; padding: 6px 12px; }
+        .subtitle { font-size: 14px; }
+        .urgent-text { font-size: 14px; padding: 6px 12px; } /* 모바일 긴급 공지 사이즈 */
         .support-text { font-size: 13px; margin-top: 8px; }
     }
 </style>
@@ -223,7 +233,7 @@
         if (!subtitleText || subtitleText.trim() === "") {
             subtitleElement.style.display = "none";
         } else {
-            subtitleElement.style.display = "inline-block";
+            subtitleElement.style.display = "block";
             subtitleElement.textContent = subtitleText;
         }
 
