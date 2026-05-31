@@ -1,18 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[FROM] Seating Chart</title>
+<title>536 [FROM] - Seating Chart</title>
 <style>
-    /* 첫 번째 코드의 글꼴 스타일을 body에 적용 */
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
-        color: #333; /* 글씨가 너무 까맣지 않도록 부드러운 색상 추가 */
+        color: #333; 
+        margin: 0;
+        background-color: #fafbfc;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        padding: 40px 20px;
+        box-sizing: border-box;
+    }
+
+    /* 언어 선택 콤보박스 우측 상단 배치 */
+    .lang-selector {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+    }
+    
+    .lang-selector select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+
+    .lang-selector select:hover, .lang-selector select:focus {
+        border-color: #007bff;
     }
 
     h1 {
         text-align: center;
+        margin-top: 20px;
         margin-bottom: 5px;
     }
     
@@ -46,6 +84,8 @@
         display: block;
         margin: 0 auto;
         max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
     .button-container {
@@ -63,54 +103,118 @@
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         transition: background-color 0.2s, transform 0.2s;
+        cursor: pointer;
     }
 
     .download-btn:hover {
         background-color: #0056b3;
         transform: translateY(-2px);
     }
+
+    @media (max-width: 480px) {
+        .lang-selector { position: static; display: flex; justify-content: flex-end; margin-bottom: 10px; }
+        .container { padding: 20px; }
+        h1 { margin-top: 0; font-size: 24px; }
+        .notice-text { font-size: 15px; }
+    }
 </style>
 </head>
 <body>
-    <h1>[FROM] Seating Chart</h1>
-    
+
+<div class="container">
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+        </select>
+    </div>
+
+    <h1 id="page-title">[FROM] 자리 배치도</h1>
     <p class="version-text" id="version-text"></p>
     
     <div class="notice-wrapper">
-        <p class="notice-text">🚨 Seating arrangements will begin in Season 3(June 8, 2026)</p>
+        <p class="notice-text" id="notice-text">🚨 자리 배치는 시즌 3 (2026년 6월 8일)부터 시작됩니다</p>
     </div>
     
     <div class="button-container">
         <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" id="download-btn" class="download-btn">
-            💾 Save Image
+            💾 이미지 저장
         </a>
     </div>
 
     <img src="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" alt="Seating Chart">
+</div>
 
-    <script>
-        const sysdate = "20260601";
+<script>
+    // 💡 날짜를 YYYYMMDD 형식으로 입력하세요
+    const sysdate = "20260601";
 
-        // YYYYMMDD 형식을 영문 날짜 포맷으로 변환하는 함수
-        const formatToEnglishDate = (dateString) => {
-            if (!dateString || dateString.length !== 8) return dateString;
-            
-            const year = dateString.substring(0, 4);
-            const monthIndex = parseInt(dateString.substring(4, 6), 10) - 1;
-            const day = parseInt(dateString.substring(6, 8), 10); 
-            
-            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            
-            if (monthIndex < 0 || monthIndex > 11) return dateString; 
-            
-            return `${months[monthIndex]} ${day}, ${year}`;
-        };
+    // 다국어 번역 데이터
+    const translations = {
+        ko: {
+            title: "[FROM] 자리 배치도",
+            notice: "🚨 자리 배치는 시즌 3 (2026년 6월 8일)부터 시작됩니다",
+            saveBtn: "💾 이미지 저장"
+        },
+        en: {
+            title: "[FROM] Seating Chart",
+            notice: "🚨 Seating arrangements will begin in Season 3 (June 8, 2026)",
+            saveBtn: "💾 Save Image"
+        },
+        vi: {
+            title: "[FROM] Sơ đồ chỗ ngồi",
+            notice: "🚨 Việc sắp xếp chỗ ngồi sẽ bắt đầu trong Mùa 3 (Ngày 8 tháng 6 năm 2026)",
+            saveBtn: "💾 Lưu hình ảnh"
+        }
+    };
 
-        // 1. 상단 version-text 에 변환된 영문 날짜 적용
-        document.getElementById('version-text').textContent = `Last Updated: ${formatToEnglishDate(sysdate)}`;
+    // 언어에 맞춘 버전(업데이트) 날짜 텍스트 반환
+    function getFormattedVersionText(dateStr, lang) {
+        if (!dateStr || dateStr.length !== 8) return "";
 
-        // 2. 다운로드 버튼의 파일명(download 속성)을 sysdate에 맞춰 동적 할당
-        document.getElementById('download-btn').setAttribute("download", `SeatingChart_${sysdate}.png`);
-    </script>
+        const year = dateStr.substring(0, 4);
+        const monthNum = parseInt(dateStr.substring(4, 6), 10);
+        const dayNum = parseInt(dateStr.substring(6, 8), 10);
+
+        if (lang === 'ko') {
+            return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        } else if (lang === 'en') {
+            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
+        } else if (lang === 'vi') {
+            return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
+        }
+        return "";
+    }
+
+    // 화면 텍스트 렌더링 함수
+    function applyLanguage(lang) {
+        document.getElementById('page-title').textContent = translations[lang].title;
+        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
+        document.getElementById('notice-text').textContent = translations[lang].notice;
+        
+        // 이미지 저장 버튼 (a 태그 내부 텍스트 변경 시 아이콘 유지)
+        document.getElementById('download-btn').textContent = translations[lang].saveBtn;
+    }
+
+    const langSelect = document.getElementById('langSelect');
+
+    // 💡 콤보박스 변경 시 로컬 스토리지에 'lang'으로 저장 후 렌더링
+    langSelect.addEventListener('change', function(e) {
+        const selectedLang = e.target.value;
+        localStorage.setItem('lang', selectedLang);
+        applyLanguage(selectedLang);
+    });
+
+    // 💡 초기 로드 시 'lang' 키로 확인 및 적용 ('ko' 기본값)
+    const savedLang = localStorage.getItem('lang') || 'ko';
+    langSelect.value = savedLang;
+    applyLanguage(savedLang);
+
+    // 다운로드 버튼의 파일명(download 속성)을 sysdate에 맞춰 동적 할당
+    document.getElementById('download-btn').setAttribute("download", `SeatingChart_${sysdate}.png`);
+
+</script>
 </body>
 </html>
