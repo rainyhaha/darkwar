@@ -5,14 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pet Agent Guide</title>
 <style>
-    /* 라이트 테마 색상 변수 설정 */
     :root {
         --bg-main: #fafbfc;
         --bg-panel: #ffffff;
         --border-color: #e1e4e8;
         --text-main: #333333;
         --text-muted: #555555;
-        --color-gold: #d97706; /* 흰 배경에 잘 보이는 짙은 골드/오렌지 */
+        --color-gold: #d97706; 
         --color-blue: #007bff;
         --color-green: #2e8b57;
         --color-purple: #6f42c1;
@@ -23,13 +22,12 @@
         box-sizing: border-box;
     }
     
-    /* 공통 디자인 표준 적용 */
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
         background-color: var(--bg-main); 
         color: var(--text-main);
         margin: 0;
-        padding: 40px 20px;
+        padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -39,56 +37,52 @@
     
     .container {
         width: 100%;
-        max-width: 950px; /* 표와 그리드가 많아 조금 더 넓게 설정 */
+        max-width: 950px; 
+        margin: 0 auto;
         position: relative;
     }
     
-    /* 콤보박스 우측 상단 배치 (디자인 표준) */
+    /* 콤보박스 통일 디자인 */
     .lang-selector {
         display: flex;
         justify-content: flex-end;
         margin-bottom: 20px;
+        width: 100%;
     }
     
     .lang-selector select {
-    /* 우측 패딩을 36px로 늘려 화살표가 들어갈 넉넉한 공간 확보 */
-    padding: 8px 36px 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #d1d5da;
-    background-color: #ffffff;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    outline: none;
-    transition: border-color 0.2s ease;
-    
-    /* 브라우저 기본 콤보박스 화살표 숨기기 */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    
-    /* 커스텀 화살표(SVG)를 배경으로 삽입하고 우측 여백(12px) 지정 */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 14px;
-}
+        padding: 8px 36px 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
 
     .lang-selector select:hover, .lang-selector select:focus {
         border-color: #007bff;
     }
 
-    /* 헤더 영역 (디자인 표준) */
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 40px;
+        margin-top: 0; /* 여백 통일 */
         display: flex;
         flex-direction: column;
-        align-items: center; /* 추가: 내부 요소 중앙 정렬 */
+        align-items: center;
     }
 
     .header-wrapper h1 {
@@ -114,7 +108,6 @@
     .text-purple { color: var(--color-purple); }
     .text-red { color: var(--color-red); }
     
-    /* 패널(카드) 스타일 */
     .panel { 
         background-color: var(--bg-panel); 
         border-radius: 12px; 
@@ -137,7 +130,6 @@
         line-height: 1.5;
     }
     
-    /* Pet Unlock Order */
     .pet-grid { display: flex; gap: 10px; justify-content: space-between; align-items: stretch; margin-bottom: 20px; }
     .pet-card { flex: 1; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; padding: 12px 10px; display: flex; flex-direction: column; background: #fafbfc; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     .pet-card-header { font-weight: bold; font-size: 15px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border-color); color: #333; }
@@ -156,10 +148,8 @@
     
     .key-rule { background-color: #fff5f5; border: 1px solid #ffe3e3; color: var(--color-red); text-align: center; padding: 14px; font-weight: bold; border-radius: 8px; font-size: 15px; box-shadow: 0 2px 8px rgba(224, 49, 49, 0.05); }
     
-    /* Middle Section */
     .middle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     
-    /* Roles List */
     .roles-list { display: flex; flex-direction: column; gap: 10px; }
     .role-item { display: flex; align-items: center; font-size: 13px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
     .role-item:last-child { border: none; padding-bottom: 0; }
@@ -174,7 +164,6 @@
     .r-skill { flex: 1; line-height: 1.4; color: #444; }
     .r-skill strong { color: var(--color-blue); display: inline-flex; align-items: center; gap: 4px; margin-bottom: 2px; }
     
-    /* Priority Path */
     .priority-path { display: flex; gap: 6px; text-align: center; align-items: flex-start; margin-bottom: 20px; }
     .path-step { flex: 1; display: flex; flex-direction: column; align-items: center; }
     .p-num { background-color: #e6f0fa; color: var(--color-blue); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 8px; font-size: 14px; }
@@ -183,13 +172,11 @@
     .p-desc { font-size: 12px; color: #666; line-height: 1.4; word-break: keep-all; }
     .p-arrow { color: #adb5bd; font-size: 18px; margin-top: 30px; font-weight: bold; }
     
-    /* Team Roles Summary */
     .team-roles-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px; margin-top: 5px; }
     .tr-item { display: flex; gap: 10px; background-color: #f8fbff; padding: 12px; border-radius: 8px; border: 1px solid #e1e8f0; align-items: center; }
     .tr-item strong { display: block; margin-bottom: 4px; font-size: 13px; }
     .tr-item span { color: #555; line-height: 1.4; }
     
-    /* Bottom Grid */
     .bottom-grid { display: grid; grid-template-columns: 1fr 1.5fr 1.2fr 1.2fr; gap: 20px; }
     .list-item { font-size: 13px; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; color: #444; line-height: 1.5; }
     .list-num { background-color: var(--color-blue); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
@@ -208,7 +195,6 @@
     .pro-tip { display: flex; gap: 8px; font-size: 13px; margin-bottom: 12px; align-items: flex-start; line-height: 1.5; color: #444; }
     .pro-tip::before { content: '★'; color: var(--color-gold); font-weight: bold; font-size: 14px; }
     
-    /* Footer Grid */
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
     .purchases { display: flex; gap: 10px; justify-content: space-between; }
     .purchase-item { background-color: #f8fbff; padding: 12px 8px; border-radius: 8px; text-align: center; flex: 1; font-size: 12px; border: 1px solid #c4dffa; display: flex; flex-direction: column; align-items: center; color: #555; }
@@ -223,49 +209,27 @@
     
     .very-bottom { text-align: center; margin-top: 10px; font-size: 13px; font-weight: 600; color: #888; letter-spacing: 1px; }
 
-    /* 모바일 반응형 (디자인 표준) */
     @media (max-width: 900px) {
         .header-wrapper { margin-bottom: 30px; }
-        .bottom-grid {
-            grid-template-columns: 1fr 1fr;
-        }
-        .footer-grid {
-            grid-template-columns: 1fr;
-        }
+        .bottom-grid { grid-template-columns: 1fr 1fr; }
+        .footer-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
-        .lang-selector {
-            justify-content: flex-end;
-        }
-        .header-wrapper { margin-bottom: 30px; }
-        .header-wrapper h1 { 
-            font-size: 24px; 
-        }
-        .header-wrapper .subtitle { 
-            font-size: 14px; 
-        }
-        
+        .header-wrapper h1 { font-size: 24px; }
+        .header-wrapper .subtitle { font-size: 14px; }
         .pet-grid { flex-direction: column; gap: 15px; }
         .arrow { transform: rotate(90deg); margin: 5px 0; }
-        
         .middle-grid { grid-template-columns: 1fr; }
         .priority-path { flex-direction: column; align-items: center; gap: 10px; }
         .p-arrow { transform: rotate(90deg); margin: 0; }
         .path-step { width: 100%; max-width: 350px; padding-bottom: 10px; }
-        
         .role-item { flex-wrap: wrap; padding-bottom: 12px; }
         .r-name { width: auto; flex-grow: 1; margin-right: 5px; }
         .r-role { width: auto; }
-        .r-skill { 
-            flex-basis: 100%; 
-            margin-top: 8px; 
-            margin-left: 34px; 
-        }
-        
+        .r-skill { flex-basis: 100%; margin-top: 8px; margin-left: 34px; }
         .team-roles-summary { grid-template-columns: 1fr; }
         .bottom-grid { grid-template-columns: 1fr; }
-        
         .purchases { flex-wrap: wrap; }
         .purchase-item { min-width: 45%; flex: 1 1 45%; margin-bottom: 5px; }
     }
@@ -282,7 +246,7 @@
     </div>
 
     <div class="header-wrapper">
-        <h1 data-i18n="titleMain">🛡️펫 에이전트 가이드🛡️</h1>
+        <h1 data-i18n="titleMain">🛡️ 펫 에이전트 가이드</h1>
         <p class="subtitle" data-i18n="titleSub">🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾</p>
     </div>
 
@@ -547,10 +511,9 @@
 </div>
 
 <script>
-// 다국어 번역 데이터
 const translations = {
     ko: {
-        titleMain: "🛡️펫 에이전트 가이드🛡️", titleSub: "🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾",
+        titleMain: "🛡️ 펫 에이전트 가이드", titleSub: "🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾",
         sec1Title: "🐾 펫 해금 순서 및 성장 경로", sec1Desc: "펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.",
         p1Name: "① 센티넬", p1Role: "🌱 경제 / 채집", p1Desc: "1개 부대의 진행 중인 채집을 즉시 완료합니다.", p1Unlock: "📈 펫 #2 해금<br>Reach Lv.30",
         p2Name: "② 샤이닝", p2Role: "📦 유틸리티 / 지원", p2Desc: "정예 전사를 즉시 획득합니다.", p2Unlock: "📈 펫 #3 해금<br>Reach Lv.30",
@@ -602,7 +565,7 @@ const translations = {
         veryBottom: "536 State - FROM"
     },
     en: {
-        titleMain: "🛡️PET AGENT GUIDE🛡️", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
+        titleMain: "🛡️ PET AGENT GUIDE", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
         sec1Title: "🐾 Pet Unlock Order & Progression Path", sec1Desc: "Pets are released in a fixed order. Level each pet to Lv.30 to get a clue and unlock the next one.",
         p1Name: "① SENTINEL", p1Role: "🌱 Economy/Gather", p1Desc: "Instantly completes ongoing gathering for 1 troop.", p1Unlock: "📈 Unlock Pet #2<br>Reach Lv.30",
         p2Name: "② SHINING", p2Role: "📦 Utility/Support", p2Desc: "Instantly gains elite warriors.", p2Unlock: "📈 Unlock Pet #3<br>Reach Lv.30",
@@ -654,7 +617,7 @@ const translations = {
         veryBottom: "536 State - FROM"
     },
     vi: {
-        titleMain: "🛡️HƯỚNG DẪN PET AGENT🛡️", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
+        titleMain: "🛡️ HƯỚNG DẪN PET AGENT", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
         sec1Title: "🐾 Thứ tự mở khóa Pet & Con đường thăng tiến", sec1Desc: "Pet được ra mắt theo thứ tự. Nâng cấp mỗi pet lên Lv.30 để lấy manh mối và mở khóa pet tiếp theo.",
         p1Name: "① SENTINEL", p1Role: "🌱 Kinh tế / Thu thập", p1Desc: "Lập tức hoàn thành thu thập cho 1 đạo quân.", p1Unlock: "📈 Mở khóa Pet #2<br>Đạt Lv.30",
         p2Name: "② SHINING", p2Role: "📦 Tiện ích / Hỗ trợ", p2Desc: "Lập tức nhận chiến binh tinh nhuệ.", p2Unlock: "📈 Mở khóa Pet #3<br>Đạt Lv.30",
@@ -707,12 +670,10 @@ const translations = {
     }
 };
 
-// 언어 변경 함수
 function changeLanguage() {
     const langSelect = document.getElementById("langSelect");
     const lang = langSelect.value;
     
-    // 💡 선택한 언어를 로컬 스토리지에 'lang' 키로 저장
     localStorage.setItem('lang', lang);
 
     const elements = document.querySelectorAll("[data-i18n]");
@@ -725,11 +686,10 @@ function changeLanguage() {
     });
 }
 
-// 💡 초기 로드 시 로컬 스토리지 확인 후 언어 적용 ('ko'를 기본값으로 설정)
 window.onload = function() {
     const savedLang = localStorage.getItem('lang') || 'ko';
     document.getElementById("langSelect").value = savedLang;
-    changeLanguage(); // 저장된 언어로 번역 적용
+    changeLanguage(); 
 };
 </script>
 </body>
