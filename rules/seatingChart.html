@@ -11,7 +11,7 @@
         background-color: #fafbfc; 
         color: #333;
         margin: 0;
-        padding: 40px 20px;
+        padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -22,55 +22,51 @@
     .container {
         width: 100%;
         max-width: 800px; /* 이미지 표시를 위해 너비는 800px로 유지 */
+        margin: 0 auto;
         position: relative;
     }
 
-    /* 콤보박스 우측 상단 배치 (디자인 표준) */
+    /* 콤보박스 통일 디자인 */
     .lang-selector {
         display: flex;
         justify-content: flex-end;
         margin-bottom: 20px;
+        width: 100%;
     }
     
     .lang-selector select {
-    /* 우측 패딩을 36px로 늘려 화살표가 들어갈 넉넉한 공간 확보 */
-    padding: 8px 36px 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #d1d5da;
-    background-color: #ffffff;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    outline: none;
-    transition: border-color 0.2s ease;
-    
-    /* 브라우저 기본 콤보박스 화살표 숨기기 */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    
-    /* 커스텀 화살표(SVG)를 배경으로 삽입하고 우측 여백(12px) 지정 */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 14px;
-}
+        padding: 8px 36px 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
 
     .lang-selector select:hover, .lang-selector select:focus {
         border-color: #007bff;
     }
 
-    /* 헤더 영역 (디자인 표준) */
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 40px;
+        margin-top: 0; /* 여백 통일 */
         display: flex;
         flex-direction: column;
-        align-items: center; /* 추가: 내부 요소 중앙 정렬 */
+        align-items: center;
     }
 
     h1 {
@@ -89,13 +85,12 @@
         letter-spacing: 0.5px;
     }
     
-    /* 부제목(공지) 영역 빨간색 스타일 적용 */
     .subtitle {
         display: inline-block;
         font-size: 16px;
-        color: #d93025; /* 빨간색 텍스트 */
+        color: #d93025; 
         font-weight: 700;
-        background-color: #fce8e6; /* 연한 빨간색 배경 */
+        background-color: #fce8e6; 
         padding: 8px 16px;
         border-radius: 8px;
         margin: 10px 0 0 0;
@@ -109,7 +104,6 @@
         margin: 10px 0 0 0;
     }
 
-    /* 자리 배치도 특화 스타일 */
     .button-container {
         text-align: center;
         margin-bottom: 30px;
@@ -143,7 +137,6 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
     }
 
-    /* 모바일 반응형 (디자인 표준) */
     @media (max-width: 480px) {
         .header-wrapper { margin-bottom: 30px; }
         h1 { font-size: 24px; }
@@ -168,7 +161,8 @@
         <h1 id="page-title">🗺️ [FROM] 자리 배치도</h1>
         <p class="version-text" id="version-text"></p>
         <p class="subtitle" id="subtitle-text"></p>
-        </div>
+        <p class="urgent-text" id="urgent-text"></p> 
+    </div>
     
     <div class="button-container">
         <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" id="download-btn" class="download-btn">
@@ -180,82 +174,79 @@
 </div>
 
 <script>
-    // 💡 날짜를 YYYYMMDD 형식으로 입력하세요
     const sysdate = "20260601";
 
-    // 헤더 및 버튼 다국어 데이터 (구조 통일)
     const translations = {
         ko: {
             title: "🗺️ [FROM] 자리 배치도",
-            subtitle: "🚨 자리 배치는 시즌 3 (2026년 6월 8일)부터 시작됩니다",
+            subtitle: " ", 
+            urgentNotice: "🚨 자리 배치는 시즌 3 (2026년 6월 8일)부터 시작됩니다",
             support: "PC와 모바일 화면을 모두 지원합니다",
             saveBtn: "💾 이미지 저장"
         },
         en: {
             title: "🗺️ [FROM] Seating Chart",
-            subtitle: "🚨 Seating arrangements will begin in Season 3 (June 8, 2026)",
+            subtitle: " ", 
+            urgentNotice: "🚨 Seating arrangements will begin in Season 3 (June 8, 2026)",
             support: "All screens are supported on PC and mobile",
             saveBtn: "💾 Save Image"
         },
         vi: {
             title: "🗺️ [FROM] Sơ đồ chỗ ngồi",
-            subtitle: "🚨 Việc sắp xếp chỗ ngồi sẽ bắt đầu trong Mùa 3 (Ngày 8 tháng 6 năm 2026)",
+            subtitle: " ", 
+            urgentNotice: "🚨 Việc sắp xếp chỗ ngồi sẽ bắt đầu trong Mùa 3 (Ngày 8 tháng 6 năm 2026)",
             support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động",
             saveBtn: "💾 Lưu hình ảnh"
         }
     };
 
-    // 언어에 맞춘 버전(업데이트) 날짜 텍스트 반환
     function getFormattedVersionText(dateStr, lang) {
         if (!dateStr || dateStr.length !== 8) return "";
-
         const year = dateStr.substring(0, 4);
         const monthNum = parseInt(dateStr.substring(4, 6), 10);
         const dayNum = parseInt(dateStr.substring(6, 8), 10);
 
-        if (lang === 'ko') {
-            return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
-        } else if (lang === 'en') {
+        if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        else if (lang === 'en') {
             const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
-        } else if (lang === 'vi') {
-            return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
-        }
+        } else if (lang === 'vi') return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
         return "";
     }
 
-    // 화면 텍스트 렌더링 함수
     function applyLanguage(lang) {
-        // 헤더 영역 렌더링
         document.getElementById('page-title').textContent = translations[lang].title;
         document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
-        document.getElementById('subtitle-text').textContent = translations[lang].subtitle;
         
-        // 💡 안전 장치 추가: HTML에서 support-text가 주석 처리되어 있을 때 에러 방지
-        const supportEl = document.getElementById('support-text');
-        if (supportEl) {
-            supportEl.textContent = translations[lang].support;
+        const subtitleElement = document.getElementById('subtitle-text');
+        const subtitleText = translations[lang].subtitle;
+        if (!subtitleText || subtitleText.trim() === "") {
+            subtitleElement.style.display = "none";
+        } else {
+            subtitleElement.style.display = "inline-block";
+            subtitleElement.textContent = subtitleText;
         }
+
+        document.getElementById('urgent-text').textContent = translations[lang].urgentNotice;
         
-        // 버튼 렌더링
+        const supportEl = document.getElementById('support-text');
+        if (supportEl) supportEl.textContent = translations[lang].support;
+        
         document.getElementById('download-btn').textContent = translations[lang].saveBtn;
     }
 
     const langSelect = document.getElementById('langSelect');
 
-    // 💡 콤보박스 변경 시 로컬 스토리지에 'lang'으로 저장 후 렌더링 (공통)
     langSelect.addEventListener('change', function(e) {
         const selectedLang = e.target.value;
         localStorage.setItem('lang', selectedLang);
         applyLanguage(selectedLang);
     });
 
-    // 💡 초기 로드 시 'lang' 키로 확인 및 적용 ('ko' 기본값)
     const savedLang = localStorage.getItem('lang') || 'ko';
     langSelect.value = savedLang;
     applyLanguage(savedLang);
 
-    // 다운로드 버튼의 파일명(download 속성)을 sysdate에 맞춰 동적 할당
     document.getElementById('download-btn').setAttribute("download", `SeatingChart_${sysdate}.png`);
 
 </script>
