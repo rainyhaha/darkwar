@@ -3,66 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[FROM] Pet Agent Guide</title>
+<title>Pet Agent Guide</title>
 <style>
+    /* 라이트 테마 색상 변수 설정 */
     :root {
-        --bg-main: #050a15;
-        --bg-panel: #0b1528;
-        --border-color: #1a3256;
-        --text-main: #ffffff;
-        --text-muted: #aaaaaa;
-        --color-gold: #FFD700; 
-        --color-blue: #4ebaff;
-        --color-green: #5bc236;
-        --color-purple: #c074ff;
-        --color-red: #ff5555;
+        --bg-main: #fafbfc;
+        --bg-panel: #ffffff;
+        --border-color: #e1e4e8;
+        --text-main: #333333;
+        --text-muted: #555555;
+        --color-gold: #d97706; /* 흰 배경에 잘 보이는 짙은 골드/오렌지 */
+        --color-blue: #007bff;
+        --color-green: #2e8b57;
+        --color-purple: #6f42c1;
+        --color-red: #d93025;
     }
     
     * {
         box-sizing: border-box;
     }
     
-    body { 
+    /* 공통 디자인 표준 적용 */
+    body {
+        font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
         background-color: var(--bg-main); 
-        color: var(--text-main); 
-        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; 
-        margin: 0; 
-        padding: 10px; 
-        font-size: 14px; 
-    }
-    
-    .container { 
-        position: relative;
-        max-width: 1100px; 
-        margin: auto; 
-        background-color: #0a1122; 
-        border: 2px solid var(--border-color); 
-        border-radius: 12px; 
-        padding: 20px; 
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-    
-    /* 언어 선택 콤보박스 스타일 */
-    .lang-selector {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: #1a3256;
-        color: white;
-        border: 1px solid var(--color-gold);
-        padding: 6px 12px;
-        border-radius: 6px;
+        color: var(--text-main);
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
         font-size: 14px;
-        font-weight: bold;
-        cursor: pointer;
-        outline: none;
-        z-index: 100;
-    }
-    .lang-selector:focus {
-        border-color: var(--color-blue);
     }
     
-    h1, h2, h3, h4 { margin: 0; }
+    .container {
+        width: 100%;
+        max-width: 950px; /* 표와 그리드가 많아 조금 더 넓게 설정 */
+        position: relative;
+    }
+    
+    /* 콤보박스 우측 상단 배치 (디자인 표준) */
+    .lang-selector {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+    
+    .lang-selector select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+
+    .lang-selector select:hover, .lang-selector select:focus {
+        border-color: #007bff;
+    }
+
+    /* 헤더 영역 (디자인 표준) */
+    .header-wrapper {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .header-wrapper h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 6px 0;
+        color: #1a1a1a;
+        letter-spacing: -0.5px;
+    }
+
+    .header-wrapper .subtitle {
+        font-size: 16px;
+        color: #333333; 
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    h2, h3, h4 { margin: 0; }
     
     .text-gold { color: var(--color-gold); }
     .text-blue { color: var(--color-blue); }
@@ -70,128 +98,116 @@
     .text-purple { color: var(--color-purple); }
     .text-red { color: var(--color-red); }
     
-    /* Header */
-    .header { 
-        text-align: center; 
-        border-bottom: 2px solid var(--border-color); 
-        padding-bottom: 15px; 
+    /* 패널(카드) 스타일 */
+    .panel { 
+        background-color: var(--bg-panel); 
+        border-radius: 12px; 
+        padding: 24px; 
         margin-bottom: 20px; 
-        width: 100%; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
     }
-    .header h1 { 
-        font-size: 38px; 
-        color: var(--color-gold); 
-        font-weight: 900; 
-        letter-spacing: 1px; 
-        text-shadow: 3px 3px 6px #000; 
-        -webkit-text-stroke: 1.5px #b39700; 
-        margin-bottom: 5px; 
-        word-break: keep-all; 
+    .section-title, .panel-title { 
+        color: #1a1a1a; 
+        font-size: 18px; 
+        font-weight: 700; 
+        margin-bottom: 16px; 
+        border-bottom: 1px solid #f0f0f0; 
+        padding-bottom: 10px; 
     }
-    .header .subtitle { 
-        font-size: 15px; 
-        color: var(--color-blue); 
-        font-weight: 900; 
-        letter-spacing: 0.5px; 
-        text-shadow: 1px 1px 2px #000; 
-        word-break: keep-all;
+    .desc-text { 
+        font-size: 14px; 
+        color: var(--text-muted); 
+        margin-bottom: 20px; 
+        line-height: 1.5;
     }
-    
-    /* Panel */
-    .panel { border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; background-color: var(--bg-panel); margin-bottom: 15px; }
-    .section-title { text-align: center; color: var(--color-blue); font-size: 18px; font-weight: bold; margin-bottom: 10px; }
-    .desc-text { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
     
     /* Pet Unlock Order */
-    .pet-grid { display: flex; gap: 8px; justify-content: space-between; align-items: stretch; }
-    .pet-card { flex: 1; border: 2px solid var(--border-color); border-radius: 8px; text-align: center; padding: 10px; display: flex; flex-direction: column; background: #08101d; }
-    .pet-card-header { font-weight: bold; font-size: 16px; margin-bottom: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+    .pet-grid { display: flex; gap: 10px; justify-content: space-between; align-items: stretch; margin-bottom: 20px; }
+    .pet-card { flex: 1; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; padding: 12px 10px; display: flex; flex-direction: column; background: #fafbfc; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .pet-card-header { font-weight: bold; font-size: 15px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border-color); color: #333; }
     
-    .pet-card.sentinel { border-color: var(--color-green); } .pet-card.sentinel .pet-card-header { color: var(--color-green); }
-    .pet-card.shining { border-color: var(--color-blue); } .pet-card.shining .pet-card-header { color: var(--color-blue); }
-    .pet-card.zeus { border-color: var(--color-blue); } .pet-card.zeus .pet-card-header { color: var(--color-blue); }
-    .pet-card.specter { border-color: var(--color-purple); } .pet-card.specter .pet-card-header { color: var(--color-purple); }
-    .pet-card.frost { border-color: var(--color-purple); } .pet-card.frost .pet-card-header { color: var(--color-purple); }
-    .pet-card.titan { border-color: var(--color-gold); } .pet-card.titan .pet-card-header { color: var(--color-gold); }
+    .pet-card.sentinel { border-top: 4px solid var(--color-green); } 
+    .pet-card.shining { border-top: 4px solid var(--color-blue); } 
+    .pet-card.zeus { border-top: 4px solid var(--color-blue); } 
+    .pet-card.specter { border-top: 4px solid var(--color-purple); } 
+    .pet-card.frost { border-top: 4px solid var(--color-purple); } 
+    .pet-card.titan { border-top: 4px solid var(--color-gold); } 
     
-    .pet-role { font-size: 12px; font-weight: bold; margin: 8px 0; min-height: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; gap: 4px; }
-    .pet-desc { font-size: 11px; color: #ccc; flex-grow: 1; margin-bottom: 10px; line-height: 1.4; }
-    .pet-unlock { background-color: var(--border-color); font-size: 11px; padding: 6px; border-radius: 4px; color: #fff; }
-    .arrow { color: var(--color-blue); font-size: 18px; display: flex; align-items: center; justify-content: center; margin: 0 -4px; z-index: 10; }
+    .pet-role { font-size: 12px; font-weight: bold; margin: 8px 0; min-height: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.3; gap: 4px; }
+    .pet-desc { font-size: 11px; color: #555; flex-grow: 1; margin-bottom: 12px; line-height: 1.4; word-break: keep-all; }
+    .pet-unlock { background-color: #e6f0fa; font-size: 11px; padding: 6px; border-radius: 6px; color: #0056b3; font-weight: 600; }
+    .arrow { color: #adb5bd; font-size: 18px; display: flex; align-items: center; justify-content: center; margin: 0 -2px; }
     
-    .key-rule { background-color: #1a1505; border: 1px solid var(--color-gold); color: var(--color-gold); text-align: center; padding: 12px; font-weight: bold; margin-top: 15px; border-radius: 5px; font-size: 14px; }
+    .key-rule { background-color: #fff5f5; border: 1px solid #ffe3e3; color: var(--color-red); text-align: center; padding: 14px; font-weight: bold; border-radius: 8px; font-size: 15px; box-shadow: 0 2px 8px rgba(224, 49, 49, 0.05); }
     
     /* Middle Section */
-    .middle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .middle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     
     /* Roles List */
-    .roles-list { display: flex; flex-direction: column; gap: 8px; }
-    .role-item { display: flex; align-items: center; font-size: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .roles-list { display: flex; flex-direction: column; gap: 10px; }
+    .role-item { display: flex; align-items: center; font-size: 13px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
     .role-item:last-child { border: none; padding-bottom: 0; }
-    .r-num { background-color: var(--border-color); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px; font-weight: bold; flex-shrink: 0; }
-    .r-name { width: 80px; font-weight: bold; font-size: 13px; flex-shrink: 0; }
-    .r-tier { width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 8px; color: #000; flex-shrink: 0; }
+    .r-num { background-color: #f0f2f5; color: #555; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold; flex-shrink: 0; font-size: 12px; }
+    .r-name { width: 80px; font-weight: bold; font-size: 14px; flex-shrink: 0; }
+    .r-tier { width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; color: #fff; flex-shrink: 0; font-size: 12px; }
     .r-tier.c { background-color: var(--color-green); }
     .r-tier.b { background-color: var(--color-blue); }
     .r-tier.a { background-color: var(--color-purple); }
     .r-tier.s { background-color: var(--color-gold); }
     .r-role { width: 85px; color: var(--text-muted); line-height: 1.2; font-weight: bold; flex-shrink: 0; }
-    .r-skill { flex: 1; line-height: 1.4; }
+    .r-skill { flex: 1; line-height: 1.4; color: #444; }
     .r-skill strong { color: var(--color-blue); display: inline-flex; align-items: center; gap: 4px; margin-bottom: 2px; }
     
     /* Priority Path */
-    .priority-path { display: flex; gap: 5px; text-align: center; align-items: flex-start; margin-bottom: 15px; }
+    .priority-path { display: flex; gap: 6px; text-align: center; align-items: flex-start; margin-bottom: 20px; }
     .path-step { flex: 1; display: flex; flex-direction: column; align-items: center; }
-    .p-num { background-color: var(--border-color); color: var(--color-gold); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid var(--color-gold); margin-bottom: 8px; font-size: 14px; }
-    .p-icon { font-size: 20px; margin-bottom: 6px; }
-    .p-title { font-size: 12px; font-weight: bold; color: var(--color-gold); margin-bottom: 6px; min-height: 30px; line-height: 1.2; }
-    .p-desc { font-size: 11px; color: #ccc; line-height: 1.3; }
-    .p-arrow { color: var(--color-blue); font-size: 16px; margin-top: 25px; font-weight: bold; }
+    .p-num { background-color: #e6f0fa; color: var(--color-blue); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 8px; font-size: 14px; }
+    .p-icon { font-size: 22px; margin-bottom: 6px; }
+    .p-title { font-size: 13px; font-weight: bold; color: #333; margin-bottom: 6px; min-height: 32px; line-height: 1.3; }
+    .p-desc { font-size: 12px; color: #666; line-height: 1.4; word-break: keep-all; }
+    .p-arrow { color: #adb5bd; font-size: 18px; margin-top: 30px; font-weight: bold; }
     
     /* Team Roles Summary */
-    .team-roles-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 15px; font-size: 11px; }
-    .tr-item { display: flex; gap: 8px; }
-    .tr-item strong { display: block; margin-bottom: 2px; font-size: 12px; }
+    .team-roles-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px; margin-top: 5px; }
+    .tr-item { display: flex; gap: 10px; background-color: #f8fbff; padding: 12px; border-radius: 8px; border: 1px solid #e1e8f0; align-items: center; }
+    .tr-item strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .tr-item span { color: #555; line-height: 1.4; }
     
     /* Bottom Grid */
-    .bottom-grid { display: grid; grid-template-columns: 1fr 1.5fr 1.2fr 1.2fr; gap: 15px; }
-    .bottom-grid .panel-title { text-align: left; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 12px; font-size: 15px; font-weight: bold; color: var(--color-blue); display: flex; align-items: center; gap: 6px; }
+    .bottom-grid { display: grid; grid-template-columns: 1fr 1.5fr 1.2fr 1.2fr; gap: 20px; }
+    .list-item { font-size: 13px; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; color: #444; line-height: 1.5; }
+    .list-num { background-color: var(--color-blue); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
     
-    .list-item { font-size: 12px; margin-bottom: 10px; display: flex; gap: 8px; align-items: flex-start; }
-    .list-num { background-color: var(--color-blue); color: #000; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+    .res-item { font-size: 12px; margin-bottom: 12px; display: flex; gap: 8px; align-items: flex-start; }
+    .res-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+    .res-content { flex: 1; color: #555; line-height: 1.4; }
+    .res-item strong { color: #333; font-size: 13px; display: block; margin-bottom: 3px; }
     
-    .res-item { font-size: 11px; margin-bottom: 10px; display: flex; gap: 6px; align-items: flex-start; }
-    .res-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
-    .res-content { flex: 1; }
-    .res-item strong { color: var(--color-gold); font-size: 12px; display: block; margin-bottom: 2px; }
-    
-    .skill-guide-section { font-size: 12px; margin-bottom: 15px; }
-    .skill-guide-section h4 { color: var(--color-red); margin-bottom: 6px; font-size: 13px; border-bottom: 1px solid #333; padding-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+    .skill-guide-section { font-size: 13px; margin-bottom: 18px; color: #444; }
+    .skill-guide-section h4 { color: var(--color-red); margin-bottom: 8px; font-size: 14px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; display: flex; align-items: center; gap: 6px; }
     .skill-guide-section.dev h4 { color: var(--color-green); }
-    .skill-guide-section ul { padding-left: 15px; margin: 0; color: #ddd; }
-    .skill-guide-section li { margin-bottom: 4px; }
+    .skill-guide-section ul { padding-left: 20px; margin: 0; }
+    .skill-guide-section li { margin-bottom: 6px; line-height: 1.5; }
     
-    .pro-tip { display: flex; gap: 6px; font-size: 12px; margin-bottom: 10px; align-items: flex-start; line-height: 1.4; }
-    .pro-tip::before { content: '★'; color: var(--color-gold); font-weight: bold; }
+    .pro-tip { display: flex; gap: 8px; font-size: 13px; margin-bottom: 12px; align-items: flex-start; line-height: 1.5; color: #444; }
+    .pro-tip::before { content: '★'; color: var(--color-gold); font-weight: bold; font-size: 14px; }
     
     /* Footer Grid */
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-    .purchases { display: flex; gap: 8px; justify-content: space-between; }
-    .purchase-item { background-color: #111d35; padding: 10px 5px; border-radius: 6px; text-align: center; flex: 1; font-size: 11px; border: 1px solid #23406a; display: flex; flex-direction: column; align-items: center; }
-    .purchase-icon { font-size: 18px; margin-bottom: 4px; }
-    .purchase-item strong { display: block; color: var(--color-gold); font-size: 12px; margin-bottom: 6px; height: 28px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+    .purchases { display: flex; gap: 10px; justify-content: space-between; }
+    .purchase-item { background-color: #f8fbff; padding: 12px 8px; border-radius: 8px; text-align: center; flex: 1; font-size: 12px; border: 1px solid #c4dffa; display: flex; flex-direction: column; align-items: center; color: #555; }
+    .purchase-icon { font-size: 20px; margin-bottom: 6px; }
+    .purchase-item strong { display: block; color: var(--color-blue); font-size: 13px; margin-bottom: 8px; height: 32px; line-height: 1.2; word-break: keep-all; }
     
-    .remember-panel { border-color: var(--color-gold); background-color: #1a1505; }
-    .remember-panel .panel-title { color: var(--color-gold); border-bottom-color: rgba(255, 215, 0, 0.3); display: flex; align-items: center; gap: 6px; }
-    .remember-list { list-style: none; padding: 0; margin: 0; font-size: 13px; }
-    .remember-list li { margin-bottom: 6px; display: flex; gap: 6px; }
+    .remember-panel { border-color: var(--color-gold); background-color: #fffdf5; border: 1px solid #fce8b2; }
+    .remember-panel .panel-title { color: var(--color-gold); border-bottom-color: #fce8b2; display: flex; align-items: center; gap: 6px; }
+    .remember-list { list-style: none; padding: 0; margin: 0; font-size: 14px; color: #444; }
+    .remember-list li { margin-bottom: 10px; display: flex; gap: 8px; line-height: 1.5; }
     .remember-list li::before { content: '✔'; color: var(--color-green); font-weight: bold; }
     
-    .very-bottom { text-align: center; margin-top: 10px; font-size: 18px; font-weight: bold; color: var(--color-gold); letter-spacing: 2px; text-transform: uppercase; }
+    .very-bottom { text-align: center; margin-top: 10px; font-size: 13px; font-weight: 600; color: #888; letter-spacing: 1px; }
 
-    /* ========================================================= 
-       모바일 반응형 레이아웃 (Media Queries) 
-       ========================================================= */
+    /* 모바일 반응형 (디자인 표준) */
     @media (max-width: 900px) {
         .bottom-grid {
             grid-template-columns: 1fr 1fr;
@@ -203,19 +219,13 @@
 
     @media (max-width: 768px) {
         .lang-selector {
-            top: 10px;
-            right: 10px;
-            padding: 4px 8px;
-            font-size: 12px;
+            justify-content: flex-end;
         }
-        /* 잘림 최소화를 위해 모바일용 폰트 사이즈 살짝 조정 */
-        .header h1 { 
-            font-size: clamp(18px, 5.5vw, 24px); 
-            -webkit-text-stroke: 1px #b39700; 
-            margin-top: 35px; 
+        .header-wrapper h1 { 
+            font-size: 24px; 
         }
-        .header .subtitle { 
-            font-size: clamp(10px, 2.8vw, 13px); 
+        .header-wrapper .subtitle { 
+            font-size: 14px; 
         }
         
         .pet-grid { flex-direction: column; gap: 15px; }
@@ -232,34 +242,34 @@
         .r-skill { 
             flex-basis: 100%; 
             margin-top: 8px; 
-            margin-left: 30px; 
+            margin-left: 34px; 
         }
         
         .team-roles-summary { grid-template-columns: 1fr; }
-        
         .bottom-grid { grid-template-columns: 1fr; }
         
         .purchases { flex-wrap: wrap; }
         .purchase-item { min-width: 45%; flex: 1 1 45%; margin-bottom: 5px; }
     }
 </style>
-<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=23601"></script>
 </head>
 <body>
 <div class="container">
-    <select class="lang-selector" id="langSelect" onchange="changeLanguage()">
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="en">🇺🇸 English</option>
-        <option value="vi">🇻🇳 Tiếng Việt</option>
-    </select>
+    <div class="lang-selector">
+        <select id="langSelect" onchange="changeLanguage()">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+        </select>
+    </div>
 
-    <div class="header">
-        <h1 data-i18n="titleMain">🛡️ 펫 에이전트 가이드 🛡️</h1>
-        <div class="subtitle" data-i18n="titleSub">🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾</div>
+    <div class="header-wrapper">
+        <h1 data-i18n="titleMain">🛡️펫 에이전트 가이드🛡️</h1>
+        <p class="subtitle" data-i18n="titleSub">🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾</p>
     </div>
 
     <div class="panel">
-        <div class="section-title" data-i18n="sec1Title">🐾 펫 해금 순서 및 성장 경로 🐾</div>
+        <div class="section-title" data-i18n="sec1Title">🐾 펫 해금 순서 및 성장 경로</div>
         <div class="desc-text" data-i18n="sec1Desc">펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.</div>
         
         <div class="pet-grid">
@@ -313,7 +323,7 @@
 
     <div class="middle-grid">
         <div class="panel">
-            <div class="section-title" data-i18n="mid1Title">📋 모든 펫 - 역할 및 스킬 개요</div>
+            <div class="panel-title" data-i18n="mid1Title">📋 모든 펫 - 역할 및 스킬 개요</div>
             <div class="roles-list">
                 <div class="role-item">
                     <div class="r-num">1</div><div class="r-name text-green" data-i18n="r1Name">🐶 센티넬</div><div class="r-tier c">C</div>
@@ -349,7 +359,7 @@
         </div>
 
         <div class="panel">
-            <div class="section-title" data-i18n="mid2Title">🚀 업그레이드 및 우선순위 경로</div>
+            <div class="panel-title" data-i18n="mid2Title">🚀 업그레이드 및 우선순위 경로</div>
             <div class="priority-path">
                 <div class="path-step">
                     <div class="p-num">1</div>
@@ -357,28 +367,28 @@
                     <div class="p-title" data-i18n="path1Title">모든 펫 우선 해금</div>
                     <div class="p-desc" data-i18n="path1Desc">다음 펫 해금을 위해 각 펫 30레벨 달성 (1→2→3→4→5→6)</div>
                 </div>
-                <div class="p-arrow text-gold">▶</div>
+                <div class="p-arrow">▶</div>
                 <div class="path-step">
                     <div class="p-num">2</div>
                     <div class="p-icon">🔺</div>
                     <div class="p-title" data-i18n="path2Title">핵심 전투력 구축</div>
                     <div class="p-desc" data-i18n="path2Desc">해금 완료 후 프로스트(딜)와 타이탄(탱)에 집중해 전투력 극대화</div>
                 </div>
-                <div class="p-arrow text-gold">▶</div>
+                <div class="p-arrow">▶</div>
                 <div class="path-step">
                     <div class="p-num">3</div>
                     <div class="p-icon">📦</div>
                     <div class="p-title" data-i18n="path3Title">유틸리티 펫 투자</div>
                     <div class="p-desc" data-i18n="path3Desc">장기 성장을 위해 스펙터(템)와 센티넬(채집) 육성</div>
                 </div>
-                <div class="p-arrow text-blue">▶</div>
+                <div class="p-arrow">▶</div>
                 <div class="path-step">
                     <div class="p-num">4</div>
                     <div class="p-icon">👥</div>
                     <div class="p-title" data-i18n="path4Title">벤치 펫은 상황별</div>
                     <div class="p-desc" data-i18n="path4Desc">샤이닝과 제우스는 초반용으로 우선순위가 낮음, 필요시 사용</div>
                 </div>
-                <div class="p-arrow text-green">▶</div>
+                <div class="p-arrow">▶</div>
                 <div class="path-step">
                     <div class="p-num">5</div>
                     <div class="p-icon">✅</div>
@@ -387,22 +397,22 @@
                 </div>
             </div>
             
-            <div class="section-title" style="font-size: 14px; margin-top: 15px; border-top: 1px solid #1a3256; padding-top: 15px;" data-i18n="trTitle">📊 팀 역할 요약</div>
+            <div class="panel-title" style="margin-top: 25px;" data-i18n="trTitle">📊 팀 역할 요약</div>
             <div class="team-roles-summary">
                 <div class="tr-item">
-                    <span style="font-size:18px">🛡️</span>
+                    <span style="font-size:22px">🛡️</span>
                     <div><strong class="text-gold" data-i18n="tr1Name">탱커 / 방어 (TANK / DEFENSE)</strong><span data-i18n="tr1Desc">팀을 보호하고 피해를 흡수합니다.</span></div>
                 </div>
                 <div class="tr-item">
-                    <span style="font-size:18px">⚔️</span>
+                    <span style="font-size:22px">⚔️</span>
                     <div><strong class="text-purple" data-i18n="tr2Name">데미지 딜러 (DAMAGE DEALER)</strong><span data-i18n="tr2Desc">강력한 피해를 입히고 전투에서 승리합니다.</span></div>
                 </div>
                 <div class="tr-item">
-                    <span style="font-size:18px">🛠️</span>
+                    <span style="font-size:22px">🛠️</span>
                     <div><strong class="text-blue" data-i18n="tr3Name">유틸리티 / 지원 (UTILITY / SUPPORT)</strong><span data-i18n="tr3Desc">아이템, 버프, 부대 부스트를 제공합니다.</span></div>
                 </div>
                 <div class="tr-item">
-                    <span style="font-size:18px">🌱</span>
+                    <span style="font-size:22px">🌱</span>
                     <div><strong class="text-green" data-i18n="tr4Name">경제 / 발전 (ECONOMY / DEVELOPMENT)</strong><span data-i18n="tr4Desc">자원 및 계정 성장을 가속합니다.</span></div>
                 </div>
             </div>
@@ -522,8 +532,8 @@
 // 다국어 번역 데이터
 const translations = {
     ko: {
-        titleMain: "🛡️ 펫 에이전트 가이드 🛡️", titleSub: "🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾",
-        sec1Title: "🐾 펫 해금 순서 및 성장 경로 🐾", sec1Desc: "펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.",
+        titleMain: "🛡️펫 에이전트 가이드🛡️", titleSub: "🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾",
+        sec1Title: "🐾 펫 해금 순서 및 성장 경로", sec1Desc: "펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.",
         p1Name: "① 센티넬", p1Role: "🌱 경제 / 채집", p1Desc: "1개 부대의 진행 중인 채집을 즉시 완료합니다.", p1Unlock: "📈 펫 #2 해금<br>Reach Lv.30",
         p2Name: "② 샤이닝", p2Role: "📦 유틸리티 / 지원", p2Desc: "정예 전사를 즉시 획득합니다.", p2Unlock: "📈 펫 #3 해금<br>Reach Lv.30",
         p3Name: "③ 제우스", p3Role: "🥫 유틸리티 / 지원", p3Desc: "고급 전술 식량을 즉시 획득합니다.", p3Unlock: "📈 펫 #4 해금<br>Reach Lv.30",
@@ -574,8 +584,8 @@ const translations = {
         veryBottom: "536 State - FROM"
     },
     en: {
-        titleMain: "🛡️ PET AGENT GUIDE 🛡️", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
-        sec1Title: "🐾 Pet Unlock Order & Progression Path 🐾", sec1Desc: "Pets are released in a fixed order. Level each pet to Lv.30 to get a clue and unlock the next one.",
+        titleMain: "🛡️PET AGENT GUIDE🛡️", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
+        sec1Title: "🐾 Pet Unlock Order & Progression Path", sec1Desc: "Pets are released in a fixed order. Level each pet to Lv.30 to get a clue and unlock the next one.",
         p1Name: "① SENTINEL", p1Role: "🌱 Economy/Gather", p1Desc: "Instantly completes ongoing gathering for 1 troop.", p1Unlock: "📈 Unlock Pet #2<br>Reach Lv.30",
         p2Name: "② SHINING", p2Role: "📦 Utility/Support", p2Desc: "Instantly gains elite warriors.", p2Unlock: "📈 Unlock Pet #3<br>Reach Lv.30",
         p3Name: "③ ZEUS", p3Role: "🥫 Utility/Support", p3Desc: "Instantly receives Advanced Tactical Rations.", p3Unlock: "📈 Unlock Pet #4<br>Reach Lv.30",
@@ -626,8 +636,8 @@ const translations = {
         veryBottom: "536 State - FROM"
     },
     vi: {
-        titleMain: "🛡️ HƯỚNG DẪN PET AGENT 🛡️", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
-        sec1Title: "🐾 Thứ tự mở khóa Pet & Con đường thăng tiến 🐾", sec1Desc: "Pet được ra mắt theo thứ tự. Nâng cấp mỗi pet lên Lv.30 để lấy manh mối và mở khóa pet tiếp theo.",
+        titleMain: "🛡️HƯỚNG DẪN PET AGENT🛡️", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
+        sec1Title: "🐾 Thứ tự mở khóa Pet & Con đường thăng tiến", sec1Desc: "Pet được ra mắt theo thứ tự. Nâng cấp mỗi pet lên Lv.30 để lấy manh mối và mở khóa pet tiếp theo.",
         p1Name: "① SENTINEL", p1Role: "🌱 Kinh tế / Thu thập", p1Desc: "Lập tức hoàn thành thu thập cho 1 đạo quân.", p1Unlock: "📈 Mở khóa Pet #2<br>Đạt Lv.30",
         p2Name: "② SHINING", p2Role: "📦 Tiện ích / Hỗ trợ", p2Desc: "Lập tức nhận chiến binh tinh nhuệ.", p2Unlock: "📈 Mở khóa Pet #3<br>Đạt Lv.30",
         p3Name: "③ ZEUS", p3Role: "🥫 Tiện ích / Hỗ trợ", p3Desc: "Lập tức nhận Khẩu phần chiến thuật cao cấp.", p3Unlock: "📈 Mở khóa Pet #4<br>Đạt Lv.30",
