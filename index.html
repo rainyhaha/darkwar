@@ -7,7 +7,6 @@
 <style>
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
-        /* 회색빛이 돌던 배경을 아주 밝고 화사한 화이트/아이보리 톤으로 변경했습니다 */
         background-color: #fafbfc; 
         color: #333;
         margin: 0;
@@ -32,16 +31,23 @@
     h1 {
         font-size: 28px;
         font-weight: 800;
-        margin: 0 0 12px 0;
+        margin: 0 0 6px 0;
         color: #1a1a1a;
         letter-spacing: -0.5px;
     }
+
+    .version-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #007bff; 
+        margin: 0 0 16px 0;
+        letter-spacing: 0.5px;
+    }
     
-    /* 부제목(Subtitle)이 더 잘 보이도록 진하게 수정 */
     .subtitle {
         font-size: 16px;
-        color: #333333; /* 기존 #666에서 훨씬 진한 색으로 변경 */
-        font-weight: 500; /* 글씨 굵기도 살짝 두껍게 */
+        color: #333333; 
+        font-weight: 500;
         margin: 0;
     }
 
@@ -50,7 +56,6 @@
         background-color: #ffffff;
         border-radius: 12px;
         overflow: hidden;
-        /* 배경이 밝아진 만큼 그림자를 살짝 더 선명하게 조정 */
         box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -161,6 +166,7 @@
     @media (max-width: 480px) {
         .header-wrapper { margin-bottom: 30px; }
         h1 { font-size: 24px; }
+        .version-text { font-size: 13px; margin-bottom: 12px; }
         .subtitle { font-size: 14px; }
         summary { font-size: 16px; padding: 16px 20px; }
         .menu-list a { padding: 14px 20px; }
@@ -173,7 +179,8 @@
 
 <div class="container">
     <div class="header-wrapper">
-        <h1>📚 [FROM] Information List (2026/05/31 Version)</h1>
+        <h1>📚 [FROM] Information List</h1>
+        <p class="version-text">May 31, 2026 Version</p>
         <p class="subtitle">Please select a menu item to navigate to the link.</p>
     </div>
     <div id="accordion-container"></div>
