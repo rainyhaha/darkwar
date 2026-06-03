@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[FROM] BGB Rules</title>
+<style>
+    body {
+        font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
+        background-color: #fafbfc; 
+        color: #333;
+        margin: 0;
+        padding: 40px 20px; /* 여백 통일 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+                
+    .container {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+        position: relative;
+    }
+                
+    /* 콤보박스 통일 디자인 */
+    .lang-selector {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+                
+    .lang-selector select {
+        padding: 8px 36px 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
+
+    .lang-selector select:hover, .lang-selector select:focus {
+        border-color: #007bff;
+    }
+
+    .header-wrapper {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 0; /* 여백 통일 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 6px 0;
+        color: #1a1a1a;
+        letter-spacing: -0.5px;
+    }
+
+    .version-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #007bff; 
+        margin: 0 0 16px 0;
+        letter-spacing: 0.5px;
+    }
+                
+    .subtitle {
+        font-size: 16px;
+        color: #333333; 
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .support-text {
+        font-size: 15px;
+        color: #2e8b57; 
+        font-weight: 600;
+        margin: 10px 0 0 0;
+    }
+
+    details {
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    details:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    summary {
+        font-size: 18px;
+        font-weight: 700;
+        padding: 18px 24px;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        color: #111;
+        letter-spacing: -0.3px;
+    }
+                
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary::after {
+        content: '▼';
+        font-size: 13px;
+        opacity: 0.7;
+        transition: transform 0.3s ease;
+    }
+                
+    details[open] summary::after {
+        transform: rotate(180deg);
+    }
+
+    .menu-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #fff;
+    }
+                
+    .menu-list li {
+        border-top: 1px solid #f0f0f0;
+    }
+                
+    .rule-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 16px 24px;
+        color: #444;
+        transition: background-color 0.2s ease;
+    }
+
+    .rule-item:hover {
+        background-color: #f8fbff;
+    }
+
+    .rule-item.sub-rule {
+        padding-left: 52px;
+        background-color: #fcfdfe;
+        border-top: none;
+    }
+
+    .rule-item.sub-rule:hover {
+        background-color: #f5f9ff;
+    }
+
+    .item-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .item-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        background-color: #f0f2f5;
+        color: #555;
+        font-size: 14px;
+        font-weight: 700;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        margin-top: 2px;
+        transition: all 0.2s ease;
+    }
+
+    .sub-badge {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        background-color: #f0f2f5;
+        color: #555;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        margin-top: 2px;
+        line-height: 1;
+        transition: all 0.2s ease; 
+    }
+
+    .rule-item:hover .item-badge,
+    .rule-item:hover .sub-badge {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .item-title {
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.6;
+        word-break: keep-all;
+    }
+
+    .footer-wrapper {
+        margin-top: 30px;
+        padding: 20px;
+        text-align: center;
+        background-color: #fff5f5;
+        border: 1px solid #ffe3e3;
+        border-radius: 12px;
+        color: #e03131;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 2px 8px rgba(224, 49, 49, 0.05);
+        word-break: keep-all;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+        .header-wrapper { margin-bottom: 30px; }
+        h1 { font-size: 24px; }
+        .version-text { font-size: 13px; margin-bottom: 12px; }
+        .subtitle { font-size: 14px; }
+        .support-text { font-size: 13px; margin-top: 8px; }
+        summary { font-size: 16px; padding: 16px 20px; }
+        .rule-item { padding: 14px 20px; }
+        .rule-item.sub-rule { padding-left: 36px; }
+        .item-badge { width: 24px; height: 24px; font-size: 13px; }
+        .footer-wrapper { font-size: 15px; padding: 16px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+        </select>
+    </div>
+
+    <div class="header-wrapper">
+        <h1 id="page-title">📊 BGB 규칙</h1>
+        <p class="version-text" id="version-text"></p>
+        <p class="subtitle" id="subtitle-text">모든 연맹원은 아래 규칙을 숙지해 주시기 바랍니다.</p>
+        <p class="support-text" id="support-text">PC와 모바일 화면을 모두 지원합니다</p>
+    </div>
+    
+    <div id="accordion-container"></div>
+
+    <div class="footer-wrapper" id="footer-text">
+        ⚠️ 서로 하나 된 결속력으로 다 함께 BGB 승리의 기쁨을 만들어 갑시다!
+    </div>
+</div>
+
+<script>
+    const updateDate = "20260603";
+
+    const rainbowColors = [
+        '#e8f4fd' // 깔끔하고 정돈된 톤의 배경 칼라 지정
+    ];
+
+    const headerTranslations = {
+        ko: { title: "📊 BGB 규칙", subtitle: "모든 연맹원은 아래 규칙을 숙지해 주시기 바랍니다.", support: "상호 존중하고 배려하는 연맹을 만들어갑시다." },
+        en: { title: "📊 BGB Rules", subtitle: "All alliance members, please familiarize yourselves with the rules.", support: "Let's build an alliance of mutual respect and care." },
+        vi: { title: "📊 Quy tắc BGB", subtitle: "Tất cả các thành viên liên minh vui lòng làm quen với các quy tắc.", support: "Hãy cùng xây dựng một liên minh tôn trọng và quan tâm lẫn nhau." }
+    };
+
+    function getFormattedVersionText(dateStr, lang) {
+        if (!dateStr || dateStr.length !== 8) return "";
+        const year = dateStr.substring(0, 4);
+        const monthNum = parseInt(dateStr.substring(4, 6), 10);
+        const dayNum = parseInt(dateStr.substring(6, 8), 10);
+        if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        else if (lang === 'en') {
+            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
+        } else if (lang === 'vi') return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
+        return "";
+    }
+
+    const footerTranslations = {
+        ko: "⚠️ 서로 하나 된 결속력으로 다 함께 BGB 승리의 기쁨을 만들어 갑시다!",
+        en: "⚠️ With united strength and solidarity, let's achieve the joy of a BGB victory together!",
+        vi: "⚠️ Với tinh thần đoàn kết đồng lòng, hãy cùng nhau tạo nên niềm vui chiến thắng BGB!"
+    };
+
+    const allianceRulesData = [
+        {
+            type: "bgb",
+            title: { ko: "BGB 팀 배치 및 투표 안내", en: "BGB Team Assignment & Voting Guide", vi: "Hướng dẫn bình chọn và phân chia đội BGB" },
+            rules: {
+                ko: [
+                    { text: "원하시는 팀에 자유롭게 투표해주세요." },
+                    { text: "투표 의견을 최대한 존중하도록 하겠습니다." },
+                    { text: "만약 A팀의 인원 부족 또는 전투력 미달이라 판단되는 경우 B팀의 일부 인원을 A팀으로 배정할 예정입니다." }
+                ],
+                en: [
+                    { text: "Please feel free to vote for the team you want." },
+                    { text: "We will respect the voting results as much as possible." },
+                    { text: "If Team A is considered to be short of members or lacking in combat power, some personnel from Team B will be reassigned to Team A." }
+                ],
+                vi: [
+                    { text: "Hãy thoải mái bình chọn cho đội bạn muốn." },
+                    { text: "Chúng tôi sẽ tôn trọng ý kiến bình chọn của bạn một cách tối đa." },
+                    { text: "Nếu Đội A được cho là thiếu nhân sự hoặc không đủ lực chiến, một số thành viên từ Đội B sẽ được chuyển sang Đội A." }
+                ]
+            }
+        }
+    ];
+
+    const container = document.getElementById('accordion-container');
+    const langSelect = document.getElementById('langSelect');
+
+    function renderPage(lang) {
+        document.getElementById('page-title').textContent = headerTranslations[lang].title;
+        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
+        document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
+        document.getElementById('support-text').textContent = headerTranslations[lang].support;
+        document.getElementById('footer-text').textContent = footerTranslations[lang];
+        container.innerHTML = '';
+        allianceRulesData.forEach((group, groupIndex) => {
+            const details = document.createElement('details');
+            details.open = true;
+            const summary = document.createElement('summary');
+            summary.textContent = group.title[lang];
+            summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
+            details.appendChild(summary);
+            const ul = document.createElement('ul');
+            ul.className = 'menu-list';
+            group.rules[lang].forEach((ruleObj, itemIndex) => {
+                const li = document.createElement('li');
+                const ruleItem = document.createElement('div');
+                ruleItem.className = 'rule-item';
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'item-content';
+                const badge = document.createElement('span');
+                badge.className = 'item-badge';
+                badge.textContent = itemIndex + 1;
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'item-title';
+                titleSpan.textContent = ruleObj.text;
+                contentWrapper.appendChild(badge);
+                contentWrapper.appendChild(titleSpan);
+                ruleItem.appendChild(contentWrapper);
+                li.appendChild(ruleItem);
+                ul.appendChild(li);
+                if (ruleObj.subRules && ruleObj.subRules.length > 0) {
+                    ruleObj.subRules.forEach((subText, subIndex) => {
+                        const subLi = document.createElement('li');
+                        const subRuleItem = document.createElement('div');
+                        subRuleItem.className = 'rule-item sub-rule';
+                        const subContentWrapper = document.createElement('div');
+                        subContentWrapper.className = 'item-content';
+                        const subBadge = document.createElement('span');
+                        subBadge.className = 'sub-badge';
+                        subBadge.textContent = `${itemIndex + 1}-${subIndex + 1}`;
+                        const subTitleSpan = document.createElement('span');
+                        subTitleSpan.className = 'item-title';
+                        subTitleSpan.style.color = '#555';
+                        subTitleSpan.textContent = subText;
+                        subContentWrapper.appendChild(subBadge);
+                        subContentWrapper.appendChild(subTitleSpan);
+                        subRuleItem.appendChild(subContentWrapper);
+                        subLi.appendChild(subRuleItem);
+                        ul.appendChild(subLi);
+                    });
+                }
+            });
+            details.appendChild(ul);
+            container.appendChild(details);
+        });
+    }
+
+    langSelect.addEventListener('change', function(e) {
+        const selectedLang = e.target.value;
+        localStorage.setItem('lang', selectedLang);
+        renderPage(selectedLang);
+    });
+
+    const savedLang = localStorage.getItem('lang') || 'ko';
+    langSelect.value = savedLang; 
+    renderPage(savedLang); 
+</script>
+</body>
+</html>
