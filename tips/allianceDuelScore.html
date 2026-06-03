@@ -608,8 +608,17 @@
         
         container.innerHTML = '';
         
-        // 현재 요일 가져오기 (0: 일요일, 1: 월요일, ..., 6: 토요일)
-        const currentDayOfWeek = new Date().getDay();
+        // 현재 접속자의 로컬 시간을 UTC 타임스탬프로 변환
+        const now = new Date();
+        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+        
+        // 서버 타임존 (UTC-2) 기준으로 시간 계산
+        // UTC-2이므로 밀리초 단위로 2시간(2 * 3600000)을 빼줌
+        const serverTimeOffset = -2; 
+        const serverTime = new Date(utcTime + (serverTimeOffset * 3600000));
+        
+        // 게임 서버 기준의 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+        const currentDayOfWeek = serverTime.getDay();
 
         duelData.forEach((dayData, groupIndex) => {
             const details = document.createElement('details');
