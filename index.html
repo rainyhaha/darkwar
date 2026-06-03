@@ -10,7 +10,7 @@
         background-color: #fafbfc; 
         color: #333;
         margin: 0;
-        padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
+        padding: 40px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -62,7 +62,7 @@
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 0; /* 콤보박스와의 여백 통일 */
+        margin-top: 0; 
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -182,6 +182,29 @@
     .item-title {
         font-size: 16px;
         font-weight: 500;
+        display: flex;
+        align-items: center; /* 텍스트와 뱃지를 일렬로 정렬 */
+    }
+
+    /* 새로 추가된 NEW 마크 디자인 */
+    .new-mark {
+        display: inline-block;
+        background-color: #ff4d4f;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 8px;
+        letter-spacing: 0.5px;
+        /* 시선을 끄는 깜빡임 효과 */
+        animation: pulse 2s infinite; 
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.7); }
+        50% { transform: scale(1.05); box-shadow: 0 0 0 4px rgba(255, 77, 79, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 79, 0); }
     }
 
     .menu-list a::after {
@@ -220,6 +243,7 @@
         .menu-list a { padding: 14px 20px; }
         .item-title { font-size: 15px; }
         .item-badge { font-size: 12px; padding: 3px 10px; }
+        .new-mark { font-size: 9px; padding: 1px 4px; margin-left: 6px; }
     }
 </style>
 </head>
@@ -245,7 +269,7 @@
 </div>
 
 <script>
-    const sysdate = "20260601";
+    const updateDate = "20260603";
 
     const rainbowColors = [
         '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff'
@@ -269,6 +293,7 @@
         }
     };
 
+    // isNew: true 속성을 주면 자동으로 NEW 뱃지가 표시됩니다.
     const guideData = [
         {
             groupTitle: { ko: "규칙", en: "Rules", vi: "Quy tắc" },
@@ -282,6 +307,7 @@
             groupTitle: { ko: "팁", en: "Tips", vi: "Mẹo" },
             prefix: { ko: "팁", en: "Tip", vi: "Mẹo" },
             links: [
+                { title: { ko: "연맹 대결 점수", en: "Alliance Duel Score", vi: "Điểm Đối đầu Liên minh" }, url: "https://rainyhaha.github.io/darkwar/tips/allianceDuelScore.html", isNew: true },
                 { title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html" }
             ]
         }
@@ -305,10 +331,11 @@
 
     function renderPage(lang) {
         document.getElementById('page-title').textContent = headerTranslations[lang].title;
-        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
+        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
         document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
         document.getElementById('support-text').textContent = headerTranslations[lang].support;
         container.innerHTML = '';
+        
         guideData.forEach((group, groupIndex) => {
             const details = document.createElement('details');
             details.open = true;
@@ -316,20 +343,34 @@
             summary.textContent = group.groupTitle[lang];
             summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
             details.appendChild(summary);
+            
             const ul = document.createElement('ul');
             ul.className = 'menu-list';
+            
             group.links.forEach((linkItem, itemIndex) => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = linkItem.url;
+                
                 const contentWrapper = document.createElement('div');
                 contentWrapper.className = 'item-content';
+                
                 const badge = document.createElement('span');
                 badge.className = 'item-badge';
                 badge.textContent = `${group.prefix[lang]} ${itemIndex + 1}`;
+                
                 const titleSpan = document.createElement('span');
                 titleSpan.className = 'item-title';
                 titleSpan.textContent = linkItem.title[lang];
+
+                // isNew 속성이 true일 경우 NEW 뱃지 추가
+                if (linkItem.isNew) {
+                    const newMark = document.createElement('span');
+                    newMark.className = 'new-mark';
+                    newMark.textContent = 'NEW';
+                    titleSpan.appendChild(newMark);
+                }
+
                 contentWrapper.appendChild(badge);
                 contentWrapper.appendChild(titleSpan);
                 a.appendChild(contentWrapper);
