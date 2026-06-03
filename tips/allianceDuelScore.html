@@ -354,7 +354,7 @@
 </div>
 
 <script>
-    const updateDate = "20260603";
+    const sysdate = "20260603";
 
     const rainbowColors = [
         '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff'
@@ -448,7 +448,22 @@
                 { points: 2700, description: { ko: "D6 빨강 장비 업그레이드 시 에너지 코어 소모로 추가 점수 획득", en: "Earn extra points by consuming Energy Cores for D6 Red Gear upgrade", vi: "Nhận điểm thưởng khi dùng Lõi năng lượng nâng cấp trang bị Đỏ D6" } },
                 { points: 40500, description: { ko: "DX-청사진 1개 소모", en: "Consume 1 DX-Blueprint", vi: "Tiêu hao 1 Bản thiết kế DX" } },
                 { points: 55, description: { ko: "유닛 훈련과 진급에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for unit training/promotion", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho huấn luyện và thăng cấp lính" } },
-                { points: 66, description: { ko: "훈련으로 Lv.1 유닛 1명 획득", en: "Obtain 1 Lv.1 unit from training", vi: "Nhận 1 Lính Lv.1 từ huấn luyện" } },
+                { 
+                    points: 66, 
+                    description: { ko: "훈련으로 Lv.1 유닛 1명 획득", en: "Obtain 1 Lv.1 unit from training", vi: "Nhận 1 Lính Lv.1 từ huấn luyện" },
+                    subMissions: [
+                        { points: 66, description: { ko: "훈련으로 Lv.1 유닛 1명 획득", en: "Obtain 1 Lv.1 unit from training", vi: "Nhận 1 Lính Lv.1 từ huấn luyện" } },
+                        { points: 99, description: { ko: "훈련으로 Lv.2 유닛 1명 획득", en: "Obtain 1 Lv.2 unit from training", vi: "Nhận 1 Lính Lv.2 từ huấn luyện" } },
+                        { points: 143, description: { ko: "훈련으로 Lv.3 유닛 1명 획득", en: "Obtain 1 Lv.3 unit from training", vi: "Nhận 1 Lính Lv.3 từ huấn luyện" } },
+                        { points: 209, description: { ko: "훈련으로 Lv.4 유닛 1명 획득", en: "Obtain 1 Lv.4 unit from training", vi: "Nhận 1 Lính Lv.4 từ huấn luyện" } },
+                        { points: 308, description: { ko: "훈련으로 Lv.5 유닛 1명 획득", en: "Obtain 1 Lv.5 unit from training", vi: "Nhận 1 Lính Lv.5 từ huấn luyện" } },
+                        { points: 385, description: { ko: "훈련으로 Lv.6 유닛 1명 획득", en: "Obtain 1 Lv.6 unit from training", vi: "Nhận 1 Lính Lv.6 từ huấn luyện" } },
+                        { points: 495, description: { ko: "훈련으로 Lv.7 유닛 1명 획득", en: "Obtain 1 Lv.7 unit from training", vi: "Nhận 1 Lính Lv.7 từ huấn luyện" } },
+                        { points: 632, description: { ko: "훈련으로 Lv.8 유닛 1명 획득", en: "Obtain 1 Lv.8 unit from training", vi: "Nhận 1 Lính Lv.8 từ huấn luyện" } },
+                        { points: 814, description: { ko: "훈련으로 Lv.9 유닛 1명 획득", en: "Obtain 1 Lv.9 unit from training", vi: "Nhận 1 Lính Lv.9 từ huấn luyện" } },
+                        { points: 1001, description: { ko: "훈련으로 Lv.10 유닛 1명 획득", en: "Obtain 1 Lv.10 unit from training", vi: "Nhận 1 Lính Lv.10 từ huấn luyện" } }
+                    ]
+                },
                 { points: { ko: "상응", en: "Match", vi: "Match" }, description: { ko: "유닛 승급하기", en: "Promote unit", vi: "Thăng cấp lính" } }
             ]
         },
@@ -577,7 +592,7 @@
 
     function renderPage(lang) {
         document.getElementById('page-title').textContent = headerTranslations[lang].title;
-        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
+        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
         document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
         document.getElementById('support-text').textContent = headerTranslations[lang].support;
         document.getElementById('footer-text').textContent = footerTranslations[lang];
