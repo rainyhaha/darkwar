@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[FROM] Alliance Duel Score</title>
+<style>
+    body {
+        font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
+        background-color: #fafbfc; 
+        color: #333;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+                
+    .container {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+        position: relative;
+    }
+                
+    /* 콤보박스 디자인 */
+    .lang-selector {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+                
+    .lang-selector select {
+        padding: 8px 36px 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
+
+    .lang-selector select:hover, .lang-selector select:focus {
+        border-color: #007bff;
+    }
+
+    .header-wrapper {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 6px 0;
+        color: #1a1a1a;
+        letter-spacing: -0.5px;
+    }
+
+    .version-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #007bff; 
+        margin: 0 0 16px 0;
+        letter-spacing: 0.5px;
+    }
+                
+    .subtitle {
+        font-size: 16px;
+        color: #333333; 
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .support-text {
+        font-size: 15px;
+        color: #2e8b57; 
+        font-weight: 600;
+        margin: 10px 0 0 0;
+    }
+
+    /* 메인 아코디언 */
+    details.main-details {
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    details.main-details:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    summary.main-summary {
+        font-size: 18px;
+        font-weight: 700;
+        padding: 18px 24px;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        color: #111;
+        letter-spacing: -0.3px;
+    }
+                
+    summary.main-summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary.main-summary::after {
+        content: '▼';
+        font-size: 13px;
+        opacity: 0.7;
+        transition: transform 0.3s ease;
+    }
+                
+    details.main-details[open] summary.main-summary::after {
+        transform: rotate(180deg);
+    }
+
+    /* 팁 박스 디자인 */
+    .tip-container {
+        padding: 16px 24px 0 24px;
+        background-color: #fff;
+    }
+    
+    .tip-box {
+        background-color: #fffbe6;
+        border-left: 4px solid #faad14;
+        padding: 12px 16px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #d46b08;
+        font-weight: 600;
+        line-height: 1.5;
+        word-break: keep-all;
+    }
+
+    .tip-box:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 리스트 스타일 */
+    .menu-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #fff;
+    }
+                
+    .menu-list > li {
+        border-top: 1px solid #f0f0f0;
+    }
+                
+    .rule-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 24px;
+        color: #444;
+        transition: background-color 0.2s ease;
+    }
+
+    /* 하위 아코디언 (서브 미션) */
+    details.sub-details summary.rule-item {
+        cursor: pointer;
+        list-style: none;
+        position: relative;
+    }
+    
+    details.sub-details summary.rule-item::-webkit-details-marker {
+        display: none;
+    }
+
+    details.sub-details summary.rule-item::after {
+        content: '▼';
+        position: absolute;
+        right: 24px;
+        font-size: 11px;
+        color: #999;
+        transition: transform 0.3s ease;
+    }
+    
+    details.sub-details[open] summary.rule-item::after {
+        transform: rotate(180deg);
+    }
+
+    details.sub-details summary.rule-item:hover {
+        background-color: #f8fbff;
+    }
+
+    .rule-item:not(summary):hover {
+        background-color: #f8fbff;
+    }
+
+    .sub-menu-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #fcfdfe;
+        border-top: 1px dashed #e8e8e8;
+    }
+
+    .rule-item.sub-rule {
+        padding: 12px 24px 12px 52px;
+        border-top: 1px solid #f9f9f9;
+    }
+
+    .rule-item.sub-rule:first-child {
+        border-top: none;
+    }
+
+    .rule-item.sub-rule:hover {
+        background-color: #f5f9ff;
+    }
+
+    .item-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding-right: 20px;
+    }
+
+    .item-badge {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        background-color: #e6f7ff;
+        color: #0050b3;
+        font-size: 13px;
+        font-weight: 800;
+        padding: 6px 14px;
+        border-radius: 20px;
+        min-width: 40px;
+        border: 1px solid #91d5ff;
+        transition: all 0.2s ease;
+    }
+
+    .sub-badge {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        background-color: #f6ffed;
+        color: #389e0d;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 12px;
+        min-width: 35px;
+        border: 1px solid #b7eb8f;
+        transition: all 0.2s ease; 
+    }
+
+    .rule-item:hover .item-badge, 
+    details.sub-details[open] summary .item-badge {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .rule-item.sub-rule:hover .sub-badge {
+        background-color: #52c41a;
+        border-color: #52c41a;
+        color: #fff;
+    }
+
+    .item-title {
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.6;
+        word-break: keep-all;
+    }
+
+    .footer-wrapper {
+        margin-top: 30px;
+        padding: 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        color: #495057;
+        font-weight: 600;
+        font-size: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        word-break: keep-all;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+        .header-wrapper { margin-bottom: 30px; }
+        h1 { font-size: 24px; }
+        .version-text { font-size: 13px; margin-bottom: 12px; }
+        .subtitle { font-size: 14px; }
+        .support-text { font-size: 13px; margin-top: 8px; }
+        summary.main-summary { font-size: 16px; padding: 16px 20px; }
+        .rule-item { padding: 14px 20px; }
+        .rule-item.sub-rule { padding-left: 36px; padding-right: 20px; }
+        .item-badge { font-size: 12px; padding: 5px 10px; }
+        .footer-wrapper { font-size: 14px; padding: 16px; }
+        .tip-container { padding: 12px 20px 0 20px; }
+        .tip-box { font-size: 13px; padding: 10px 14px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+        </select>
+    </div>
+
+    <div class="header-wrapper">
+        <h1 id="page-title">🏆 연맹대결점수</h1>
+        <p class="version-text" id="version-text"></p>
+        <p class="subtitle" id="subtitle-text">요일별 테마와 획득 가능한 포인트를 확인하세요.</p>
+        <p class="support-text" id="support-text">PC와 모바일 화면을 모두 지원합니다</p>
+    </div>
+    
+    <div id="accordion-container"></div>
+
+    <div class="footer-wrapper" id="footer-text">
+        💡 연맹 대결에 적극적으로 참여하여 연맹의 승리를 이끌어주세요!
+    </div>
+</div>
+
+<script>
+    const updateDate = "20260603";
+
+    const rainbowColors = [
+        '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff'
+    ];
+
+    const headerTranslations = {
+        ko: { title: "🏆 연맹대결점수", subtitle: "요일별 테마와 획득 가능한 포인트를 확인하세요.", support: "PC와 모바일 화면을 모두 지원합니다" },
+        en: { title: "🏆 Alliance Duel Score", subtitle: "Check the daily themes and points you can earn.", support: "All screens are supported on PC and mobile" },
+        vi: { title: "🏆 Điểm Đối đầu Liên minh", subtitle: "Kiểm tra chủ đề hàng ngày và số điểm bạn có thể kiếm được.", support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động" }
+    };
+
+    function getFormattedVersionText(dateStr, lang) {
+        if (!dateStr || dateStr.length !== 8) return "";
+        const year = dateStr.substring(0, 4);
+        const monthNum = parseInt(dateStr.substring(4, 6), 10);
+        const dayNum = parseInt(dateStr.substring(6, 8), 10);
+        if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        else if (lang === 'en') {
+            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
+        } else if (lang === 'vi') return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
+        return "";
+    }
+
+    const footerTranslations = {
+        ko: "💡 연맹 대결에 적극적으로 참여하여 연맹의 승리를 이끌어주세요!",
+        en: "💡 Actively participate in alliance duels and lead the alliance to victory!",
+        vi: "💡 Hãy tích cực tham gia các trận chiến liên minh và dẫn dắt liên minh đến chiến thắng!"
+    };
+
+    function formatPoints(points) {
+        if (typeof points === 'number') {
+            return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        return points;
+    }
+
+    const duelData = [
+        {
+            title: { ko: "1일차: 셀터 발전", en: "Day 1: Shelter Development", vi: "Ngày 1: Phát triển Hầm trú ẩn" },
+            tips: [
+                { 
+                    ko: "일요일에는 채집을 보내놓고 1일차 00시가 된 후 복귀할 수 있게 해주세요.", 
+                    en: "Send gathering troops on Sunday and let them return after 00:00 on Day 1.", 
+                    vi: "Gửi quân thu thập vào Chủ nhật và để họ trở về sau 00:00 Ngày 1." 
+                },
+                { 
+                    ko: "레이더는 아꼈다가 2일차에 사용해주세요.", 
+                    en: "Save your radar tasks and use them on Day 2.", 
+                    vi: "Tiết kiệm nhiệm vụ radar và sử dụng chúng vào Ngày 2." 
+                }
+            ],
+            missions: [
+                { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                { points: 2700, description: { ko: "건물 업그레이드에 정밀 부품 1개 소비", en: "Consume 1 Precision Part for building upgrade", vi: "Tiêu hao 1 Linh kiện chính xác nâng cấp kiến trúc" } },
+                { points: 110, description: { ko: "건축물 전투력 100 향상", en: "Increase building power by 100", vi: "Tăng 100 lực chiến kiến trúc" } },
+                { points: 110, description: { ko: "과학기술 전투력 100 향상", en: "Increase tech power by 100", vi: "Tăng 100 lực chiến khoa học kỹ thuật" } },
+                { points: 45, description: { ko: "지혜 훈장 1개 소모", en: "Consume 1 Wisdom Medal", vi: "Tiêu hao 1 Huân chương Trí tuệ" } },
+                { points: 55, description: { ko: "건축물 업그레이드에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for building upgrade", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho kiến trúc" } },
+                { points: 55, description: { ko: "과학 연구에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for research", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho nghiên cứu" } },
+                { points: 330, description: { ko: "코인 10000 채집 (레이더 채집 이벤트는 별도)", en: "Gather 10,000 Coins (Excludes Radar gathering)", vi: "Thu thập 10,000 Xu (Không tính sự kiện thu thập Radar)" } }
+            ]
+        },
+        {
+            title: { ko: "2일차: 영웅 육성", en: "Day 2: Hero Development", vi: "Ngày 2: Phát triển Anh hùng" },
+            missions: [
+                { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                { points: 8800, description: { ko: "레이더 이벤트 1회 완료", en: "Complete 1 Radar event", vi: "Hoàn thành 1 sự kiện Radar" } },
+                { points: 6075, description: { ko: "전용 장비 조각 1개 소모 시마다", en: "Every time 1 Exclusive Weapon Shard is consumed", vi: "Mỗi khi tiêu hao 1 Mảnh trang bị độc quyền" } },
+                { points: 4950, description: { ko: "고급 모집 1회 진행", en: "Perform 1 Advanced Recruitment", vi: "Thực hiện 1 lần Chiêu mộ cao cấp" } },
+                { points: 6075, description: { ko: "주황 영웅 조각 1개 소모하여 성급 업그레이드", en: "Consume 1 Orange Hero Shard for Star Upgrade", vi: "Tiêu hao 1 Mảnh anh hùng Cam để tăng sao" } },
+                { points: 1350, description: { ko: "보라 영웅 조각 1개 소모하여 성급 업그레이드", en: "Consume 1 Purple Hero Shard for Star Upgrade", vi: "Tiêu hao 1 Mảnh anh hùng Tím để tăng sao" } },
+                { points: 675, description: { ko: "파랑 영웅 조각 1개 소모하여 성급 업그레이드", en: "Consume 1 Blue Hero Shard for Star Upgrade", vi: "Tiêu hao 1 Mảnh anh hùng Xanh dương để tăng sao" } }
+            ]
+        },
+        {
+            title: { ko: "3일차: 매일 향상", en: "Day 3: Daily Improvement", vi: "Ngày 3: Cải thiện mỗi ngày" },
+            tips: [
+                { 
+                    ko: "레이더는 아꼈다가 4일차에 사용해주세요.", 
+                    en: "Save your radar tasks and use them on Day 4.", 
+                    vi: "Tiết kiệm nhiệm vụ radar và sử dụng chúng vào Ngày 4." 
+                }
+            ],
+            missions: [
+                { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                { points: 90000, description: { ko: "S급 블랙머니 수송차량 1회 호위", en: "Escort S-Class Black Money Transport 1 time", vi: "Hộ tống Xe vận chuyển Tiền đen cấp S 1 lần" } },
+                { points: 45000, description: { ko: "1회 주황 [암영 작전] 임무 진행", en: "Perform 1 Orange [Shadow Operation] mission", vi: "Thực hiện 1 nhiệm vụ [Chiến dịch Bóng tối] Cam" } },
+                { points: 4050, description: { ko: "에너지 코어 1개 소모", en: "Consume 1 Energy Core", vi: "Tiêu hao 1 Lõi năng lượng" } },
+                { points: 9000, description: { ko: "1개의 영웅 장비 행운 상자 열기", en: "Open 1 Hero Gear Lucky Box", vi: "Mở 1 Hộp may mắn Trang bị Anh hùng" } },
+                { points: 2700, description: { ko: "D6 빨강 장비 업그레이드 시 에너지 코어 소모로 추가 점수 획득", en: "Earn extra points by consuming Energy Cores for D6 Red Gear upgrade", vi: "Nhận điểm thưởng khi dùng Lõi năng lượng nâng cấp trang bị Đỏ D6" } },
+                { points: 40500, description: { ko: "DX-청사진 1개 소모", en: "Consume 1 DX-Blueprint", vi: "Tiêu hao 1 Bản thiết kế DX" } },
+                { points: 55, description: { ko: "유닛 훈련과 진급에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for unit training/promotion", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho huấn luyện và thăng cấp lính" } },
+                { points: 66, description: { ko: "훈련으로 Lv.1 유닛 1명 획득", en: "Obtain 1 Lv.1 unit from training", vi: "Nhận 1 Lính Lv.1 từ huấn luyện" } },
+                { points: { ko: "상응", en: "Match", vi: "Match" }, description: { ko: "유닛 승급하기", en: "Promote unit", vi: "Thăng cấp lính" } }
+            ]
+        },
+        {
+            title: { ko: "4일차: 전쟁 대비 달인", en: "Day 4: War Preparation Master", vi: "Ngày 4: Bậc thầy Chuẩn bị Chiến tranh" },
+            missions: [
+                { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                { points: 8800, description: { ko: "레이더 이벤트 1회 완료", en: "Complete 1 Radar event", vi: "Hoàn thành 1 sự kiện Radar" } },
+                { points: 13, description: { ko: "1개 기어 소모", en: "Consume 1 Gear", vi: "Tiêu hao 1 Bánh răng" } },
+                { points: 1215, description: { ko: "티타늄 1개 소모", en: "Consume 1 Titanium", vi: "Tiêu hao 1 Titan" } },
+                { points: 2430, description: { ko: "설계 도면 1개 소모", en: "Consume 1 Design Drawing", vi: "Tiêu hao 1 Bản vẽ Thiết kế" } },
+                { points: 2700, description: { ko: "건물 업그레이드에 정밀 부품 1개 소비", en: "Consume 1 Precision Part for building upgrade", vi: "Tiêu hao 1 Linh kiện chính xác nâng cấp kiến trúc" } },
+                { points: 55, description: { ko: "건축물 업그레이드에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for building upgrade", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho kiến trúc" } },
+                { points: 55, description: { ko: "과학 연구에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for research", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho nghiên cứu" } },
+                { points: 55, description: { ko: "유닛 훈련과 진급에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for unit training/promotion", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho huấn luyện và thăng cấp lính" } },
+                { 
+                    points: 2640, 
+                    description: { ko: "lv.1-10 유랑 좀비 1마리 킬", en: "Kill 1 Lv.1-10 Wandering Zombie", vi: "Tiêu diệt 1 Thây ma lang thang Lv.1-10" },
+                    subMissions: [
+                        { points: 2640, description: { ko: "lv.1-10 유랑 좀비 1마리 킬", en: "Kill 1 Lv.1-10 Wandering Zombie", vi: "Tiêu diệt 1 Thây ma lang thang Lv.1-10" } },
+                        { points: 2970, description: { ko: "lv.11-20 유랑 좀비 1마리 킬", en: "Kill 1 Lv.11-20 Wandering Zombie", vi: "Tiêu diệt 1 Thây ma lang thang Lv.11-20" } },
+                        { points: 3300, description: { ko: "lv.21-30 유랑 좀비 1마리 킬", en: "Kill 1 Lv.21-30 Wandering Zombie", vi: "Tiêu diệt 1 Thây ma lang thang Lv.21-30" } },
+                        { points: 3630, description: { ko: "31레벨 이상 유랑 좀비 1체 처치", en: "Kill 1 Wandering Zombie Lv.31+", vi: "Tiêu diệt 1 Thây ma lang thang Lv.31+" } }
+                    ]
+                },
+                { 
+                    points: 5500, 
+                    description: { ko: "집결로 1-4레벨 거대 좀비 킬", en: "Kill Lv.1-4 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.1-4 qua Tập kết" },
+                    subMissions: [
+                        { points: 5500, description: { ko: "집결로 1-4레벨 거대 좀비 킬", en: "Kill Lv.1-4 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.1-4 qua Tập kết" } },
+                        { points: 6875, description: { ko: "집결로 5-7레벨 거대 좀비 킬", en: "Kill Lv.5-7 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.5-7 qua Tập kết" } },
+                        { points: 8250, description: { ko: "집결로 8-10레벨 거대 좀비 킬", en: "Kill Lv.8-10 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.8-10 qua Tập kết" } },
+                        { points: 9625, description: { ko: "집결로 11-13레벨 거대 좀비 킬", en: "Kill Lv.11-13 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.11-13 qua Tập kết" } },
+                        { points: 11000, description: { ko: "집결로 14-16레벨 거대 좀비 킬", en: "Kill Lv.14-16 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.14-16 qua Tập kết" } },
+                        { points: 12375, description: { ko: "집결로 17-19레벨 거대 좀비 킬", en: "Kill Lv.17-19 Giant Zombie via Rally", vi: "Tiêu diệt Thây ma khổng lồ Lv.17-19 qua Tập kết" } },
+                        { points: 13750, description: { ko: "20레벨 이상의 거대 좀비 처치를 위한 집결 발동", en: "Initiate Rally for Giant Zombie Lv.20+", vi: "Kêu gọi Tập kết tiêu diệt Thây ma khổng lồ Lv.20+" } }
+                    ]
+                }
+            ]
+        },
+        {
+            title: { ko: "5일차: 전면적 발전", en: "Day 5: All-round Development", vi: "Ngày 5: Phát triển Toàn diện" },
+            missions: [
+                { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                { points: 2700, description: { ko: "건물 업그레이드에 정밀 부품 1개 소비", en: "Consume 1 Precision Part for building upgrade", vi: "Tiêu hao 1 Linh kiện chính xác nâng cấp kiến trúc" } },
+                { points: 13, description: { ko: "1개 기어 소모", en: "Consume 1 Gear", vi: "Tiêu hao 1 Bánh răng" } },
+                { points: 1215, description: { ko: "티타늄 1개 소모", en: "Consume 1 Titanium", vi: "Tiêu hao 1 Titan" } },
+                { points: 2430, description: { ko: "설계 도면 1개 소모", en: "Consume 1 Design Drawing", vi: "Tiêu hao 1 Bản vẽ Thiết kế" } },
+                { points: 4050, description: { ko: "에너지 코어 1개 소모", en: "Consume 1 Energy Core", vi: "Tiêu hao 1 Lõi năng lượng" } },
+                { points: 6075, description: { ko: "전용 장비 조각 1개 소모 시마다", en: "Every time 1 Exclusive Weapon Shard is consumed", vi: "Mỗi khi tiêu hao 1 Mảnh trang bị độc quyền" } },
+                { points: 2700, description: { ko: "D6 빨강 장비 업그레이드 시 에너지 코어 소모로 추가 점수 획득", en: "Earn extra points by consuming Energy Cores for D6 Red Gear upgrade", vi: "Nhận điểm thưởng khi dùng Lõi năng lượng nâng cấp trang bị Đỏ D6" } },
+                { points: 40500, description: { ko: "DX-청사진 1개 소모", en: "Consume 1 DX-Blueprint", vi: "Tiêu hao 1 Bản thiết kế DX" } },
+                { points: 6075, description: { ko: "주황 영웅 조각 1개 소모하여 성급 업그레이드", en: "Consume 1 Orange Hero Shard for Star Upgrade", vi: "Tiêu hao 1 Mảnh anh hùng Cam để tăng sao" } },
+                { points: 1350, description: { ko: "보라 영웅 조각 1개 소모하여 성급 업그레이드", en: "Consume 1 Purple Hero Shard for Star Upgrade", vi: "Tiêu hao 1 Mảnh anh hùng Tím để tăng sao" } },
+                { points: 675, description: { ko: "파랑 영웅 조각 1개 소모하여 성급 업그레이드", en: "Consume 1 Blue Hero Shard for Star Upgrade", vi: "Tiêu hao 1 Mảnh anh hùng Xanh dương để tăng sao" } },
+                { points: 45, description: { ko: "지혜 훈장 1개 소모", en: "Consume 1 Wisdom Medal", vi: "Tiêu hao 1 Huân chương Trí tuệ" } },
+                { points: 55, description: { ko: "건축물 업그레이드에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for building upgrade", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho kiến trúc" } },
+                { points: 55, description: { ko: "과학 연구에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for research", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho nghiên cứu" } },
+                { points: 55, description: { ko: "유닛 훈련과 진급에 임의 가속 1분 소모", en: "Consume 1 min of any speedup for unit training/promotion", vi: "Tiêu hao 1 phút tăng tốc bất kỳ cho huấn luyện và thăng cấp lính" } }
+            ]
+        },
+        {
+            title: { ko: "6일차: 적군 격퇴 (전투)", en: "Day 6: Enemy Elimination (Combat)", vi: "Ngày 6: Tiêu diệt Kẻ thù (Chiến đấu)" },
+            missions: [
+                { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                { points: 90000, description: { ko: "S급 블랙머니 수송차량 1회 호위", en: "Escort S-Class Black Money Transport 1 time", vi: "Hộ tống Xe vận chuyển Tiền đen cấp S 1 lần" } },
+                { points: 45000, description: { ko: "1회 주황 [암영 작전] 임무 진행", en: "Perform 1 Orange [Shadow Operation] mission", vi: "Thực hiện 1 nhiệm vụ [Chiến dịch Bóng tối] Cam" } },
+                { points: 55, description: { ko: "임의 가속 누적 1분 사용", en: "Accumulate 1 min of any speedup used", vi: "Tích lũy sử dụng 1 phút tăng tốc bất kỳ" } },
+                { 
+                    points: 5, 
+                    description: { ko: "1레벨 병사 10명 처치", en: "Kill 10 Lv.1 Soldiers", vi: "Tiêu diệt 10 Lính Lv.1" },
+                    subMissions: [
+                        { points: 5, description: { ko: "1레벨 병사 10명 처치", en: "Kill 10 Lv.1 Soldiers", vi: "Tiêu diệt 10 Lính Lv.1" } },
+                        { points: 11, description: { ko: "2레벨 병사 10명 처치", en: "Kill 10 Lv.2 Soldiers", vi: "Tiêu diệt 10 Lính Lv.2" } },
+                        { points: 16, description: { ko: "3레벨 병사 10명 처치", en: "Kill 10 Lv.3 Soldiers", vi: "Tiêu diệt 10 Lính Lv.3" } },
+                        { points: 22, description: { ko: "4레벨 병사 10명 처치", en: "Kill 10 Lv.4 Soldiers", vi: "Tiêu diệt 10 Lính Lv.4" } },
+                        { points: 30, description: { ko: "5레벨 병사 10명 처치", en: "Kill 10 Lv.5 Soldiers", vi: "Tiêu diệt 10 Lính Lv.5" } },
+                        { points: 38, description: { ko: "6레벨 병사 10명 처치", en: "Kill 10 Lv.6 Soldiers", vi: "Tiêu diệt 10 Lính Lv.6" } },
+                        { points: 49, description: { ko: "7레벨 병사 10명 처치", en: "Kill 10 Lv.7 Soldiers", vi: "Tiêu diệt 10 Lính Lv.7" } },
+                        { points: 66, description: { ko: "8레벨 병사 10명 처치", en: "Kill 10 Lv.8 Soldiers", vi: "Tiêu diệt 10 Lính Lv.8" } },
+                        { points: 82, description: { ko: "9레벨 병사 10명 처치", en: "Kill 10 Lv.9 Soldiers", vi: "Tiêu diệt 10 Lính Lv.9" } },
+                        { points: 110, description: { ko: "10레벨 병사 10명 처치", en: "Kill 10 Lv.10 Soldiers", vi: "Tiêu diệt 10 Lính Lv.10" } }
+                    ]
+                },
+                { 
+                    points: 4, 
+                    description: { ko: "아군 1레벨 병사 10명 패배", en: "10 Allied Lv.1 Soldiers Defeated", vi: "10 Lính đồng minh Lv.1 thất bại" },
+                    subMissions: [
+                        { points: 4, description: { ko: "아군 1레벨 병사 10명 패배", en: "10 Allied Lv.1 Soldiers Defeated", vi: "10 Lính đồng minh Lv.1 thất bại" } },
+                        { points: 9, description: { ko: "아군 2레벨 병사 10명 패배", en: "10 Allied Lv.2 Soldiers Defeated", vi: "10 Lính đồng minh Lv.2 thất bại" } },
+                        { points: 13, description: { ko: "아군 3레벨 병사 10명 패배", en: "10 Allied Lv.3 Soldiers Defeated", vi: "10 Lính đồng minh Lv.3 thất bại" } },
+                        { points: 18, description: { ko: "아군 4레벨 병사 10명 패배", en: "10 Allied Lv.4 Soldiers Defeated", vi: "10 Lính đồng minh Lv.4 thất bại" } },
+                        { points: 24, description: { ko: "아군 5레벨 병사 10명 패배", en: "10 Allied Lv.5 Soldiers Defeated", vi: "10 Lính đồng minh Lv.5 thất bại" } },
+                        { points: 31, description: { ko: "아군 6레벨 병사 10명 패배", en: "10 Allied Lv.6 Soldiers Defeated", vi: "10 Lính đồng minh Lv.6 thất bại" } },
+                        { points: 40, description: { ko: "아군 7레벨 병사 10명 패배", en: "10 Allied Lv.7 Soldiers Defeated", vi: "10 Lính đồng minh Lv.7 thất bại" } },
+                        { points: 54, description: { ko: "아군 8레벨 병사 10명 패배", en: "10 Allied Lv.8 Soldiers Defeated", vi: "10 Lính đồng minh Lv.8 thất bại" } },
+                        { points: 67, description: { ko: "아군 9레벨 병사 10명 패배", en: "10 Allied Lv.9 Soldiers Defeated", vi: "10 Lính đồng minh Lv.9 thất bại" } },
+                        { points: 90, description: { ko: "아군 10레벨 병사 10명 패배", en: "10 Allied Lv.10 Soldiers Defeated", vi: "10 Lính đồng minh Lv.10 thất bại" } }
+                    ]
+                },
+                { 
+                    points: 33, 
+                    description: { ko: "대결 연맹의 1레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.1 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.1 của Liên minh đối thủ, điểm thưởng" },
+                    subMissions: [
+                        { points: 33, description: { ko: "대결 연맹의 1레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.1 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.1 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 55, description: { ko: "대결 연맹의 2레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.2 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.2 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 77, description: { ko: "대결 연맹의 3레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.3 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.3 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 110, description: { ko: "대결 연맹의 4레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.4 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.4 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 154, description: { ko: "대결 연맹의 5레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.5 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.5 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 198, description: { ko: "대결 연맹의 6레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.6 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.6 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 253, description: { ko: "대결 연맹의 7레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.7 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.7 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 319, description: { ko: "대결 연맹의 8레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.8 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.8 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 407, description: { ko: "대결 연맹의 9레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.9 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.9 của Liên minh đối thủ, điểm thưởng" } },
+                        { points: 506, description: { ko: "대결 연맹의 10레벨 병사 10명 처치, 추가 포인트", en: "Kill 10 Lv.10 Soldiers of Opposing Alliance, extra points", vi: "Tiêu diệt 10 Lính Lv.10 của Liên minh đối thủ, điểm thưởng" } }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    const container = document.getElementById('accordion-container');
+    const langSelect = document.getElementById('langSelect');
+    
+    let isFirstRender = true; // 최초 접속인지 확인하는 플래그
+    let detailsState = new Map(); // 아코디언의 열림/닫힘 상태를 임시 저장하는 객체
+
+    function renderPage(lang) {
+        document.getElementById('page-title').textContent = headerTranslations[lang].title;
+        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
+        document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
+        document.getElementById('support-text').textContent = headerTranslations[lang].support;
+        document.getElementById('footer-text').textContent = footerTranslations[lang];
+        
+        // 다시 렌더링하기 전에(언어 변경 시), 사용자가 수동으로 조작해둔 아코디언의 상태를 저장
+        if (!isFirstRender) {
+            container.querySelectorAll('details').forEach(d => {
+                if (d.dataset.id) {
+                    detailsState.set(d.dataset.id, d.open);
+                }
+            });
+        }
+        
+        container.innerHTML = '';
+        
+        // 현재 요일 가져오기 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+        const currentDayOfWeek = new Date().getDay();
+
+        duelData.forEach((dayData, groupIndex) => {
+            const details = document.createElement('details');
+            details.className = 'main-details';
+            details.dataset.id = `main-${groupIndex}`; // 고유 아이디 부여
+            
+            // 상태 복원 또는 초기 요일값 설정
+            if (isFirstRender) {
+                // 첫 접속 시: 일요일(0)이 아니면서, 현재 요일-1 이 groupIndex(0~5)와 같다면 open을 true로
+                if (currentDayOfWeek !== 0 && (currentDayOfWeek - 1) === groupIndex) {
+                    details.open = true;
+                }
+            } else {
+                // 언어 변경 시: 저장된 상태가 있다면 그대로 복원
+                if (detailsState.has(details.dataset.id)) {
+                    details.open = detailsState.get(details.dataset.id);
+                }
+            }
+            
+            const summary = document.createElement('summary');
+            summary.className = 'main-summary';
+            summary.textContent = dayData.title[lang];
+            summary.style.backgroundColor = rainbowColors[groupIndex % rainbowColors.length];
+            details.appendChild(summary);
+            
+            if (dayData.tips && dayData.tips.length > 0) {
+                const tipContainer = document.createElement('div');
+                tipContainer.className = 'tip-container';
+                
+                dayData.tips.forEach(tip => {
+                    const tipBox = document.createElement('div');
+                    tipBox.className = 'tip-box';
+                    tipBox.textContent = `💡 ${tip[lang]}`;
+                    tipContainer.appendChild(tipBox);
+                });
+                
+                details.appendChild(tipContainer);
+            }
+
+            const ul = document.createElement('ul');
+            ul.className = 'menu-list';
+            
+            dayData.missions.forEach((mission, missionIndex) => {
+                if (mission.subMissions && mission.subMissions.length > 0) {
+                    const subDetailsLi = document.createElement('li');
+                    const subDetails = document.createElement('details');
+                    subDetails.className = 'sub-details';
+                    subDetails.dataset.id = `sub-${groupIndex}-${missionIndex}`; // 하위 아코디언 고유 아이디
+                    
+                    // 서브 아코디언 역시 기존 상태가 있다면 복원
+                    if (!isFirstRender && detailsState.has(subDetails.dataset.id)) {
+                        subDetails.open = detailsState.get(subDetails.dataset.id);
+                    }
+                    
+                    const subSummary = document.createElement('summary');
+                    subSummary.className = 'rule-item';
+                    
+                    const contentWrapper = document.createElement('div');
+                    contentWrapper.className = 'item-content';
+                    
+                    const badge = document.createElement('span');
+                    badge.className = 'item-badge';
+                    const pnt = typeof mission.points === 'object' ? mission.points[lang] : formatPoints(mission.points);
+                    badge.textContent = pnt;
+                    
+                    const titleSpan = document.createElement('span');
+                    titleSpan.className = 'item-title';
+                    titleSpan.textContent = mission.description[lang];
+                    
+                    contentWrapper.appendChild(badge);
+                    contentWrapper.appendChild(titleSpan);
+                    subSummary.appendChild(contentWrapper);
+                    subDetails.appendChild(subSummary);
+                    
+                    const subUl = document.createElement('ul');
+                    subUl.className = 'sub-menu-list';
+                    
+                    mission.subMissions.forEach((subMission) => {
+                        const subLi = document.createElement('li');
+                        const subRuleItem = document.createElement('div');
+                        subRuleItem.className = 'rule-item sub-rule';
+                        
+                        const subContentWrapper = document.createElement('div');
+                        subContentWrapper.className = 'item-content';
+                        
+                        const subBadge = document.createElement('span');
+                        subBadge.className = 'sub-badge';
+                        const subPnt = typeof subMission.points === 'object' ? subMission.points[lang] : formatPoints(subMission.points);
+                        subBadge.textContent = subPnt;
+                        
+                        const subTitleSpan = document.createElement('span');
+                        subTitleSpan.className = 'item-title';
+                        subTitleSpan.style.color = '#555';
+                        subTitleSpan.textContent = subMission.description[lang];
+                        
+                        subContentWrapper.appendChild(subBadge);
+                        subContentWrapper.appendChild(subTitleSpan);
+                        subRuleItem.appendChild(subContentWrapper);
+                        subLi.appendChild(subRuleItem);
+                        subUl.appendChild(subLi);
+                    });
+                    
+                    subDetails.appendChild(subUl);
+                    subDetailsLi.appendChild(subDetails);
+                    ul.appendChild(subDetailsLi);
+                    
+                } else {
+                    const li = document.createElement('li');
+                    const ruleItem = document.createElement('div');
+                    ruleItem.className = 'rule-item';
+                    
+                    const contentWrapper = document.createElement('div');
+                    contentWrapper.className = 'item-content';
+                    
+                    const badge = document.createElement('span');
+                    badge.className = 'item-badge';
+                    const pnt = typeof mission.points === 'object' ? mission.points[lang] : formatPoints(mission.points);
+                    badge.textContent = pnt;
+                    
+                    const titleSpan = document.createElement('span');
+                    titleSpan.className = 'item-title';
+                    titleSpan.textContent = mission.description[lang];
+                    
+                    contentWrapper.appendChild(badge);
+                    contentWrapper.appendChild(titleSpan);
+                    ruleItem.appendChild(contentWrapper);
+                    li.appendChild(ruleItem);
+                    ul.appendChild(li);
+                }
+            });
+            details.appendChild(ul);
+            container.appendChild(details);
+        });
+        
+        isFirstRender = false; // 첫 렌더링이 완료되었으므로 플래그 변경
+    }
+
+    langSelect.addEventListener('change', function(e) {
+        const selectedLang = e.target.value;
+        localStorage.setItem('lang', selectedLang);
+        renderPage(selectedLang);
+    });
+
+    const savedLang = localStorage.getItem('lang') || 'ko';
+    langSelect.value = savedLang; 
+    renderPage(savedLang); 
+</script>
+</body>
+</html>
