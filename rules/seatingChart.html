@@ -184,7 +184,7 @@
 </div>
 
 <script>
-    const sysdate = "20260601";
+    const updateDate = "20260601";
 
     const translations = {
         ko: {
@@ -226,7 +226,7 @@
 
     function applyLanguage(lang) {
         document.getElementById('page-title').textContent = translations[lang].title;
-        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
+        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
         
         const subtitleElement = document.getElementById('subtitle-text');
         const subtitleText = translations[lang].subtitle;
@@ -257,7 +257,7 @@
     langSelect.value = savedLang;
     applyLanguage(savedLang);
 
-    document.getElementById('download-btn').setAttribute("download", `SeatingChart_${sysdate}.png`);
+    document.getElementById('download-btn').setAttribute("download", `SeatingChart_${updateDate}.png`);
 
 </script>
 </body>
