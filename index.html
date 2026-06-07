@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -295,23 +294,24 @@
         }
     };
 
+    // uyn: true 속성을 추가하여 공개 여부를 관리합니다. (false 설정 시 화면에 노출되지 않습니다)
     // isNew: true 속성을 주면 자동으로 NEW 뱃지가 표시됩니다.
     const guideData = [
         {
             groupTitle: { ko: "규칙", en: "Rules", vi: "Quy tắc" },
             prefix: { ko: "규칙", en: "Rule", vi: "Quy tắc" },
             links: [
-                { title: { ko: "연맹 규칙", en: "Alliance Rules", vi: "Quy tắc liên minh" }, url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html" },
-                { title: { ko: "BGB 팀 선정 규칙", en: "BGB Team Selection Rules", vi: "Quy tắc chọn đội BGB" }, url: "https://rainyhaha.github.io/darkwar/rules/bgbRules.html", isNew: true },
-                { title: { ko: "자리 배치도", en: "Seating Chart", vi: "Sơ đồ chỗ ngồi" }, url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html" }
+                { title: { ko: "연맹 규칙", en: "Alliance Rules", vi: "Quy tắc liên minh" }, url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html", uyn: true },
+                { title: { ko: "BGB 팀 선정 규칙", en: "BGB Team Selection Rules", vi: "Quy tắc chọn đội BGB" }, url: "https://rainyhaha.github.io/darkwar/rules/bgbRules.html", isNew: false, uyn: true },
+                { title: { ko: "자리 배치도", en: "Seating Chart", vi: "Sơ đồ chỗ ngồi" }, url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html", uyn: true }
             ]
         },
         {
             groupTitle: { ko: "팁", en: "Tips", vi: "Mẹo" },
             prefix: { ko: "팁", en: "Tip", vi: "Mẹo" },
             links: [
-                { title: { ko: "연맹 대결 점수", en: "Alliance Duel Score", vi: "Điểm Đối đầu Liên minh" }, url: "https://rainyhaha.github.io/darkwar/tips/allianceDuelScore.html", isNew: true },
-                { title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html" }
+                { title: { ko: "연맹 대결 점수", en: "Alliance Duel Score", vi: "Điểm Đối đầu Liên minh" }, url: "https://rainyhaha.github.io/darkwar/tips/allianceDuelScore.html", isNew: false, uyn: true },
+                { title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html", uyn: true }
             ]
         }
     ];
@@ -340,6 +340,10 @@
         container.innerHTML = '';
         
         guideData.forEach((group, groupIndex) => {
+            // 그룹 내 공개된(uyn !== false) 항목이 있는지 확인
+            const visibleLinks = group.links.filter(link => link.uyn !== false);
+            if (visibleLinks.length === 0) return; // 공개될 링크가 하나도 없으면 그룹 전체를 렌더링하지 않음
+
             const details = document.createElement('details');
             details.open = true;
             const summary = document.createElement('summary');
@@ -350,7 +354,12 @@
             const ul = document.createElement('ul');
             ul.className = 'menu-list';
             
-            group.links.forEach((linkItem, itemIndex) => {
+            let displayIndex = 1; // 비공개 항목을 제외한 실제 화면에 보이는 순서 번호
+            
+            group.links.forEach((linkItem) => {
+                // uyn이 false로 설정되어 있다면 해당 항목 건너뛰기
+                if (linkItem.uyn === false) return;
+
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = linkItem.url;
@@ -360,7 +369,8 @@
                 
                 const badge = document.createElement('span');
                 badge.className = 'item-badge';
-                badge.textContent = `${group.prefix[lang]} ${itemIndex + 1}`;
+                badge.textContent = `${group.prefix[lang]} ${displayIndex}`;
+                displayIndex++; // 출력된 항목 수 증가
                 
                 const titleSpan = document.createElement('span');
                 titleSpan.className = 'item-title';
