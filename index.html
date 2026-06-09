@@ -198,13 +198,34 @@
         margin-left: 8px;
         letter-spacing: 0.5px;
         /* 시선을 끄는 깜빡임 효과 */
-        animation: pulse 2s infinite; 
+        animation: pulse-red 2s infinite; 
     }
 
-    @keyframes pulse {
+    /* 새로 추가된 UPDATE 마크 디자인 */
+    .update-mark {
+        display: inline-block;
+        background-color: #007bff; /* 파란색 적용 */
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 8px;
+        letter-spacing: 0.5px;
+        /* 시선을 끄는 깜빡임 효과 */
+        animation: pulse-blue 2s infinite; 
+    }
+
+    @keyframes pulse-red {
         0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.7); }
         50% { transform: scale(1.05); box-shadow: 0 0 0 4px rgba(255, 77, 79, 0); }
         100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 79, 0); }
+    }
+
+    @keyframes pulse-blue {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+        50% { transform: scale(1.05); box-shadow: 0 0 0 4px rgba(0, 123, 255, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
     }
 
     .menu-list a::after {
@@ -243,7 +264,7 @@
         .menu-list a { padding: 14px 20px; }
         .item-title { font-size: 15px; }
         .item-badge { font-size: 12px; padding: 3px 10px; }
-        .new-mark { font-size: 9px; padding: 1px 4px; margin-left: 6px; }
+        .new-mark, .update-mark { font-size: 9px; padding: 1px 4px; margin-left: 6px; }
     }
 </style>
 <script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=442"></script>
@@ -295,23 +316,25 @@
     };
 
     // uyn: true 속성을 추가하여 공개 여부를 관리합니다. (false 설정 시 화면에 노출되지 않습니다)
-    // isNew: true 속성을 주면 자동으로 NEW 뱃지가 표시됩니다.
+    // isNew: true 속성을 주면 자동으로 NEW 빨간색 뱃지가 표시됩니다.
+    // isUpdate: true 속성을 주면 자동으로 UPDATE 파란색 뱃지가 표시됩니다.
     const guideData = [
         {
             groupTitle: { ko: "규칙", en: "Rules", vi: "Quy tắc" },
             prefix: { ko: "규칙", en: "Rule", vi: "Quy tắc" },
             links: [
-                { title: { ko: "연맹 규칙", en: "Alliance Rules", vi: "Quy tắc liên minh" }, url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html", uyn: true },
-                { title: { ko: "BGB 팀 선정 규칙", en: "BGB Team Selection Rules", vi: "Quy tắc chọn đội BGB" }, url: "https://rainyhaha.github.io/darkwar/rules/bgbRules.html", isNew: false, uyn: true },
-                { title: { ko: "자리 배치도", en: "Seating Chart", vi: "Sơ đồ chỗ ngồi" }, url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html", uyn: true }
+                { title: { ko: "연맹 규칙", en: "Alliance Rules", vi: "Quy tắc liên minh" }, url: "https://rainyhaha.github.io/darkwar/rules/allianceRules.html", isNew: false, isUpdate: false, uyn: true },
+                { title: { ko: "BGB 팀 선정 규칙", en: "BGB Team Selection Rules", vi: "Quy tắc chọn đội BGB" }, url: "https://rainyhaha.github.io/darkwar/rules/bgbRules.html", isNew: false, isUpdate: false, uyn: true },
+                { title: { ko: "자리 배치도", en: "Seating Chart", vi: "Sơ đồ chỗ ngồi" }, url: "https://rainyhaha.github.io/darkwar/rules/seatingChart.html", isNew: false, isUpdate: false, uyn: true }
             ]
         },
         {
             groupTitle: { ko: "팁", en: "Tips", vi: "Mẹo" },
             prefix: { ko: "팁", en: "Tip", vi: "Mẹo" },
             links: [
-                { title: { ko: "연맹 대결 점수", en: "Alliance Duel Score", vi: "Điểm Đối đầu Liên minh" }, url: "https://rainyhaha.github.io/darkwar/tips/allianceDuelScore.html", isNew: false, uyn: true },
-                { title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html", uyn: true }
+                // isNew 대신 isUpdate를 true로 설정
+                { title: { ko: "연맹 대결 점수", en: "Alliance Duel Score", vi: "Điểm Đối đầu Liên minh" }, url: "https://rainyhaha.github.io/darkwar/tips/allianceDuelScore.html", isNew: false, isUpdate: true, uyn: true },
+                { title: { ko: "펫 에이전트 가이드", en: "Pet Agent Guide", vi: "Hướng dẫn Pet Agent" }, url: "https://rainyhaha.github.io/darkwar/tips/petAgentGuide.html", isNew: false, isUpdate: false, uyn: true }
             ]
         }
     ];
@@ -382,6 +405,14 @@
                     newMark.className = 'new-mark';
                     newMark.textContent = 'NEW';
                     titleSpan.appendChild(newMark);
+                }
+
+                // isUpdate 속성이 true일 경우 UPDATE 뱃지 추가
+                if (linkItem.isUpdate) {
+                    const updateMark = document.createElement('span');
+                    updateMark.className = 'update-mark';
+                    updateMark.textContent = 'UPDATE';
+                    titleSpan.appendChild(updateMark);
                 }
 
                 contentWrapper.appendChild(badge);
