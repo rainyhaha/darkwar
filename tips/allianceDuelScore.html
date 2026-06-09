@@ -354,7 +354,7 @@
 </div>
 
 <script>
-    const sysdate = "20260609";
+    const updateDate = "20260609";
 
     const rainbowColors = [
         '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff'
@@ -597,7 +597,7 @@
 
     function renderPage(lang) {
         document.getElementById('page-title').textContent = headerTranslations[lang].title;
-        document.getElementById('version-text').textContent = getFormattedVersionText(sysdate, lang);
+        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
         document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
         document.getElementById('support-text').textContent = headerTranslations[lang].support;
         document.getElementById('footer-text').textContent = footerTranslations[lang];
