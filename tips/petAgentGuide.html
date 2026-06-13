@@ -18,16 +18,14 @@
         --color-red: #d93025;
     }
     
-    * {
-        box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
         background-color: var(--bg-main); 
         color: var(--text-main);
         margin: 0;
-        padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
+        padding: 40px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -71,34 +69,19 @@
         background-position: right 12px center;
         background-size: 14px;
     }
-
-    .lang-selector select:hover, .lang-selector select:focus {
-        border-color: #007bff;
-    }
+    .lang-selector select:hover, .lang-selector select:focus { border-color: #007bff; }
 
     .header-wrapper {
         text-align: center;
         margin-bottom: 40px;
-        margin-top: 0; /* 여백 통일 */
+        margin-top: 0; 
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .header-wrapper h1 {
-        font-size: 28px;
-        font-weight: 800;
-        margin: 0 0 6px 0;
-        color: #1a1a1a;
-        letter-spacing: -0.5px;
-    }
-
-    .header-wrapper .subtitle {
-        font-size: 16px;
-        color: #333333; 
-        font-weight: 500;
-        margin: 0;
-    }
+    .header-wrapper h1 { font-size: 28px; font-weight: 800; margin: 0 0 6px 0; color: #1a1a1a; letter-spacing: -0.5px; }
+    .header-wrapper .subtitle { font-size: 16px; color: #333333; font-weight: 500; margin: 0; }
     
     h2, h3, h4 { margin: 0; }
     
@@ -123,12 +106,7 @@
         border-bottom: 1px solid #f0f0f0; 
         padding-bottom: 10px; 
     }
-    .desc-text { 
-        font-size: 14px; 
-        color: var(--text-muted); 
-        margin-bottom: 20px; 
-        line-height: 1.5;
-    }
+    .desc-text { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
     
     .pet-grid { display: flex; gap: 10px; justify-content: space-between; align-items: stretch; margin-bottom: 20px; }
     .pet-card { flex: 1; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; padding: 12px 10px; display: flex; flex-direction: column; background: #fafbfc; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -250,9 +228,40 @@
         <p class="subtitle" data-i18n="titleSub">🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾</p>
     </div>
 
+    <!-- 특훈 효율 팁 섹션 -->
+    <div class="panel">
+        <div class="panel-title" data-i18n="trainTitle">🎯 특훈 효율 팁</div>
+        <div class="desc-text" data-i18n="trainDesc">펫의 훈련 단계(회색 > 초록 > 파랑 > 보라 > 노랑)에 따른 재화 소모 효율</div>
+        
+        <div class="team-roles-summary" style="margin-bottom: 20px;">
+            <div class="tr-item">
+                <span style="font-size:22px">📘</span>
+                <div>
+                    <strong class="text-blue" data-i18n="trainNormalTitle">일반 특훈 (파란 책)</strong>
+                    <span data-i18n="trainNormalDesc">초록 단계까지 최대 효율. 파란 단계부터는 마이너스(-) 퍼센트가 뜨며 효율이 급감합니다.</span>
+                </div>
+            </div>
+            <div class="tr-item">
+                <span style="font-size:22px">📙</span>
+                <div>
+                    <strong class="text-gold" data-i18n="trainAdvTitle">고급 특훈 (주황 책)</strong>
+                    <span data-i18n="trainAdvDesc">파란 단계까지 최대 효율. 보라 단계부터 효율이 감소하며 노랑 단계 때 효율이 급감합니다.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-guide-section dev" style="margin-bottom: 0;">
+            <h4 data-i18n="trainTipsTitle">💡 특훈 핵심 전략</h4>
+            <ul>
+                <li data-i18n="trainTip1">일반 특훈(파란 책)으로 <strong>모든 펫을 초록 단계까지</strong> 강화한 후에 고급 특훈(주황 책)을 사용하십시오.</li>
+                <li data-i18n="trainTip2"><strong>회색 단계</strong>의 특훈을 올리는 것이 효율이 가장 좋습니다.</li>
+            </ul>
+        </div>
+    </div>
+
     <div class="panel">
         <div class="section-title" data-i18n="sec1Title">🐾 펫 해금 순서 및 성장 경로</div>
-        <div class="desc-text" data-i18n="sec1Desc">펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.</div>
+        <div class="desc-text" data-i18n="sec1Desc">펫은 정해진 순서대로 해금됩니다. 각 펫을 돌파하여 단서를 얻고 다음 펫을 해금하세요.</div>
         
         <div class="pet-grid">
             <div class="pet-card sentinel">
@@ -273,28 +282,27 @@
                 <div class="pet-card-header" data-i18n="p3Name">③ 제우스</div>
                 <div class="pet-role text-blue" data-i18n="p3Role">🥫 유틸리티 / 지원</div>
                 <div class="pet-desc" data-i18n="p3Desc">고급 전술 식량을 즉시 획득합니다.</div>
-                <div class="pet-unlock" data-i18n="p3Unlock">📈 펫 #4 해금<br>Reach Lv.30</div>
+                <div class="pet-unlock" data-i18n="p3Unlock">📈 펫 #4 해금<br>Reach Lv.40</div>
             </div>
             <div class="arrow">▶</div>
             <div class="pet-card specter">
                 <div class="pet-card-header" data-i18n="p4Name">④ 귀영</div>
                 <div class="pet-role text-purple" data-i18n="p4Role">📦 유틸리티 / 지원</div>
                 <div class="pet-desc" data-i18n="p4Desc">무작위 아이템을 즉시 부여합니다.</div>
-                <div class="pet-unlock" data-i18n="p4Unlock">📈 펫 #5 해금<br>Reach Lv.30</div>
+                <div class="pet-unlock" data-i18n="p4Unlock">📈 펫 #5 해금<br>Reach Lv.40</div>
             </div>
             <div class="arrow">▶</div>
             <div class="pet-card frost">
                 <div class="pet-card-header" data-i18n="p5Name">⑤ 프로스트</div>
                 <div class="pet-role text-purple" data-i18n="p5Role">⚔️ 메인 딜러</div>
                 <div class="pet-desc" data-i18n="p5Desc">2시간 동안 모든 부대의 공격력을 증가시킵니다.</div>
-                <div class="pet-unlock" data-i18n="p5Unlock">📈 펫 #6 해금<br>Reach Lv.30</div>
+                <div class="pet-unlock" data-i18n="p5Unlock">📈 펫 #6 해금<br>Reach Lv.40</div>
             </div>
             <div class="arrow">▶</div>
             <div class="pet-card titan">
                 <div class="pet-card-header" data-i18n="p6Name">⑥ 타이탄</div>
                 <div class="pet-role text-gold" data-i18n="p6Role">🛡️ 메인 탱커 / 방어</div>
                 <div class="pet-desc" data-i18n="p6Desc">거대한 방어 버프. 팀을 생존시킵니다!</div>
-                <div class="pet-unlock" data-i18n="p6Unlock">👑 모든 펫 해금<br>Reach Lv.30</div>
             </div>
         </div>
 
@@ -347,7 +355,7 @@
                     <div class="p-num">1</div>
                     <div class="p-icon">🥫</div>
                     <div class="p-title" data-i18n="path1Title">모든 펫 우선 해금</div>
-                    <div class="p-desc" data-i18n="path1Desc">다음 펫 해금을 위해 각 펫 30레벨 달성 (1→2→3→4→5→6)</div>
+                    <div class="p-desc" data-i18n="path1Desc">다음 펫 해금을 위해 각 펫 돌파 (1~2는 Lv.30, 3~6은 Lv.40)</div>
                 </div>
                 <div class="p-arrow">▶</div>
                 <div class="path-step">
@@ -404,7 +412,7 @@
     <div class="bottom-grid">
         <div class="panel">
             <div class="panel-title" data-i18n="bot1Title">📅 일일 루틴</div>
-            <div class="list-item"><div class="list-num">1</div><div data-i18n="bot1L1">현재 펫 먹이 주기로 Lv.30 달성하기.</div></div>
+            <div class="list-item"><div class="list-num">1</div><div data-i18n="bot1L1">현재 펫 먹이 주기로 돌파 및 목표 레벨(30/40) 달성하기.</div></div>
             <div class="list-item"><div class="list-num">2</div><div data-i18n="bot1L2">다음 펫 해금 및 레벨업 즉시 시작.</div></div>
             <div class="list-item"><div class="list-num">3</div><div data-i18n="bot1L3">쿨다운마다 발전 스킬 아끼지 말고 사용.</div></div>
             <div class="list-item"><div class="list-num">4</div><div data-i18n="bot1L4">고레벨 자원 지대 위주로 채집 진행.</div></div>
@@ -514,14 +522,15 @@
 const translations = {
     ko: {
         titleMain: "🛡️ 펫 에이전트 가이드", titleSub: "🐾 함께할수록 더 강하게 • 영리하게 싸우자 • 함께 승리하자 🐾",
-        sec1Title: "🐾 펫 해금 순서 및 성장 경로", sec1Desc: "펫은 정해진 순서대로 해금됩니다. 각 펫을 30레벨까지 올려 단서를 얻고 다음 펫을 해금하세요.",
+        sec1Title: "🐾 펫 해금 순서 및 성장 경로", sec1Desc: "펫은 정해진 순서대로 해금됩니다. 각 펫을 돌파하여 단서를 얻고 다음 펫을 해금하세요.",
         p1Name: "① 센티널", p1Role: "🌱 경제 / 채집", p1Desc: "1개 부대의 진행 중인 채집을 즉시 완료합니다.", p1Unlock: "📈 펫 #2 해금<br>Reach Lv.30",
         p2Name: "② 섬령", p2Role: "📦 유틸리티 / 지원", p2Desc: "정예 전사를 즉시 획득합니다.", p2Unlock: "📈 펫 #3 해금<br>Reach Lv.30",
-        p3Name: "③ 제우스", p3Role: "🥫 유틸리티 / 지원", p3Desc: "고급 전술 식량을 즉시 획득합니다.", p3Unlock: "📈 펫 #4 해금<br>Reach Lv.30",
-        p4Name: "④ 귀영", p4Role: "📦 유틸리티 / 지원", p4Desc: "무작위 아이템을 즉시 부여합니다.", p4Unlock: "📈 펫 #5 해금<br>Reach Lv.30",
-        p5Name: "⑤ 프로스트", p5Role: "⚔️ 메인 딜러", p5Desc: "2시간 동안 모든 부대의 공격력을 증가시킵니다.", p5Unlock: "📈 펫 #6 해금<br>Reach Lv.30",
-        p6Name: "⑥ 타이탄", p6Role: "🛡️ 메인 탱커 / 방어", p6Desc: "거대한 방어 버프. 팀을 생존시킵니다!", p6Unlock: "👑 모든 펫 해금<br>Reach Lv.30",
+        p3Name: "③ 제우스", p3Role: "🥫 유틸리티 / 지원", p3Desc: "고급 전술 식량을 즉시 획득합니다.", p3Unlock: "📈 펫 #4 해금<br>Reach Lv.40",
+        p4Name: "④ 귀영", p4Role: "📦 유틸리티 / 지원", p4Desc: "무작위 아이템을 즉시 부여합니다.", p4Unlock: "📈 펫 #5 해금<br>Reach Lv.40",
+        p5Name: "⑤ 프로스트", p5Role: "⚔️ 메인 딜러", p5Desc: "2시간 동안 모든 부대의 공격력을 증가시킵니다.", p5Unlock: "📈 펫 #6 해금<br>Reach Lv.40",
+        p6Name: "⑥ 타이탄", p6Role: "🛡️ 메인 탱커 / 방어", p6Desc: "거대한 방어 버프. 팀을 생존시킵니다!",
         keyRule: "⭐ 핵심 규칙: 우선순위 = 모든 펫을 먼저 해금하세요. 초반에 한 마리의 펫에 과투자하지 마세요!",
+        
         mid1Title: "📋 모든 펫 - 역할 및 스킬 개요",
         r1Name: "🐶 센티널", r1Role: "🌱 채집/경제", r1SName: "🌱 즉시 획득", r1SDesc: "1개 부대의 진행 중인 채집을 즉시 완료합니다.",
         r2Name: "🦝 섬령", r2Role: "🛠️ 유틸/지원", r2SName: "📦 쾌속 개조", r2SDesc: "정예 전사를 즉시 획득합니다.",
@@ -529,19 +538,33 @@ const translations = {
         r4Name: "🦊 귀영", r4Role: "🛠️ 유틸/지원", r4SName: "📦 극지 탐색", r4SDesc: "무작위 아이템을 즉시 부여합니다.",
         r5Name: "🐯 프로스트", r5Role: "⚔️ 메인 딜러", r5SName: "⚔️ 치명적 본능", r5SDesc: "2시간 동안 모든 부대의 공격력을 증가시킵니다.",
         r6Name: "🐻 타이탄", r6Role: "🛡️ 탱커/방어", r6SName: "🛡️ 야만의 포효", r6SDesc: "거대한 방어 버프. 팀을 생존시킵니다!",
+        
         mid2Title: "🚀 업그레이드 및 우선순위 경로",
-        path1Title: "모든 펫 우선 해금", path1Desc: "다음 펫 해금을 위해 각 펫 30레벨 달성 (1→2→3→4→5→6)",
+        path1Title: "모든 펫 우선 해금", path1Desc: "다음 펫 해금을 위해 각 펫 돌파 (1~2는 Lv.30, 3~6은 Lv.40)",
         path2Title: "핵심 전투력 구축", path2Desc: "해금 완료 후 프로스트(딜)와 타이탄(탱)에 집중해 전투력 극대화",
         path3Title: "유틸리티 펫 투자", path3Desc: "장기 성장을 위해 귀영(템)와 센티널(채집) 육성",
         path4Title: "벤치 펫은 상황별", path4Desc: "섬령과 제우스는 초반용으로 우선순위가 낮음, 필요시 사용",
         path5Title: "꾸준함 유지", path5Desc: "매일 로그인, 펫 패스, 스킬 사용으로 연맹 성장 기여",
+        
         trTitle: "📊 팀 역할 요약",
         tr1Name: "탱커 / 방어", tr1Desc: "팀을 보호하고 피해를 흡수합니다.",
         tr2Name: "데미지 딜러", tr2Desc: "강력한 피해를 입히고 전투에서 승리합니다.",
         tr3Name: "유틸리티 / 지원", tr3Desc: "아이템, 버프, 부대 부스트를 제공합니다.",
         tr4Name: "경제 / 발전", tr4Desc: "자원 및 계정 성장을 가속합니다.",
+
+        trainTitle: "🎯 특훈 효율 팁",
+        trainDesc: "펫의 훈련 단계(회색 > 초록 > 파랑 > 보라 > 노랑)에 따른 재화 소모 효율",
+        trainNormalTitle: "일반 특훈 (파란 책)",
+        trainNormalDesc: "초록 단계까지 최대 효율. 파란 단계부터는 마이너스(-) 퍼센트가 뜨며 효율이 급감합니다.",
+        trainAdvTitle: "고급 특훈 (주황 책)",
+        trainAdvDesc: "파란 단계까지 최대 효율. 보라 단계부터 효율이 감소하며 노랑 단계 때 효율이 급감합니다.",
+        trainTipsTitle: "💡 특훈 핵심 전략",
+        trainTip1: "일반 특훈(파란 책)으로 <strong>모든 펫을 초록 단계까지</strong> 강화한 후에 고급 특훈(주황 책)을 사용하십시오.",
+        trainTip2: "<strong>회색 단계</strong>의 특훈을 올리는 것이 효율이 가장 좋습니다.",
+        
         bot1Title: "📅 일일 루틴",
-        bot1L1: "현재 펫 먹이 주기로 Lv.30 달성하기.", bot1L2: "다음 펫 해금 및 레벨업 즉시 시작.", bot1L3: "쿨다운마다 발전 스킬 아끼지 말고 사용.", bot1L4: "고레벨 자원 지대 위주로 채집 진행.", bot1L5: "일일 펫 패스 미션 필수 완료.",
+        bot1L1: "현재 펫 먹이 주기로 돌파 및 목표 레벨(30/40) 달성하기.", bot1L2: "다음 펫 해금 및 레벨업 즉시 시작.", bot1L3: "쿨다운마다 발전 스킬 아끼지 말고 사용.", bot1L4: "고레벨 자원 지대 위주로 채집 진행.", bot1L5: "일일 펫 패스 미션 필수 완료.",
+        
         bot2Title: "💎 주요 자원 및 역할",
         bot2N1: "고급 전술 식량", bot2D1: "펫 먹이 지급 및 레벨업 자원.",
         bot2N2: "영양 물약", bot2D2: "펫 한계 돌파(Breakthrough)에 사용.",
@@ -549,31 +572,37 @@ const translations = {
         bot2N4: "표준 훈련 프로토콜", bot2D4: "일반 펫 훈련 및 성장에 사용.",
         bot2N5: "특수 작전 명예 훈장", bot2D5: "고등급 펫 에이전트의 돌파 자원.",
         bot2N6: "고급 훈련 프로토콜", bot2D6: "고레벨 펫의 고급 훈련에 사용.",
+        
         bot3Title: "💡 스킬 사용 가이드",
         bot3S1Title: "⚔️ 전투 스킬 (프로스트, 타이탄)", bot3S1U1Label: "주요 사용처:", bot3S1U1Desc: "집결, 요새전, 연맹전, 강력 보스전.", bot3S1U2: "쉬운 전투나 소규모 이벤트에는 아끼세요.",
         bot3S2Title: "🌱 발전 스킬 (모든 펫)", bot3S2U1: "쿨다운이 돌아올 때마다 아낌없이 사용하세요.", bot3S2U2Label: "최고 효율:", bot3S2U2Desc: "장시간 채집이나 고가치 자원 타겟팅.",
+        
         bot4Title: "⭐ 중요 TIP",
         bot4L1: "무조건 모든 펫 해금이 우선입니다 - 최고 속도 성장 공식.", bot4L2: "가장 강력한 전투 시너지는 프로스트와 타이탄 듀오입니다.", bot4L3: "장시간 자리 비움이나 고가치 자원 채집 시 센티널 스킬 필수.", bot4L4: "자원 낭비 없이 핵심 위주로 압축 투자하세요.", bot4L5: "매일의 작은 꾸준함이 모여 연맹의 승리를 만듭니다!",
+        
         foot1Title: "🛒 최고 효율 추천 상품 (BEST VALUE PURCHASES)",
         foot1N1: "펫 주간 카드", foot1D1: "최고의 매일 가치 보장!",
         foot1N2: "펫 전투 패스", foot1D2: "엄청난 누적 보상 제공!",
         foot1N3: "고급 훈련 팩", foot1D3: "훈련 스피드업에 최고!",
         foot1N4: "영양 물약 팩", foot1D4: "돌파 정체 구간 해결사!",
         foot1N5: "전술 식량 패키지", foot1D5: "성장은 느리지만 필수 식량.",
+        
         foot2Title: "🏆 꼭 기억하세요 (REMEMBER)",
         foot2L1: "6마리의 펫을 순서대로 최우선 해금하기.", foot2L2: "전투(딜/탱) 및 유틸리티 핵심 코어 구축하기.", foot2L3: "스킬은 타이밍과 효율에 맞춰 알맞게 쓰기.", foot2L4: "강력한 펫 = 강한 연맹 = 최종 승리!",
+        
         veryBottom: "536 State - FROM"
     },
     en: {
         titleMain: "🛡️ PET AGENT GUIDE", titleSub: "🐾 Stronger Together • Fight Smart • Win Together 🐾",
-        sec1Title: "🐾 Pet Unlock Order & Progression Path", sec1Desc: "Pets are released in a fixed order. Level each pet to Lv.30 to get a clue and unlock the next one.",
+        sec1Title: "🐾 Pet Unlock Order & Progression Path", sec1Desc: "Pets are released in a fixed order. Breakthrough each pet to get a clue and unlock the next one.",
         p1Name: "① SENTINEL", p1Role: "🌱 Economy/Gather", p1Desc: "Instantly completes ongoing gathering for 1 troop.", p1Unlock: "📈 Unlock Pet #2<br>Reach Lv.30",
         p2Name: "② SHINING", p2Role: "📦 Utility/Support", p2Desc: "Instantly gains elite warriors.", p2Unlock: "📈 Unlock Pet #3<br>Reach Lv.30",
-        p3Name: "③ ZEUS", p3Role: "🥫 Utility/Support", p3Desc: "Instantly receives Advanced Tactical Rations.", p3Unlock: "📈 Unlock Pet #4<br>Reach Lv.30",
-        p4Name: "④ SPECTER", p4Role: "📦 Utility/Support", p4Desc: "Instantly grants random items.", p4Unlock: "📈 Unlock Pet #5<br>Reach Lv.30",
-        p5Name: "⑤ FROST", p5Role: "⚔️ Main Damage", p5Desc: "Increases all troops' ATK for 2 hours.", p5Unlock: "📈 Unlock Pet #6<br>Reach Lv.30",
-        p6Name: "⑥ TITAN", p6Role: "🛡️ Tank/Defense", p6Desc: "Massive defense buff. Keeps the team alive!", p6Unlock: "👑 Unlock All<br>Reach Lv.30",
+        p3Name: "③ ZEUS", p3Role: "🥫 Utility/Support", p3Desc: "Instantly receives Advanced Tactical Rations.", p3Unlock: "📈 Unlock Pet #4<br>Reach Lv.40",
+        p4Name: "④ SPECTER", p4Role: "📦 Utility/Support", p4Desc: "Instantly grants random items.", p4Unlock: "📈 Unlock Pet #5<br>Reach Lv.40",
+        p5Name: "⑤ FROST", p5Role: "⚔️ Main Damage", p5Desc: "Increases all troops' ATK for 2 hours.", p5Unlock: "📈 Unlock Pet #6<br>Reach Lv.40",
+        p6Name: "⑥ TITAN", p6Role: "🛡️ Tank/Defense", p6Desc: "Massive defense buff. Keeps the team alive!",
         keyRule: "⭐ KEY RULE: PRIORITY = UNLOCK ALL PETS FIRST. Do not over-invest in one pet early!",
+        
         mid1Title: "📋 ALL PETS - ROLES & SKILLS OVERVIEW",
         r1Name: "🐶 Sentinel", r1Role: "🌱 Eco/Gather", r1SName: "🌱 Instant Loot", r1SDesc: "Instantly completes ongoing gathering for 1 troop.",
         r2Name: "🦝 Shining", r2Role: "🛠️ Utility", r2SName: "📦 Rapid Mod", r2SDesc: "Instantly gains elite warriors.",
@@ -581,19 +610,33 @@ const translations = {
         r4Name: "🦊 Specter", r4Role: "🛠️ Utility", r4SName: "📦 Polar Search", r4SDesc: "Instantly grants random items.",
         r5Name: "🐯 Frost", r5Role: "⚔️ Damage", r5SName: "⚔️ Lethal Instinct", r5SDesc: "Increases all troops' ATK for 2 hours.",
         r6Name: "🐻 Titan", r6Role: "🛡️ Defense", r6SName: "🛡️ Savage Roar", r6SDesc: "Massive defense buff. Keeps the team alive!",
+        
         mid2Title: "🚀 UPGRADE & PRIORITY PATH",
-        path1Title: "Unlock All Pets First", path1Desc: "Level each pet to Lv.30 to unlock the next. (1→2→3→4→5→6)",
+        path1Title: "Unlock All Pets First", path1Desc: "Breakthrough each pet to unlock the next (Pets 1-2: Lv.30, 3-6: Lv.40).",
         path2Title: "Build Core Combat", path2Desc: "After unlocking all, focus on Frost (dmg) and Titan (tank).",
         path3Title: "Invest in Utility", path3Desc: "Develop Specter (items) & Sentinel (gather) for long-term growth.",
         path4Title: "Use Bench Situational", path4Desc: "Shining & Zeus are good early, lower priority later.",
         path5Title: "Keep Consistent", path5Desc: "Daily login, pass tasks, and skill use build steady progress.",
+        
         trTitle: "📊 TEAM ROLES SUMMARY",
         tr1Name: "TANK / DEFENSE", tr1Desc: "Protects the team and absorbs damage.",
         tr2Name: "DAMAGE DEALER", tr2Desc: "Deals heavy damage and wins fights.",
         tr3Name: "UTILITY / SUPPORT", tr3Desc: "Provides items, buffs, and troop boosts.",
         tr4Name: "ECONOMY / DEVELOPMENT", tr4Desc: "Speeds up resources and account growth.",
+
+        trainTitle: "🎯 Special Training Efficiency Tips",
+        trainDesc: "Resource consumption efficiency based on pet training stages (Gray > Green > Blue > Purple > Yellow).",
+        trainNormalTitle: "Normal Training (Blue Book)",
+        trainNormalDesc: "Max efficiency up to Green stage. From Blue stage, negative (-) percentages appear and efficiency drops sharply.",
+        trainAdvTitle: "Advanced Training (Orange Book)",
+        trainAdvDesc: "Max efficiency up to Blue stage. Efficiency decreases at Purple, and drops sharply at Yellow stage.",
+        trainTipsTitle: "💡 Core Training Strategy",
+        trainTip1: "Upgrade <strong>all pets to the Green stage</strong> using Normal Training (Blue Book) before using Advanced Training (Orange Book).",
+        trainTip2: "Upgrading from the <strong>Gray stage</strong> provides the highest overall efficiency.",
+        
         bot1Title: "📅 DAILY ROUTINE",
-        bot1L1: "Feed current pet to reach Lv.30.", bot1L2: "Unlock next pet and start leveling.", bot1L3: "Use development skills on cooldown.", bot1L4: "Gather on high-level resources.", bot1L5: "Complete Pet Pass tasks.",
+        bot1L1: "Feed current pet for breakthroughs and target level (30/40).", bot1L2: "Unlock next pet and start leveling.", bot1L3: "Use development skills on cooldown.", bot1L4: "Gather on high-level resources.", bot1L5: "Complete Pet Pass tasks.",
+        
         bot2Title: "💎 KEY RESOURCES & WHAT THEY DO",
         bot2N1: "Adv. Tactical Rations", bot2D1: "Used to FEED pets and level them up.",
         bot2N2: "Nutrition Potions", bot2D2: "Used to BREAKTHROUGH pets.",
@@ -601,31 +644,37 @@ const translations = {
         bot2N4: "Standard Training Protocol", bot2D4: "Used to TRAIN pets.",
         bot2N5: "Special Ops Honor Medal", bot2D5: "Used for higher pet agent BREAKTHROUGH.",
         bot2N6: "Advance Training Protocol", bot2D6: "Used to TRAIN higher level pets.",
+        
         bot3Title: "💡 SKILL USAGE GUIDE",
         bot3S1Title: "⚔️ COMBAT SKILLS (Frost, Titan)", bot3S1U1Label: "Use for:", bot3S1U1Desc: "Rallies, Strongholds, Alliance Wars, Bosses.", bot3S1U2: "Don't waste on easy fights or small events.",
         bot3S2Title: "🌱 DEVELOPMENT SKILLS (All Pets)", bot3S2U1: "Use on cooldown.", bot3S2U2Label: "Highest value:", bot3S2U2Desc: "Long gathers and needed resources.",
+        
         bot4Title: "⭐ PRO TIPS",
         bot4L1: "Unlock all pets first – that's the fastest way to grow.", bot4L2: "Focus Frost and Titan for the strongest combat power.", bot4L3: "Use Sentinel skill on long, high-value gathers.", bot4L4: "Don't spread resources too thin.", bot4L5: "Consistency every day builds a stronger alliance!",
+        
         foot1Title: "🛒 BEST VALUE PURCHASES",
         foot1N1: "Pet Weekly Pass", foot1D1: "Best daily value!",
         foot1N2: "Pet Battle Pass", foot1D2: "Huge total rewards!",
         foot1N3: "Adv. Training Pack", foot1D3: "Great for training!",
         foot1N4: "Nutrition Potion Pack", foot1D4: "Important for breakthroughs!",
         foot1N5: "Tactical Ration Pack", foot1D5: "Food is critical, leveling is slow.",
+        
         foot2Title: "🏆 REMEMBER",
         foot2L1: "Unlock all 6 pets in order.", foot2L2: "Build your combat and utility cores.", foot2L3: "Use skills at the right time.", foot2L4: "Strong pets = Strong alliance = Victory!",
+        
         veryBottom: "536 State - FROM"
     },
     vi: {
         titleMain: "🛡️ HƯỚNG DẪN PET AGENT", titleSub: "🐾 Cùng nhau mạnh mẽ hơn • Chiến đấu thông minh • Cùng chiến thắng 🐾",
-        sec1Title: "🐾 Thứ tự mở khóa Pet & Con đường thăng tiến", sec1Desc: "Pet được ra mắt theo thứ tự. Nâng cấp mỗi pet lên Lv.30 để lấy manh mối và mở khóa pet tiếp theo.",
+        sec1Title: "🐾 Thứ tự mở khóa Pet & Con đường thăng tiến", sec1Desc: "Pet được ra mắt theo thứ tự. Đột phá mỗi pet để lấy manh mối và mở khóa pet tiếp theo.",
         p1Name: "① SENTINEL", p1Role: "🌱 Kinh tế / Thu thập", p1Desc: "Lập tức hoàn thành thu thập cho 1 đạo quân.", p1Unlock: "📈 Mở khóa Pet #2<br>Đạt Lv.30",
         p2Name: "② SHINING", p2Role: "📦 Tiện ích / Hỗ trợ", p2Desc: "Lập tức nhận chiến binh tinh nhuệ.", p2Unlock: "📈 Mở khóa Pet #3<br>Đạt Lv.30",
-        p3Name: "③ ZEUS", p3Role: "🥫 Tiện ích / Hỗ trợ", p3Desc: "Lập tức nhận Khẩu phần chiến thuật cao cấp.", p3Unlock: "📈 Mở khóa Pet #4<br>Đạt Lv.30",
-        p4Name: "④ SPECTER", p4Role: "📦 Tiện ích / Hỗ trợ", p4Desc: "Lập tức nhận vật phẩm ngẫu nhiên.", p4Unlock: "📈 Mở khóa Pet #5<br>Đạt Lv.30",
-        p5Name: "⑤ FROST", p5Role: "⚔️ Sát thương chính", p5Desc: "Tăng Tấn công cho mọi đạo quân trong 2 giờ.", p5Unlock: "📈 Mở khóa Pet #6<br>Đạt Lv.30",
-        p6Name: "⑥ TITAN", p6Role: "🛡️ Tank chính / Đỡ đòn", p6Desc: "Buff phòng thủ khổng lồ. Giữ đội sống sót!", p6Unlock: "👑 Mở khóa TẤT CẢ<br>Đạt Lv.30",
+        p3Name: "③ ZEUS", p3Role: "🥫 Tiện ích / Hỗ trợ", p3Desc: "Lập tức nhận Khẩu phần chiến thuật cao cấp.", p3Unlock: "📈 Mở khóa Pet #4<br>Đạt Lv.40",
+        p4Name: "④ SPECTER", p4Role: "📦 Tiện ích / Hỗ trợ", p4Desc: "Lập tức nhận vật phẩm ngẫu nhiên.", p4Unlock: "📈 Mở khóa Pet #5<br>Đạt Lv.40",
+        p5Name: "⑤ FROST", p5Role: "⚔️ Sát thương chính", p5Desc: "Tăng Tấn công cho mọi đạo quân trong 2 giờ.", p5Unlock: "📈 Mở khóa Pet #6<br>Đạt Lv.40",
+        p6Name: "⑥ TITAN", p6Role: "🛡️ Tank chính / Đỡ đòn", p6Desc: "Buff phòng thủ khổng lồ. Giữ đội sống sót!",
         keyRule: "⭐ QUY TẮC: ƯU TIÊN = MỞ KHÓA TẤT CẢ PET TRƯỚC. Không đầu tư quá nhiều vào 1 pet sớm!",
+        
         mid1Title: "📋 TẤT CẢ PET - TỔNG QUAN VAI TRÒ & KỸ NĂNG",
         r1Name: "🐶 Sentinel", r1Role: "🌱 Kinh tế", r1SName: "🌱 Nhận ngay", r1SDesc: "Lập tức hoàn thành thu thập cho 1 đạo quân.",
         r2Name: "🦝 Shining", r2Role: "🛠️ Hỗ trợ", r2SName: "📦 Sửa đổi", r2SDesc: "Lập tức nhận chiến binh tinh nhuệ.",
@@ -633,19 +682,33 @@ const translations = {
         r4Name: "🦊 Specter", r4Role: "🛠️ Hỗ trợ", r4SName: "📦 Khám phá", r4SDesc: "Lập tức nhận vật phẩm ngẫu nhiên.",
         r5Name: "🐯 Frost", r5Role: "⚔️ Sát thương", r5SName: "⚔️ Bản năng", r5SDesc: "Tăng Tấn công cho mọi đạo quân trong 2 giờ.",
         r6Name: "🐻 Titan", r6Role: "🛡️ Đỡ đòn", r6SName: "🛡️ Gầm thét", r6SDesc: "Buff phòng thủ khổng lồ. Giữ đội sống sót!",
+        
         mid2Title: "🚀 ĐƯỜNG LỐI NÂNG CẤP & ƯU TIÊN",
-        path1Title: "Mở khóa tất cả trước", path1Desc: "Đạt cấp 30 cho mỗi pet để mở khóa pet tiếp theo.",
+        path1Title: "Mở khóa tất cả trước", path1Desc: "Đột phá mỗi pet để mở khóa pet tiếp theo (Pet 1-2: Lv.30, 3-6: Lv.40).",
         path2Title: "Xây dựng lực lượng", path2Desc: "Sau khi mở khóa tất cả, tập trung Frost (ST) và Titan (Tank).",
-        path3Title: "Đầu tư Tiện ích", path3Desc: "Phát triển Specter (vật phẩm) & Sentinel (thu thập lâu dài.",
+        path3Title: "Đầu tư Tiện ích", path3Desc: "Phát triển Specter (vật phẩm) & Sentinel (thu thập lâu dài).",
         path4Title: "Sử dụng linh hoạt", path4Desc: "Shining và Zeus tốt lúc đầu nhưng ưu tiên thấp về sau.",
         path5Title: "Kiên trì mỗi ngày", path5Desc: "Đăng nhập, làm nhiệm vụ và xả skill giúp liên minh phát triển.",
+        
         trTitle: "📊 TÓM TẮT VAI TRÒ ĐỘI",
         tr1Name: "TANK / PHÒNG THỦ", tr1Desc: "Bảo vệ đồng đội và gánh chịu sát thương.",
         tr2Name: "SÁT THƯƠNG CHÍNH", tr2Desc: "Gây sát thương lớn để giành chiến thắng.",
         tr3Name: "TIỆN ÍCH / HỖ TRỢ", tr3Desc: "Cung cấp vật phẩm và buff sức mạnh.",
         tr4Name: "KINH TẾ / PHÁT TRIỂN", tr4Desc: "Tăng tốc tài nguyên và phát triển tài khoản.",
+
+        trainTitle: "🎯 Mẹo Hiệu quả Huấn luyện Đặc biệt",
+        trainDesc: "Hiệu quả tiêu thụ tài nguyên dựa trên các giai đoạn huấn luyện (Xám > Xanh lá > Xanh lam > Tím > Vàng).",
+        trainNormalTitle: "Huấn luyện Thường (Sách Xanh Lam)",
+        trainNormalDesc: "Hiệu quả tối đa đến giai đoạn Xanh lá. Từ Xanh lam, tỷ lệ âm (-) xuất hiện và hiệu quả giảm mạnh.",
+        trainAdvTitle: "Huấn luyện Cao cấp (Sách Cam)",
+        trainAdvDesc: "Hiệu quả tối đa đến Xanh lam. Giảm hiệu quả ở Tím, và giảm rất mạnh ở giai đoạn Vàng.",
+        trainTipsTitle: "💡 Chiến lược Huấn luyện Cốt lõi",
+        trainTip1: "Nâng cấp <strong>tất cả pet lên giai đoạn Xanh lá</strong> bằng Huấn luyện Thường (Sách Xanh Lam) trước khi dùng Huấn luyện Cao cấp (Sách Cam).",
+        trainTip2: "Nâng cấp từ <strong>giai đoạn Xám</strong> mang lại hiệu quả tổng thể cao nhất.",
+        
         bot1Title: "📅 THÓI QUEN HÀNG NGÀY",
-        bot1L1: "Cho pet hiện tại ăn để đạt Lv.30.", bot1L2: "Mở khóa pet tiếp theo và nâng cấp.", bot1L3: "Sử dụng kỹ năng phát triển khi hết thời gian hồi.", bot1L4: "Thu thập tài nguyên cấp cao.", bot1L5: "Hoàn thành nhiệm vụ Pet Pass.",
+        bot1L1: "Cho pet ăn để đột phá và đạt cấp độ mục tiêu (30/40).", bot1L2: "Mở khóa pet tiếp theo và nâng cấp.", bot1L3: "Sử dụng kỹ năng phát triển khi hết thời gian hồi.", bot1L4: "Thu thập tài nguyên cấp cao.", bot1L5: "Hoàn thành nhiệm vụ Pet Pass.",
+        
         bot2Title: "💎 TÀI NGUYÊN CHÍNH & TÁC DỤNG",
         bot2N1: "Khẩu phần cao cấp", bot2D1: "Dùng để CHO ĂN và tăng cấp.",
         bot2N2: "Thuốc dinh dưỡng", bot2D2: "Dùng để ĐỘT PHÁ pet.",
@@ -653,19 +716,24 @@ const translations = {
         bot2N4: "Giao thức đào tạo", bot2D4: "Dùng để ĐÀO TẠO pet.",
         bot2N5: "Huân chương đặc nhiệm", bot2D5: "Dùng để ĐỘT PHÁ cấp cao.",
         bot2N6: "Giao thức nâng cao", bot2D6: "Dùng để ĐÀO TẠO pet cấp cao.",
+        
         bot3Title: "💡 HƯỚNG DẪN SỬ DỤNG KỸ NĂNG",
         bot3S1Title: "⚔️ KỸ NĂNG CHIẾN ĐẤU (Frost, Titan)", bot3S1U1Label: "Sử dụng cho:", bot3S1U1Desc: "Tập hợp, Pháo đài, Liên minh chiến, Boss.", bot3S1U2: "Đừng lãng phí vào trận đấu nhỏ.",
         bot3S2Title: "🌱 KỸ NĂNG PHÁT TRIỂN (Mọi pet)", bot3S2U1: "Dùng ngay khi hồi chiêu xong.", bot3S2U2Label: "Hiệu quả cao nhất:", bot3S2U2Desc: "Thu thập lâu và tài nguyên cần thiết.",
+        
         bot4Title: "⭐ MẸO CHUYÊN NGHIỆP",
         bot4L1: "Mở khóa tất cả pet trước - cách phát triển nhanh nhất.", bot4L2: "Tập trung Frost và Titan để có sức mạnh cao nhất.", bot4L3: "Dùng Sentinel cho mỏ thu thập lâu, giá trị cao.", bot4L4: "Đừng dàn trải tài nguyên lung tung.", bot4L5: "Kiên trì mỗi ngày tạo nên liên minh vững mạnh!",
+        
         foot1Title: "🛒 MUA HÀNG GIÁ TRỊ NHẤT",
         foot1N1: "Vé tuần Pet", foot1D1: "Giá trị tốt nhất mỗi ngày!",
         foot1N2: "Vé Battle Pass", foot1D2: "Phần thưởng tổng cực lớn!",
         foot1N3: "Gói Đào tạo", foot1D3: "Tuyệt vời để đẩy nhanh đào tạo!",
         foot1N4: "Gói Dinh dưỡng", foot1D4: "Rất quan trọng để đột phá!",
         foot1N5: "Gói Khẩu phần", foot1D5: "Thức ăn thiếu hụt rất chậm lớn.",
+        
         foot2Title: "🏆 HÃY NHỚ RẰNG",
         foot2L1: "Mở khóa 6 pet theo thứ tự.", foot2L2: "Xây dựng lõi chiến đấu và tiện ích.", foot2L3: "Sử dụng kỹ năng đúng lúc.", foot2L4: "Pet mạnh = Liên minh mạnh = Chiến thắng!",
+        
         veryBottom: "536 State - FROM"
     }
 };
