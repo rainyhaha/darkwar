@@ -17,14 +17,14 @@
         min-height: 100vh;
         box-sizing: border-box;
     }
-                
+    
     .container {
         width: 100%;
         max-width: 650px;
         margin: 0 auto;
         position: relative;
     }
-                
+    
     /* 콤보박스 디자인 */
     .lang-selector {
         display: flex;
@@ -32,7 +32,7 @@
         margin-bottom: 20px;
         width: 100%;
     }
-                
+    
     .lang-selector select {
         padding: 8px 36px 8px 12px;
         border-radius: 8px;
@@ -83,7 +83,7 @@
         margin: 0 0 16px 0;
         letter-spacing: 0.5px;
     }
-                
+    
     .subtitle {
         font-size: 16px;
         color: #333333; 
@@ -126,7 +126,7 @@
         color: #111;
         letter-spacing: -0.3px;
     }
-                
+    
     summary.main-summary::-webkit-details-marker {
         display: none;
     }
@@ -137,7 +137,7 @@
         opacity: 0.7;
         transition: transform 0.3s ease;
     }
-                
+    
     details.main-details[open] summary.main-summary::after {
         transform: rotate(180deg);
     }
@@ -172,11 +172,11 @@
         list-style: none;
         background-color: #fff;
     }
-                
+    
     .menu-list > li {
         border-top: 1px solid #f0f0f0;
     }
-                
+    
     .rule-item {
         display: flex;
         align-items: center;
@@ -328,6 +328,7 @@
         .tip-box { font-size: 13px; padding: 10px 14px; }
     }
 </style>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=9042"></script>
 </head>
 <body>
 <div class="container">
@@ -371,6 +372,7 @@
         const year = dateStr.substring(0, 4);
         const monthNum = parseInt(dateStr.substring(4, 6), 10);
         const dayNum = parseInt(dateStr.substring(6, 8), 10);
+
         if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
         else if (lang === 'en') {
             const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -471,6 +473,16 @@
             title: { ko: "4일차: 전쟁 대비 달인", en: "Day 4: War Preparation Master", vi: "Ngày 4: Bậc thầy Chuẩn bị Chiến tranh" },
             missions: [
                 { points: 10, description: { ko: "패키지를 구매하여 다이아 1 획득", en: "Purchase a package to get 1 Diamond", vi: "Mua gói nhận 1 Kim cương" } },
+                {
+                    points: 180000,
+                    description: { ko: "주황 품질 칩 보물상자 1개 오픈", en: "Open 1 Orange Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Cam" },
+                    subMissions: [
+                        { points: 180000, description: { ko: "주황 품질 칩 보물상자 1개 오픈", en: "Open 1 Orange Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Cam" } },
+                        { points: 38250, description: { ko: "보라 품질 칩 보물상자 1개 오픈", en: "Open 1 Purple Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Tím" } },
+                        { points: 9000, description: { ko: "파랑 품질 칩 보물상자 1개 오픈", en: "Open 1 Blue Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Xanh dương" } },
+                        { points: 1800, description: { ko: "초록 품질 칩 보물상자 1개 오픈", en: "Open 1 Green Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Xanh lá" } }
+                    ]
+                },
                 { points: 8800, description: { ko: "레이더 이벤트 1회 완료", en: "Complete 1 Radar event", vi: "Hoàn thành 1 sự kiện Radar" } },
                 { points: 13, description: { ko: "1개 기어 소모", en: "Consume 1 Gear", vi: "Tiêu hao 1 Bánh răng" } },
                 { points: 1215, description: { ko: "티타늄 1개 소모", en: "Consume 1 Titanium", vi: "Tiêu hao 1 Titan" } },
@@ -513,6 +525,16 @@
                 { points: 1890, description: { ko: "특수 임무 명예 훈장 1개 소모", en: "Consume 1 Special Mission Honor Medal", vi: "Tiêu hao 1 Huân chương Danh dự Nhiệm vụ Đặc biệt" } },
                 { points: 900, description: { ko: "일반 특훈 조례 1개 소모", en: "Consume 1 Normal Special Training Guide", vi: "Tiêu hao 1 Hướng dẫn Huấn luyện Đặc biệt Tiêu chuẩn" } },
                 { points: 5400, description: { ko: "고급 특훈 조례 1개 소모", en: "Consume 1 Advanced Special Training Guide", vi: "Tiêu hao 1 Hướng dẫn Huấn luyện Đặc biệt Cao cấp" } },
+                {
+                    points: 180000,
+                    description: { ko: "주황 품질 칩 보물상자 1개 오픈", en: "Open 1 Orange Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Cam" },
+                    subMissions: [
+                        { points: 180000, description: { ko: "주황 품질 칩 보물상자 1개 오픈", en: "Open 1 Orange Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Cam" } },
+                        { points: 38250, description: { ko: "보라 품질 칩 보물상자 1개 오픈", en: "Open 1 Purple Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Tím" } },
+                        { points: 9000, description: { ko: "파랑 품질 칩 보물상자 1개 오픈", en: "Open 1 Blue Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Xanh dương" } },
+                        { points: 1800, description: { ko: "초록 품질 칩 보물상자 1개 오픈", en: "Open 1 Green Quality Chip Box", vi: "Mở 1 Hộp báu vật Chip phẩm chất Xanh lá" } }
+                    ]
+                },
                 { points: 2700, description: { ko: "건물 업그레이드에 정밀 부품 1개 소비", en: "Consume 1 Precision Part for building upgrade", vi: "Tiêu hao 1 Linh kiện chính xác nâng cấp kiến trúc" } },
                 { points: 13, description: { ko: "1개 기어 소모", en: "Consume 1 Gear", vi: "Tiêu hao 1 Bánh răng" } },
                 { points: 1215, description: { ko: "티타늄 1개 소모", en: "Consume 1 Titanium", vi: "Tiêu hao 1 Titan" } },
