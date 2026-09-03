@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[FROM] Tips Collection</title>
+<style>
+    /* 공통 디자인 표준 적용 */
+    body {
+        font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
+        background-color: #fafbfc; 
+        color: #333;
+        margin: 0;
+        padding: 40px 20px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px; 
+        margin: 0 auto;
+        position: relative;
+    }
+
+    /* 콤보박스 통일 디자인 */
+    .lang-selector {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    
+    .lang-selector select {
+        padding: 8px 36px 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5da;
+        background-color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        outline: none;
+        transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
+
+    .lang-selector select:hover, .lang-selector select:focus {
+        border-color: #007bff;
+    }
+
+    .header-wrapper {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 0; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 6px 0;
+        color: #1a1a1a;
+        letter-spacing: -0.5px;
+    }
+
+    .version-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #007bff; 
+        margin: 0 0 16px 0;
+        letter-spacing: 0.5px;
+    }
+
+    /* 💡 아코디언(details) 스타일 적용 */
+    details {
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        width: 100%;
+    }
+
+    details:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    summary {
+        font-size: 18px;
+        font-weight: 700;
+        padding: 18px 24px;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        color: #111;
+        letter-spacing: -0.3px;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary::after {
+        content: '▼';
+        font-size: 13px;
+        opacity: 0.7;
+        transition: transform 0.3s ease;
+    }
+
+    details[open] summary::after {
+        transform: rotate(180deg);
+    }
+
+    .accordion-content {
+        padding: 24px;
+        background-color: #fff;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    /* 데이터 카드 스타일 */
+    .upgrade-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+    }
+
+    .upgrade-card {
+        background-color: #ffffff;
+        border: 1px solid #eaedf0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        transition: box-shadow 0.2s ease;
+    }
+
+    .upgrade-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .upgrade-card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #007bff;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f1f3f5;
+    }
+
+    .upgrade-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .upgrade-list li {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #495057;
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 14px;
+    }
+
+    .upgrade-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    .upgrade-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #adb5bd;
+    }
+
+    .highlight-condition {
+        color: #d93025;
+        font-weight: 700;
+    }
+
+    .highlight-label {
+        font-weight: 600;
+        color: #212529;
+    }
+
+    @media (max-width: 480px) {
+        .header-wrapper { margin-bottom: 30px; }
+        h1 { font-size: 24px; }
+        .version-text { font-size: 13px; margin-bottom: 12px; }
+        summary { font-size: 16px; padding: 16px 20px; }
+        .accordion-content { padding: 16px; }
+        .upgrade-container { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+        </select>
+    </div>
+
+    <div class="header-wrapper">
+        <h1 id="page-title">💡 [FROM] 꿀팁 모음</h1>
+        <p class="version-text" id="version-text"></p>
+    </div>
+    
+    <!-- 팁 1: 연맹 건물 업그레이드 요구량 -->
+    <details>
+        <summary id="tip1-summary"><span id="tip1-title">연맹 건물 업그레이드 요구량</span></summary>
+        <div class="accordion-content">
+            <div id="building-upgrade-container" class="upgrade-container"></div>
+        </div>
+    </details>
+
+    <!-- 팁 2: 레드 무기 업그레이드 비용 -->
+    <details>
+        <summary id="tip2-summary"><span id="tip2-title">레드 무기 업그레이드 비용</span></summary>
+        <div class="accordion-content">
+            <img src="https://rainyhaha.github.io/darkwar/images/tips/RedWeaponCosts.jpg" alt="Red Weapon Costs">
+        </div>
+    </details>
+
+    <!-- 팁 3: 전용 무기 업그레이드 비용 -->
+    <details>
+        <summary id="tip3-summary"><span id="tip3-title">전용 무기 업그레이드 비용</span></summary>
+        <div class="accordion-content">
+            <img src="https://rainyhaha.github.io/darkwar/images/tips/ExclusiveWeaponCosts.jpg" alt="Exclusive Weapon Costs">
+        </div>
+    </details>
+</div>
+
+<script>
+    const updateDate = "20260904";
+    const rainbowColors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff'];
+
+    const translations = {
+        ko: {
+            title: "💡 [FROM] 꿀팁 모음",
+            tip1: "📌 연맹 건물 업그레이드 요구량",
+            tip2: "📌 레드 무기 업그레이드 비용",
+            tip3: "📌 전용 무기 업그레이드 비용"
+        },
+        en: {
+            title: "💡 [FROM] Tips Collection",
+            tip1: "📌 Alliance Building Upgrade Requirements",
+            tip2: "📌 Red Weapon Upgrade Costs",
+            tip3: "📌 Exclusive Weapon Upgrade Costs"
+        },
+        vi: {
+            title: "💡 [FROM] Bộ sưu tập mẹo",
+            tip1: "📌 Yêu cầu nâng cấp tòa nhà liên minh",
+            tip2: "📌 Chi phí nâng cấp vũ khí đỏ",
+            tip3: "📌 Chi phí nâng cấp vũ khí độc quyền"
+        }
+    };
+
+    const buildingUpgradeData = [
+        {
+            type: "note",
+            title: { ko: "업그레이드 순서 참고", en: "Upgrade Order Note", vi: "Lưu ý thứ tự nâng cấp" },
+            rules: {
+                ko: [
+                    { text: "30레벨까지: 파이터 → 슈터 → 라이더 → 연맹센터 순서" },
+                    { text: "산업1부터: 파이터 → 슈터 → 라이더 순서" }
+                ],
+                en: [
+                    { text: "Up to Lv. 30: Fighter → Shooter → Rider → Alliance Center" },
+                    { text: "From Industry 1: Fighter → Shooter → Rider" }
+                ],
+                vi: [
+                    { text: "Đến Lv. 30: Đấu sĩ → Xạ thủ → Kỵ sĩ → Trung tâm Liên minh" },
+                    { text: "Từ Công nghiệp 1: Đấu sĩ → Xạ thủ → Kỵ sĩ" }
+                ]
+            }
+        },
+        {
+            type: "lv30_to_ind1",
+            title: { ko: "Lv. 30 → 산업1", en: "Lv. 30 → Industry 1", vi: "Lv. 30 → Công nghiệp 1" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 30, 파이터 30" },
+                    { text: "와치타워: 자원 91.2 M / 정밀부품 180 개 / 시간 4d 15h" },
+                    { text: "연맹센터: 목재/철 30.4 M / 정밀부품 40 개 / 시간 3d 2h" },
+                    { text: "파/슈/라 캠프: 목재/철 45.6 M / 정밀부품 80 개 / 시간 1d 4h" },
+                    { text: "연구소: 목재/철 91.2 M / 정밀부품 180 개 / 시간 4d 15h" },
+                    { text: "연맹 단결광장: 정밀부품 30 개" },
+                    { text: "군사센터: 정밀부품 250 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center 30, Fighter 30" },
+                    { text: "Watchtower: Resource 91.2 M / Precision Parts 180 / Time 4d 15h" },
+                    { text: "Alliance Center: Wood/Iron 30.4 M / Precision Parts 40 / Time 3d 2h" },
+                    { text: "F/S/R Camp: Wood/Iron 45.6 M / Precision Parts 80 / Time 1d 4h" },
+                    { text: "Research Lab: Wood/Iron 91.2 M / Precision Parts 180 / Time 4d 15h" },
+                    { text: "Alliance Unity Square: Precision Parts 30" },
+                    { text: "Military Center: Precision Parts 250" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh 30, Đấu sĩ 30" },
+                    { text: "Tháp canh: Tài nguyên 91.2 M / Bộ phận chính xác 180 / Thời gian 4d 15h" },
+                    { text: "Trung tâm Liên minh: Gỗ/Sắt 30.4 M / Bộ phận chính xác 40 / Thời gian 3d 2h" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Gỗ/Sắt 45.6 M / Bộ phận chính xác 80 / Thời gian 1d 4h" },
+                    { text: "Viện nghiên cứu: Gỗ/Sắt 91.2 M / Bộ phận chính xác 180 / Thời gian 4d 15h" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 30" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 250" }
+                ]
+            }
+        },
+        {
+            type: "ind1_to_ind2",
+            title: { ko: "산업1 → 산업2", en: "Industry 1 → 2", vi: "Công nghiệp 1 → 2" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업1, 슈터 산업1" },
+                    { text: "와치타워: 자원 104.5 M / 정밀부품 220 개 / 시간 5d 14h" },
+                    { text: "연맹센터: 자원 33.2 M / 정밀부품 50 개 / 시간 3d 17h" },
+                    { text: "파/슈/라 캠프: 자원 50.3 M / 정밀부품 90 개 / 시간 1d 9h" },
+                    { text: "연구소: 자원 104.5 M / 정밀부품 220 개 / 시간 5d 14h" },
+                    { text: "연맹 단결광장: 정밀부품 40 개" },
+                    { text: "군사센터: 정밀부품 300 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 1, Shooter Industry 1" },
+                    { text: "Watchtower: Resource 104.5 M / Precision Parts 220 / Time 5d 14h" },
+                    { text: "Alliance Center: Resource 33.2 M / Precision Parts 50 / Time 3d 17h" },
+                    { text: "F/S/R Camp: Resource 50.3 M / Precision Parts 90 / Time 1d 9h" },
+                    { text: "Research Lab: Resource 104.5 M / Precision Parts 220 / Time 5d 14h" },
+                    { text: "Alliance Unity Square: Precision Parts 40" },
+                    { text: "Military Center: Precision Parts 300" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 1, Xạ thủ CN 1" },
+                    { text: "Tháp canh: Tài nguyên 104.5 M / Bộ phận chính xác 220 / Thời gian 5d 14h" },
+                    { text: "Trung tâm Liên minh: Tài nguyên 33.2 M / Bộ phận chính xác 50 / Thời gian 3d 17h" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Tài nguyên 50.3 M / Bộ phận chính xác 90 / Thời gian 1d 9h" },
+                    { text: "Viện nghiên cứu: Tài nguyên 104.5 M / Bộ phận chính xác 220 / Thời gian 5d 14h" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 40" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 300" }
+                ]
+            }
+        },
+        {
+            type: "ind2_to_ind3",
+            title: { ko: "산업2 → 산업3", en: "Industry 2 → 3", vi: "Công nghiệp 2 → 3" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업2, 차량(라이더) 산업2" },
+                    { text: "와치타워: 정밀부품 260 개" },
+                    { text: "연맹센터: 정밀부품 60 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 110 개" },
+                    { text: "연구소: 정밀부품 260 개" },
+                    { text: "연맹 단결광장: 정밀부품 40 개" },
+                    { text: "군사센터: 정밀부품 360 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 2, Rider Industry 2" },
+                    { text: "Watchtower: Precision Parts 260" },
+                    { text: "Alliance Center: Precision Parts 60" },
+                    { text: "F/S/R Camp: Precision Parts 110" },
+                    { text: "Research Lab: Precision Parts 260" },
+                    { text: "Alliance Unity Square: Precision Parts 40" },
+                    { text: "Military Center: Precision Parts 360" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 2, Kỵ sĩ CN 2" },
+                    { text: "Tháp canh: Bộ phận chính xác 260" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 60" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 110" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 260" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 40" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 360" }
+                ]
+            }
+        },
+        {
+            type: "ind3_to_ind4",
+            title: { ko: "산업3 → 산업4", en: "Industry 3 → 4", vi: "Công nghiệp 3 → 4" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업3, 파이터 산업3" },
+                    { text: "와치타워: 정밀부품 310 개" },
+                    { text: "연맹센터: 정밀부품 70 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 130 개" },
+                    { text: "연구소: 정밀부품 310 개" },
+                    { text: "연맹 단결광장: 정밀부품 50 개" },
+                    { text: "군사센터: 정밀부품 440 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 3, Fighter Industry 3" },
+                    { text: "Watchtower: Precision Parts 310" },
+                    { text: "Alliance Center: Precision Parts 70" },
+                    { text: "F/S/R Camp: Precision Parts 130" },
+                    { text: "Research Lab: Precision Parts 310" },
+                    { text: "Alliance Unity Square: Precision Parts 50" },
+                    { text: "Military Center: Precision Parts 440" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 3, Đấu sĩ CN 3" },
+                    { text: "Tháp canh: Bộ phận chính xác 310" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 70" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 130" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 310" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 50" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 440" }
+                ]
+            }
+        },
+        {
+            type: "ind4_to_ind5",
+            title: { ko: "산업4 → 산업5", en: "Industry 4 → 5", vi: "Công nghiệp 4 → 5" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업4, 슈터 산업4" },
+                    { text: "와치타워: 정밀부품 370 개" },
+                    { text: "연맹센터: 정밀부품 90 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 160 개" },
+                    { text: "연구소: 정밀부품 370 개" },
+                    { text: "연맹 단결광장: 정밀부품 60 개" },
+                    { text: "군사센터: 정밀부품 520 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 4, Shooter Industry 4" },
+                    { text: "Watchtower: Precision Parts 370" },
+                    { text: "Alliance Center: Precision Parts 90" },
+                    { text: "F/S/R Camp: Precision Parts 160" },
+                    { text: "Research Lab: Precision Parts 370" },
+                    { text: "Alliance Unity Square: Precision Parts 60" },
+                    { text: "Military Center: Precision Parts 520" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 4, Xạ thủ CN 4" },
+                    { text: "Tháp canh: Bộ phận chính xác 370" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 90" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 160" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 370" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 60" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 520" }
+                ]
+            }
+        },
+        {
+            type: "ind5_to_ind6",
+            title: { ko: "산업5 → 산업6", en: "Industry 5 → 6", vi: "Công nghiệp 5 → 6" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업5, 라이더 산업5" },
+                    { text: "와치타워: 자원 142.5 M / 정밀부품 300 개 / 시간 9d 10h" },
+                    { text: "연맹센터: 목재/철 49.4 M / 정밀부품 70 개 / 시간 6d 6h" },
+                    { text: "파/슈/라 캠프: 목재/철 71.2 M / 정밀부품 120 개 / 시간 2d 8h" },
+                    { text: "연구소: 목재/철 142.5 M / 정밀부품 300 개 / 시간 9d 10h" },
+                    { text: "연맹 단결광장: 목재/철 M / 정밀부품 50 개" },
+                    { text: "군사센터: 목재/철 M / 정밀부품 400 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 5, Rider Industry 5" },
+                    { text: "Watchtower: Resource 142.5 M / Precision Parts 300 / Time 9d 10h" },
+                    { text: "Alliance Center: Wood/Iron 49.4 M / Precision Parts 70 / Time 6d 6h" },
+                    { text: "F/S/R Camp: Wood/Iron 71.2 M / Precision Parts 120 / Time 2d 8h" },
+                    { text: "Research Lab: Wood/Iron 142.5 M / Precision Parts 300 / Time 9d 10h" },
+                    { text: "Alliance Unity Square: Wood/Iron M / Precision Parts 50" },
+                    { text: "Military Center: Wood/Iron M / Precision Parts 400" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 5, Kỵ sĩ CN 5" },
+                    { text: "Tháp canh: Tài nguyên 142.5 M / Bộ phận chính xác 300 / Thời gian 9d 10h" },
+                    { text: "Trung tâm Liên minh: Gỗ/Sắt 49.4 M / Bộ phận chính xác 70 / Thời gian 6d 6h" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Gỗ/Sắt 71.2 M / Bộ phận chính xác 120 / Thời gian 2d 8h" },
+                    { text: "Viện nghiên cứu: Gỗ/Sắt 142.5 M / Bộ phận chính xác 300 / Thời gian 9d 10h" },
+                    { text: "Quảng trường Đoàn kết: Gỗ/Sắt M / Bộ phận chính xác 50" },
+                    { text: "Trung tâm Quân sự: Gỗ/Sắt M / Bộ phận chính xác 400" }
+                ]
+            }
+        },
+        {
+            type: "ind6_to_ind7",
+            title: { ko: "산업6 → 산업7", en: "Industry 6 → 7", vi: "Công nghiệp 6 → 7" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업6, 파이터 산업6" },
+                    { text: "와치타워: 자원 152 M / 정밀부품 320 개 / 시간 10d" },
+                    { text: "연맹센터: 자원 54.1 M / 정밀부품 80 개 / 시간 8d 2h" },
+                    { text: "파/슈/라 캠프: 목재/철 76 M / 정밀부품 140 개 / 시간 3d 1h" },
+                    { text: "연구소: 자원 152 M / 정밀부품 320 개 / 시간 10d" },
+                    { text: "연맹 단결광장: 목재/철 M / 정밀부품 60 개" },
+                    { text: "군사센터: 목재/철 M / 정밀부품 440 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 6, Fighter Industry 6" },
+                    { text: "Watchtower: Resource 152 M / Precision Parts 320 / Time 10d" },
+                    { text: "Alliance Center: Resource 54.1 M / Precision Parts 80 / Time 8d 2h" },
+                    { text: "F/S/R Camp: Wood/Iron 76 M / Precision Parts 140 / Time 3d 1h" },
+                    { text: "Research Lab: Resource 152 M / Precision Parts 320 / Time 10d" },
+                    { text: "Alliance Unity Square: Wood/Iron M / Precision Parts 60" },
+                    { text: "Military Center: Wood/Iron M / Precision Parts 440" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 6, Đấu sĩ CN 6" },
+                    { text: "Tháp canh: Tài nguyên 152 M / Bộ phận chính xác 320 / Thời gian 10d" },
+                    { text: "Trung tâm Liên minh: Tài nguyên 54.1 M / Bộ phận chính xác 80 / Thời gian 8d 2h" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Gỗ/Sắt 76 M / Bộ phận chính xác 140 / Thời gian 3d 1h" },
+                    { text: "Viện nghiên cứu: Tài nguyên 152 M / Bộ phận chính xác 320 / Thời gian 10d" },
+                    { text: "Quảng trường Đoàn kết: Gỗ/Sắt M / Bộ phận chính xác 60" },
+                    { text: "Trung tâm Quân sự: Gỗ/Sắt M / Bộ phận chính xác 440" }
+                ]
+            }
+        },
+        {
+            type: "ind7_to_ind8",
+            title: { ko: "산업7 → 산업8", en: "Industry 7 → 8", vi: "Công nghiệp 7 → 8" },
+            rules: {
+                ko: [
+                    { text: "[조건] 연맹센터 산업7, 슈터 산업7" },
+                    { text: "와치타워: 자원 161.5 M / 정밀부품 350 개 / 시간 14d 13h" },
+                    { text: "연맹센터: 자원 M / 정밀부품 400 개" },
+                    { text: "파/슈/라 캠프: 자원 M / 정밀부품 160 개" },
+                    { text: "연구소: 자원 161.5 M / 정밀부품 350 개 / 시간 14d 13h" },
+                    { text: "연맹 단결광장: 자원 M / 정밀부품 70 개" },
+                    { text: "군사센터: 자원 M / 정밀부품 480 개" }
+                ],
+                en: [
+                    { text: "[Condition] Alliance Center Industry 7, Shooter Industry 7" },
+                    { text: "Watchtower: Resource 161.5 M / Precision Parts 350 / Time 14d 13h" },
+                    { text: "Alliance Center: Resource M / Precision Parts 400" },
+                    { text: "F/S/R Camp: Resource M / Precision Parts 160" },
+                    { text: "Research Lab: Resource 161.5 M / Precision Parts 350 / Time 14d 13h" },
+                    { text: "Alliance Unity Square: Resource M / Precision Parts 70" },
+                    { text: "Military Center: Resource M / Precision Parts 480" }
+                ],
+                vi: [
+                    { text: "[Điều kiện] Trung tâm Liên minh CN 7, Xạ thủ CN 7" },
+                    { text: "Tháp canh: Tài nguyên 161.5 M / Bộ phận chính xác 350 / Thời gian 14d 13h" },
+                    { text: "Trung tâm Liên minh: Tài nguyên M / Bộ phận chính xác 400" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Tài nguyên M / Bộ phận chính xác 160" },
+                    { text: "Viện nghiên cứu: Tài nguyên 161.5 M / Bộ phận chính xác 350 / Thời gian 14d 13h" },
+                    { text: "Quảng trường Đoàn kết: Tài nguyên M / Bộ phận chính xác 70" },
+                    { text: "Trung tâm Quân sự: Tài nguyên M / Bộ phận chính xác 480" }
+                ]
+            }
+        }
+    ];
+
+    // 무지개 배경색 적용
+    document.getElementById('tip1-summary').style.backgroundColor = rainbowColors[0];
+    document.getElementById('tip2-summary').style.backgroundColor = rainbowColors[1];
+    document.getElementById('tip3-summary').style.backgroundColor = rainbowColors[2];
+
+    function getFormattedVersionText(dateStr, lang) {
+        if (!dateStr || dateStr.length !== 8) return "";
+        const year = dateStr.substring(0, 4);
+        const monthNum = parseInt(dateStr.substring(4, 6), 10);
+        const dayNum = parseInt(dateStr.substring(6, 8), 10);
+
+        if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
+        else if (lang === 'en') {
+            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
+        } else if (lang === 'vi') return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
+        return "";
+    }
+
+    function renderBuildingUpgrades(lang) {
+        const container = document.getElementById('building-upgrade-container');
+        container.innerHTML = ''; 
+
+        buildingUpgradeData.forEach(section => {
+            const card = document.createElement('div');
+            card.className = 'upgrade-card';
+            
+            const title = document.createElement('div');
+            title.className = 'upgrade-card-title';
+            title.textContent = section.title[lang];
+            card.appendChild(title);
+            
+            const ul = document.createElement('ul');
+            ul.className = 'upgrade-list';
+            
+            section.rules[lang].forEach(rule => {
+                const li = document.createElement('li');
+                let htmlText = rule.text;
+
+                if (htmlText.startsWith('[') && htmlText.includes(']')) {
+                    htmlText = htmlText.replace(/^(\[.*?\])/, '<span class="highlight-condition">$1</span>');
+                } 
+                else if (htmlText.includes(':')) {
+                    const splitIndex = htmlText.indexOf(':');
+                    const label = htmlText.substring(0, splitIndex + 1);
+                    const value = htmlText.substring(splitIndex + 1);
+                    htmlText = `<span class="highlight-label">${label}</span>${value}`;
+                }
+
+                li.innerHTML = htmlText;
+                ul.appendChild(li);
+            });
+            
+            card.appendChild(ul);
+            container.appendChild(card);
+        });
+    }
+
+    function applyLanguage(lang) {
+        document.getElementById('page-title').textContent = translations[lang].title;
+        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
+        
+        document.getElementById('tip1-title').textContent = translations[lang].tip1;
+        document.getElementById('tip2-title').textContent = translations[lang].tip2;
+        document.getElementById('tip3-title').textContent = translations[lang].tip3;
+
+        renderBuildingUpgrades(lang);
+    }
+
+    const langSelect = document.getElementById('langSelect');
+    langSelect.addEventListener('change', function(e) {
+        const selectedLang = e.target.value;
+        localStorage.setItem('tips_lang', selectedLang);
+        applyLanguage(selectedLang);
+    });
+
+    const savedLang = localStorage.getItem('tips_lang') || 'ko';
+    langSelect.value = savedLang;
+    applyLanguage(savedLang);
+
+</script>
+</body>
+</html>
