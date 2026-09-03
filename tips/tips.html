@@ -143,7 +143,7 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
     }
 
-    /* 데이터 카드 스타일 */
+    /* 데이터 카드 스타일 (가로 스크롤 제거, 아래로 나열되도록 수정) */
     .upgrade-container {
         width: 100%;
         display: grid;
@@ -158,6 +158,7 @@
         padding: 20px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         transition: box-shadow 0.2s ease;
+        box-sizing: border-box;
     }
 
     .upgrade-card:hover {
@@ -209,13 +210,19 @@
         color: #212529;
     }
 
+    /* 💡 모바일 화면에서 카드가 1줄(아래로 쭉 나열)로 쌓이도록 처리 */
     @media (max-width: 480px) {
         .header-wrapper { margin-bottom: 30px; }
         h1 { font-size: 24px; }
         .version-text { font-size: 13px; margin-bottom: 12px; }
         summary { font-size: 16px; padding: 16px 20px; }
         .accordion-content { padding: 16px; }
-        .upgrade-container { grid-template-columns: 1fr; }
+        
+        /* 그리드 컬럼을 1개로 변경하여 세로로 배치 */
+        .upgrade-container { 
+            grid-template-columns: 1fr; 
+            gap: 12px;
+        }
     }
 </style>
 </head>
@@ -235,15 +242,15 @@
         <p class="version-text" id="version-text"></p>
     </div>
     
-    <!-- 팁 1: 연맹 건물 업그레이드 요구량 -->
+    <!-- 팁 1: 건물 업그레이드 요구량 (기본 닫힘) -->
     <details>
-        <summary id="tip1-summary"><span id="tip1-title">연맹 건물 업그레이드 요구량</span></summary>
+        <summary id="tip1-summary"><span id="tip1-title">건물 업그레이드 요구량</span></summary>
         <div class="accordion-content">
             <div id="building-upgrade-container" class="upgrade-container"></div>
         </div>
     </details>
 
-    <!-- 팁 2: 레드 무기 업그레이드 비용 -->
+    <!-- 팁 2: 레드 무기 업그레이드 비용 (기본 닫힘) -->
     <details>
         <summary id="tip2-summary"><span id="tip2-title">레드 무기 업그레이드 비용</span></summary>
         <div class="accordion-content">
@@ -251,7 +258,7 @@
         </div>
     </details>
 
-    <!-- 팁 3: 전용 무기 업그레이드 비용 -->
+    <!-- 팁 3: 전용 무기 업그레이드 비용 (기본 닫힘) -->
     <details>
         <summary id="tip3-summary"><span id="tip3-title">전용 무기 업그레이드 비용</span></summary>
         <div class="accordion-content">
@@ -267,19 +274,19 @@
     const translations = {
         ko: {
             title: "💡 [FROM] 꿀팁 모음",
-            tip1: "📌 연맹 건물 업그레이드 요구량",
+            tip1: "📌 건물 업그레이드 요구량",
             tip2: "📌 레드 무기 업그레이드 비용",
             tip3: "📌 전용 무기 업그레이드 비용"
         },
         en: {
             title: "💡 [FROM] Tips Collection",
-            tip1: "📌 Alliance Building Upgrade Requirements",
+            tip1: "📌 Building Upgrade Requirements",
             tip2: "📌 Red Weapon Upgrade Costs",
             tip3: "📌 Exclusive Weapon Upgrade Costs"
         },
         vi: {
             title: "💡 [FROM] Bộ sưu tập mẹo",
-            tip1: "📌 Yêu cầu nâng cấp tòa nhà liên minh",
+            tip1: "📌 Yêu cầu nâng cấp tòa nhà",
             tip2: "📌 Chi phí nâng cấp vũ khí đỏ",
             tip3: "📌 Chi phí nâng cấp vũ khí độc quyền"
         }
