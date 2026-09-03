@@ -649,11 +649,11 @@
     const langSelect = document.getElementById('langSelect');
     langSelect.addEventListener('change', function(e) {
         const selectedLang = e.target.value;
-        localStorage.setItem('tips_lang', selectedLang);
+        localStorage.setItem('lang', selectedLang);
         applyLanguage(selectedLang);
     });
 
-    const savedLang = localStorage.getItem('tips_lang') || 'ko';
+    const savedLang = localStorage.getItem('lang') || 'ko';
     langSelect.value = savedLang;
     applyLanguage(savedLang);
 
