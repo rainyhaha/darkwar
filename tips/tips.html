@@ -268,7 +268,7 @@
 </div>
 
 <script>
-    const updateDate = "20260904";
+    const updateDate = "20260906";
     const rainbowColors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff'];
 
     const translations = {
@@ -294,53 +294,38 @@
 
     const buildingUpgradeData = [
         {
-            type: "note",
-            title: { ko: "업그레이드 순서 참고", en: "Upgrade Order Note", vi: "Lưu ý thứ tự nâng cấp" },
-            rules: {
-                ko: [
-                    { text: "30레벨까지: 파이터 → 슈터 → 라이더 → 연맹센터 순서" },
-                    { text: "산업1부터: 파이터 → 슈터 → 라이더 순서" }
-                ],
-                en: [
-                    { text: "Up to Lv. 30: Fighter → Shooter → Rider → Alliance Center" },
-                    { text: "From Industry 1: Fighter → Shooter → Rider" }
-                ],
-                vi: [
-                    { text: "Đến Lv. 30: Đấu sĩ → Xạ thủ → Kỵ sĩ → Trung tâm Liên minh" },
-                    { text: "Từ Công nghiệp 1: Đấu sĩ → Xạ thủ → Kỵ sĩ" }
-                ]
-            }
-        },
-        {
             type: "lv30_to_ind1",
             title: { ko: "Lv. 30 → 산업1", en: "Lv. 30 → Industry 1", vi: "Lv. 30 → Công nghiệp 1" },
             rules: {
                 ko: [
                     { text: "[조건] 연맹센터 30, 파이터 30" },
-                    { text: "와치타워: 자원 91.2 M / 정밀부품 180 개 / 시간 4d 15h" },
-                    { text: "연맹센터: 목재/철 30.4 M / 정밀부품 40 개 / 시간 3d 2h" },
-                    { text: "파/슈/라 캠프: 목재/철 45.6 M / 정밀부품 80 개 / 시간 1d 4h" },
-                    { text: "연구소: 목재/철 91.2 M / 정밀부품 180 개 / 시간 4d 15h" },
+                    { text: "와치타워: 정밀부품 180 개" },
+                    { text: "연맹센터: 정밀부품 40 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 80 개" },
+                    { text: "연구소: 정밀부품 180 개" },
                     { text: "연맹 단결광장: 정밀부품 30 개" },
-                    { text: "군사센터: 정밀부품 250 개" }
+                    { text: "군사센터: 정밀부품 250 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 180*5=900<br>연맹센터 40*5=200<br>파이터 캠프 80*5=400<br>(총 1,500개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center 30, Fighter 30" },
-                    { text: "Watchtower: Resource 91.2 M / Precision Parts 180 / Time 4d 15h" },
-                    { text: "Alliance Center: Wood/Iron 30.4 M / Precision Parts 40 / Time 3d 2h" },
-                    { text: "F/S/R Camp: Wood/Iron 45.6 M / Precision Parts 80 / Time 1d 4h" },
-                    { text: "Research Lab: Wood/Iron 91.2 M / Precision Parts 180 / Time 4d 15h" },
+                    { text: "Watchtower: Precision Parts 180" },
+                    { text: "Alliance Center: Precision Parts 40" },
+                    { text: "F/S/R Camp: Precision Parts 80" },
+                    { text: "Research Lab: Precision Parts 180" },
                     { text: "Alliance Unity Square: Precision Parts 30" },
-                    { text: "Military Center: Precision Parts 250" }
+                    { text: "Military Center: Precision Parts 250" },
+                    { text: "[Precision Parts Total]<br>Watchtower 180*5=900<br>Alliance Center 40*5=200<br>Fighter Camp 80*5=400<br>(Total 1,500)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh 30, Đấu sĩ 30" },
-                    { text: "Tháp canh: Tài nguyên 91.2 M / Bộ phận chính xác 180 / Thời gian 4d 15h" },
-                    { text: "Trung tâm Liên minh: Gỗ/Sắt 30.4 M / Bộ phận chính xác 40 / Thời gian 3d 2h" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Gỗ/Sắt 45.6 M / Bộ phận chính xác 80 / Thời gian 1d 4h" },
-                    { text: "Viện nghiên cứu: Gỗ/Sắt 91.2 M / Bộ phận chính xác 180 / Thời gian 4d 15h" },
+                    { text: "Tháp canh: Bộ phận chính xác 180" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 40" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 80" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 180" },
                     { text: "Quảng trường Đoàn kết: Bộ phận chính xác 30" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 250" }
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 250" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 180*5=900<br>TT Liên minh 40*5=200<br>Trại Đấu sĩ 80*5=400<br>(Tổng 1,500)" }
                 ]
             }
         },
@@ -350,30 +335,33 @@
             rules: {
                 ko: [
                     { text: "[조건] 연맹센터 산업1, 슈터 산업1" },
-                    { text: "와치타워: 자원 104.5 M / 정밀부품 220 개 / 시간 5d 14h" },
-                    { text: "연맹센터: 자원 33.2 M / 정밀부품 50 개 / 시간 3d 17h" },
-                    { text: "파/슈/라 캠프: 자원 50.3 M / 정밀부품 90 개 / 시간 1d 9h" },
-                    { text: "연구소: 자원 104.5 M / 정밀부품 220 개 / 시간 5d 14h" },
+                    { text: "와치타워: 정밀부품 220 개" },
+                    { text: "연맹센터: 정밀부품 50 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 90 개" },
+                    { text: "연구소: 정밀부품 220 개" },
                     { text: "연맹 단결광장: 정밀부품 40 개" },
-                    { text: "군사센터: 정밀부품 300 개" }
+                    { text: "군사센터: 정밀부품 300 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 220*5=1100<br>연맹센터 50*5=250<br>슈터 캠프 90*5=450<br>(총 1,800개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 1, Shooter Industry 1" },
-                    { text: "Watchtower: Resource 104.5 M / Precision Parts 220 / Time 5d 14h" },
-                    { text: "Alliance Center: Resource 33.2 M / Precision Parts 50 / Time 3d 17h" },
-                    { text: "F/S/R Camp: Resource 50.3 M / Precision Parts 90 / Time 1d 9h" },
-                    { text: "Research Lab: Resource 104.5 M / Precision Parts 220 / Time 5d 14h" },
+                    { text: "Watchtower: Precision Parts 220" },
+                    { text: "Alliance Center: Precision Parts 50" },
+                    { text: "F/S/R Camp: Precision Parts 90" },
+                    { text: "Research Lab: Precision Parts 220" },
                     { text: "Alliance Unity Square: Precision Parts 40" },
-                    { text: "Military Center: Precision Parts 300" }
+                    { text: "Military Center: Precision Parts 300" },
+                    { text: "[Precision Parts Total]<br>Watchtower 220*5=1100<br>Alliance Center 50*5=250<br>Shooter Camp 90*5=450<br>(Total 1,800)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 1, Xạ thủ CN 1" },
-                    { text: "Tháp canh: Tài nguyên 104.5 M / Bộ phận chính xác 220 / Thời gian 5d 14h" },
-                    { text: "Trung tâm Liên minh: Tài nguyên 33.2 M / Bộ phận chính xác 50 / Thời gian 3d 17h" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Tài nguyên 50.3 M / Bộ phận chính xác 90 / Thời gian 1d 9h" },
-                    { text: "Viện nghiên cứu: Tài nguyên 104.5 M / Bộ phận chính xác 220 / Thời gian 5d 14h" },
+                    { text: "Tháp canh: Bộ phận chính xác 220" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 50" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 90" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 220" },
                     { text: "Quảng trường Đoàn kết: Bộ phận chính xác 40" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 300" }
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 300" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 220*5=1100<br>TT Liên minh 50*5=250<br>Trại Xạ thủ 90*5=450<br>(Tổng 1,800)" }
                 ]
             }
         },
@@ -388,7 +376,8 @@
                     { text: "파/슈/라 캠프: 정밀부품 110 개" },
                     { text: "연구소: 정밀부품 260 개" },
                     { text: "연맹 단결광장: 정밀부품 40 개" },
-                    { text: "군사센터: 정밀부품 360 개" }
+                    { text: "군사센터: 정밀부품 360 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 260*5=1300<br>연맹센터 60*5=300<br>라이더 캠프 110*5=550<br>(총 2,150개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 2, Rider Industry 2" },
@@ -397,7 +386,8 @@
                     { text: "F/S/R Camp: Precision Parts 110" },
                     { text: "Research Lab: Precision Parts 260" },
                     { text: "Alliance Unity Square: Precision Parts 40" },
-                    { text: "Military Center: Precision Parts 360" }
+                    { text: "Military Center: Precision Parts 360" },
+                    { text: "[Precision Parts Total]<br>Watchtower 260*5=1300<br>Alliance Center 60*5=300<br>Rider Camp 110*5=550<br>(Total 2,150)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 2, Kỵ sĩ CN 2" },
@@ -406,7 +396,8 @@
                     { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 110" },
                     { text: "Viện nghiên cứu: Bộ phận chính xác 260" },
                     { text: "Quảng trường Đoàn kết: Bộ phận chính xác 40" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 360" }
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 360" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 260*5=1300<br>TT Liên minh 60*5=300<br>Trại Kỵ sĩ 110*5=550<br>(Tổng 2,150)" }
                 ]
             }
         },
@@ -421,7 +412,8 @@
                     { text: "파/슈/라 캠프: 정밀부품 130 개" },
                     { text: "연구소: 정밀부품 310 개" },
                     { text: "연맹 단결광장: 정밀부품 50 개" },
-                    { text: "군사센터: 정밀부품 440 개" }
+                    { text: "군사센터: 정밀부품 440 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 310*5=1550<br>연맹센터 70*5=350<br>파이터 캠프 130*5=650<br>(총 2,550개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 3, Fighter Industry 3" },
@@ -430,7 +422,8 @@
                     { text: "F/S/R Camp: Precision Parts 130" },
                     { text: "Research Lab: Precision Parts 310" },
                     { text: "Alliance Unity Square: Precision Parts 50" },
-                    { text: "Military Center: Precision Parts 440" }
+                    { text: "Military Center: Precision Parts 440" },
+                    { text: "[Precision Parts Total]<br>Watchtower 310*5=1550<br>Alliance Center 70*5=350<br>Fighter Camp 130*5=650<br>(Total 2,550)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 3, Đấu sĩ CN 3" },
@@ -439,7 +432,8 @@
                     { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 130" },
                     { text: "Viện nghiên cứu: Bộ phận chính xác 310" },
                     { text: "Quảng trường Đoàn kết: Bộ phận chính xác 50" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 440" }
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 440" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 310*5=1550<br>TT Liên minh 70*5=350<br>Trại Đấu sĩ 130*5=650<br>(Tổng 2,550)" }
                 ]
             }
         },
@@ -454,7 +448,8 @@
                     { text: "파/슈/라 캠프: 정밀부품 160 개" },
                     { text: "연구소: 정밀부품 370 개" },
                     { text: "연맹 단결광장: 정밀부품 60 개" },
-                    { text: "군사센터: 정밀부품 520 개" }
+                    { text: "군사센터: 정밀부품 520 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 370*5=1850<br>연맹센터 90*5=450<br>슈터 캠프 160*5=800<br>(총 3,100개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 4, Shooter Industry 4" },
@@ -463,7 +458,8 @@
                     { text: "F/S/R Camp: Precision Parts 160" },
                     { text: "Research Lab: Precision Parts 370" },
                     { text: "Alliance Unity Square: Precision Parts 60" },
-                    { text: "Military Center: Precision Parts 520" }
+                    { text: "Military Center: Precision Parts 520" },
+                    { text: "[Precision Parts Total]<br>Watchtower 370*5=1850<br>Alliance Center 90*5=450<br>Shooter Camp 160*5=800<br>(Total 3,100)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 4, Xạ thủ CN 4" },
@@ -472,7 +468,8 @@
                     { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 160" },
                     { text: "Viện nghiên cứu: Bộ phận chính xác 370" },
                     { text: "Quảng trường Đoàn kết: Bộ phận chính xác 60" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 520" }
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 520" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 370*5=1850<br>TT Liên minh 90*5=450<br>Trại Xạ thủ 160*5=800<br>(Tổng 3,100)" }
                 ]
             }
         },
@@ -482,30 +479,33 @@
             rules: {
                 ko: [
                     { text: "[조건] 연맹센터 산업5, 라이더 산업5" },
-                    { text: "와치타워: 자원 142.5 M / 정밀부품 300 개 / 시간 9d 10h" },
-                    { text: "연맹센터: 목재/철 49.4 M / 정밀부품 70 개 / 시간 6d 6h" },
-                    { text: "파/슈/라 캠프: 목재/철 71.2 M / 정밀부품 120 개 / 시간 2d 8h" },
-                    { text: "연구소: 목재/철 142.5 M / 정밀부품 300 개 / 시간 9d 10h" },
-                    { text: "연맹 단결광장: 목재/철 M / 정밀부품 50 개" },
-                    { text: "군사센터: 목재/철 M / 정밀부품 400 개" }
+                    { text: "와치타워: 정밀부품 300 개" },
+                    { text: "연맹센터: 정밀부품 70 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 120 개" },
+                    { text: "연구소: 정밀부품 300 개" },
+                    { text: "연맹 단결광장: 정밀부품 50 개" },
+                    { text: "군사센터: 정밀부품 400 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 300*5=1500<br>연맹센터 70*5=350<br>라이더 캠프 120*5=600<br>(총 2,450개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 5, Rider Industry 5" },
-                    { text: "Watchtower: Resource 142.5 M / Precision Parts 300 / Time 9d 10h" },
-                    { text: "Alliance Center: Wood/Iron 49.4 M / Precision Parts 70 / Time 6d 6h" },
-                    { text: "F/S/R Camp: Wood/Iron 71.2 M / Precision Parts 120 / Time 2d 8h" },
-                    { text: "Research Lab: Wood/Iron 142.5 M / Precision Parts 300 / Time 9d 10h" },
-                    { text: "Alliance Unity Square: Wood/Iron M / Precision Parts 50" },
-                    { text: "Military Center: Wood/Iron M / Precision Parts 400" }
+                    { text: "Watchtower: Precision Parts 300" },
+                    { text: "Alliance Center: Precision Parts 70" },
+                    { text: "F/S/R Camp: Precision Parts 120" },
+                    { text: "Research Lab: Precision Parts 300" },
+                    { text: "Alliance Unity Square: Precision Parts 50" },
+                    { text: "Military Center: Precision Parts 400" },
+                    { text: "[Precision Parts Total]<br>Watchtower 300*5=1500<br>Alliance Center 70*5=350<br>Rider Camp 120*5=600<br>(Total 2,450)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 5, Kỵ sĩ CN 5" },
-                    { text: "Tháp canh: Tài nguyên 142.5 M / Bộ phận chính xác 300 / Thời gian 9d 10h" },
-                    { text: "Trung tâm Liên minh: Gỗ/Sắt 49.4 M / Bộ phận chính xác 70 / Thời gian 6d 6h" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Gỗ/Sắt 71.2 M / Bộ phận chính xác 120 / Thời gian 2d 8h" },
-                    { text: "Viện nghiên cứu: Gỗ/Sắt 142.5 M / Bộ phận chính xác 300 / Thời gian 9d 10h" },
-                    { text: "Quảng trường Đoàn kết: Gỗ/Sắt M / Bộ phận chính xác 50" },
-                    { text: "Trung tâm Quân sự: Gỗ/Sắt M / Bộ phận chính xác 400" }
+                    { text: "Tháp canh: Bộ phận chính xác 300" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 70" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 120" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 300" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 50" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 400" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 300*5=1500<br>TT Liên minh 70*5=350<br>Trại Kỵ sĩ 120*5=600<br>(Tổng 2,450)" }
                 ]
             }
         },
@@ -515,30 +515,33 @@
             rules: {
                 ko: [
                     { text: "[조건] 연맹센터 산업6, 파이터 산업6" },
-                    { text: "와치타워: 자원 152 M / 정밀부품 320 개 / 시간 10d" },
-                    { text: "연맹센터: 자원 54.1 M / 정밀부품 80 개 / 시간 8d 2h" },
-                    { text: "파/슈/라 캠프: 목재/철 76 M / 정밀부품 140 개 / 시간 3d 1h" },
-                    { text: "연구소: 자원 152 M / 정밀부품 320 개 / 시간 10d" },
-                    { text: "연맹 단결광장: 목재/철 M / 정밀부품 60 개" },
-                    { text: "군사센터: 목재/철 M / 정밀부품 440 개" }
+                    { text: "와치타워: 정밀부품 320 개" },
+                    { text: "연맹센터: 정밀부품 80 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 140 개" },
+                    { text: "연구소: 정밀부품 320 개" },
+                    { text: "연맹 단결광장: 정밀부품 60 개" },
+                    { text: "군사센터: 정밀부품 440 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 320*5=1600<br>연맹센터 80*5=400<br>파이터 캠프 140*5=700<br>(총 2,700개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 6, Fighter Industry 6" },
-                    { text: "Watchtower: Resource 152 M / Precision Parts 320 / Time 10d" },
-                    { text: "Alliance Center: Resource 54.1 M / Precision Parts 80 / Time 8d 2h" },
-                    { text: "F/S/R Camp: Wood/Iron 76 M / Precision Parts 140 / Time 3d 1h" },
-                    { text: "Research Lab: Resource 152 M / Precision Parts 320 / Time 10d" },
-                    { text: "Alliance Unity Square: Wood/Iron M / Precision Parts 60" },
-                    { text: "Military Center: Wood/Iron M / Precision Parts 440" }
+                    { text: "Watchtower: Precision Parts 320" },
+                    { text: "Alliance Center: Precision Parts 80" },
+                    { text: "F/S/R Camp: Precision Parts 140" },
+                    { text: "Research Lab: Precision Parts 320" },
+                    { text: "Alliance Unity Square: Precision Parts 60" },
+                    { text: "Military Center: Precision Parts 440" },
+                    { text: "[Precision Parts Total]<br>Watchtower 320*5=1600<br>Alliance Center 80*5=400<br>Fighter Camp 140*5=700<br>(Total 2,700)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 6, Đấu sĩ CN 6" },
-                    { text: "Tháp canh: Tài nguyên 152 M / Bộ phận chính xác 320 / Thời gian 10d" },
-                    { text: "Trung tâm Liên minh: Tài nguyên 54.1 M / Bộ phận chính xác 80 / Thời gian 8d 2h" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Gỗ/Sắt 76 M / Bộ phận chính xác 140 / Thời gian 3d 1h" },
-                    { text: "Viện nghiên cứu: Tài nguyên 152 M / Bộ phận chính xác 320 / Thời gian 10d" },
-                    { text: "Quảng trường Đoàn kết: Gỗ/Sắt M / Bộ phận chính xác 60" },
-                    { text: "Trung tâm Quân sự: Gỗ/Sắt M / Bộ phận chính xác 440" }
+                    { text: "Tháp canh: Bộ phận chính xác 320" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 80" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 140" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 320" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 60" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 440" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 320*5=1600<br>TT Liên minh 80*5=400<br>Trại Đấu sĩ 140*5=700<br>(Tổng 2,700)" }
                 ]
             }
         },
@@ -548,30 +551,33 @@
             rules: {
                 ko: [
                     { text: "[조건] 연맹센터 산업7, 슈터 산업7" },
-                    { text: "와치타워: 자원 161.5 M / 정밀부품 350 개 / 시간 14d 13h" },
-                    { text: "연맹센터: 자원 M / 정밀부품 400 개" },
-                    { text: "파/슈/라 캠프: 자원 M / 정밀부품 160 개" },
-                    { text: "연구소: 자원 161.5 M / 정밀부품 350 개 / 시간 14d 13h" },
-                    { text: "연맹 단결광장: 자원 M / 정밀부품 70 개" },
-                    { text: "군사센터: 자원 M / 정밀부품 480 개" }
+                    { text: "와치타워: 정밀부품 350 개" },
+                    { text: "연맹센터: 정밀부품 400 개" },
+                    { text: "파/슈/라 캠프: 정밀부품 160 개" },
+                    { text: "연구소: 정밀부품 350 개" },
+                    { text: "연맹 단결광장: 정밀부품 70 개" },
+                    { text: "군사센터: 정밀부품 480 개" },
+                    { text: "[정밀부품 합계]<br>와치타워 350*5=1750<br>연맹센터 400*5=2000<br>슈터 캠프 160*5=800<br>(총 4,550개)" }
                 ],
                 en: [
                     { text: "[Condition] Alliance Center Industry 7, Shooter Industry 7" },
-                    { text: "Watchtower: Resource 161.5 M / Precision Parts 350 / Time 14d 13h" },
-                    { text: "Alliance Center: Resource M / Precision Parts 400" },
-                    { text: "F/S/R Camp: Resource M / Precision Parts 160" },
-                    { text: "Research Lab: Resource 161.5 M / Precision Parts 350 / Time 14d 13h" },
-                    { text: "Alliance Unity Square: Resource M / Precision Parts 70" },
-                    { text: "Military Center: Resource M / Precision Parts 480" }
+                    { text: "Watchtower: Precision Parts 350" },
+                    { text: "Alliance Center: Precision Parts 400" },
+                    { text: "F/S/R Camp: Precision Parts 160" },
+                    { text: "Research Lab: Precision Parts 350" },
+                    { text: "Alliance Unity Square: Precision Parts 70" },
+                    { text: "Military Center: Precision Parts 480" },
+                    { text: "[Precision Parts Total]<br>Watchtower 350*5=1750<br>Alliance Center 400*5=2000<br>Shooter Camp 160*5=800<br>(Total 4,550)" }
                 ],
                 vi: [
                     { text: "[Điều kiện] Trung tâm Liên minh CN 7, Xạ thủ CN 7" },
-                    { text: "Tháp canh: Tài nguyên 161.5 M / Bộ phận chính xác 350 / Thời gian 14d 13h" },
-                    { text: "Trung tâm Liên minh: Tài nguyên M / Bộ phận chính xác 400" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Tài nguyên M / Bộ phận chính xác 160" },
-                    { text: "Viện nghiên cứu: Tài nguyên 161.5 M / Bộ phận chính xác 350 / Thời gian 14d 13h" },
-                    { text: "Quảng trường Đoàn kết: Tài nguyên M / Bộ phận chính xác 70" },
-                    { text: "Trung tâm Quân sự: Tài nguyên M / Bộ phận chính xác 480" }
+                    { text: "Tháp canh: Bộ phận chính xác 350" },
+                    { text: "Trung tâm Liên minh: Bộ phận chính xác 400" },
+                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 160" },
+                    { text: "Viện nghiên cứu: Bộ phận chính xác 350" },
+                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 70" },
+                    { text: "Trung tâm Quân sự: Bộ phận chính xác 480" },
+                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 350*5=1750<br>TT Liên minh 400*5=2000<br>Trại Xạ thủ 160*5=800<br>(Tổng 4,550)" }
                 ]
             }
         }
