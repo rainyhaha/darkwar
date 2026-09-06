@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>[FROM] Seating Chart</title>
 <style>
-    /* 공통 디자인 표준 적용 */
     body {
         font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
         background-color: #fafbfc; 
         color: #333;
         margin: 0;
-        padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
+        padding: 40px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -21,12 +20,11 @@
 
     .container {
         width: 100%;
-        max-width: 800px; /* 이미지 표시를 위해 너비는 800px로 유지 */
+        max-width: 800px;
         margin: 0 auto;
         position: relative;
     }
 
-    /* 콤보박스 통일 디자인 */
     .lang-selector {
         display: flex;
         justify-content: flex-end;
@@ -48,7 +46,6 @@
         outline: none;
         transition: border-color 0.2s ease;
         -webkit-appearance: none;
-        -moz-appearance: none;
         appearance: none;
         background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
         background-repeat: no-repeat;
@@ -62,8 +59,8 @@
 
     .header-wrapper {
         text-align: center;
-        margin-bottom: 40px;
-        margin-top: 0; /* 여백 통일 */
+        margin-bottom: 30px;
+        margin-top: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -85,7 +82,6 @@
         letter-spacing: 0.5px;
     }
     
-    /* 일반 부제목 스타일 원복 */
     .subtitle {
         font-size: 16px;
         color: #333333; 
@@ -93,7 +89,6 @@
         margin: 0;
     }
 
-    /* 💡 누락되었던 긴급 공지(빨간색 박스) 스타일 추가 */
     .urgent-text {
         display: inline-block;
         font-size: 16px;
@@ -106,11 +101,45 @@
         box-shadow: 0 2px 4px rgba(217, 48, 37, 0.1);
     }
 
-    .support-text {
+    /* 🔍 검색 바 스타일 */
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 20px auto;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .search-container input {
+        flex: 1;
+        padding: 12px 16px;
         font-size: 15px;
-        color: #2e8b57; 
-        font-weight: 600;
-        margin: 10px 0 0 0;
+        border: 2px solid #d1d5da;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.2s;
+    }
+
+    .search-container input:focus {
+        border-color: #007bff;
+    }
+
+    .search-container button {
+        padding: 12px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: 2px solid #007bff;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .search-container button:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
     }
 
     .button-container {
@@ -138,21 +167,92 @@
         box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
     }
 
-    img {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        border-radius: 12px;
+    .map-wrapper {
+        container-type: inline-size;
+        width: 100%;
         box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .seat-map {
+        display: grid;
+        grid-template-columns: repeat(37, 1fr);
+        grid-template-rows: repeat(46, 1fr);
+        width: 100%;
+        aspect-ratio: 37 / 46;
+        background-color: #ffffff;
+        background-image:
+            linear-gradient(to right, #e8ecef 1px, transparent 1px),
+            linear-gradient(to bottom, #e8ecef 1px, transparent 1px);
+        background-size: calc(100% / 37) calc(100% / 46);
+        border-top: 1px solid #e8ecef;
+        border-left: 1px solid #e8ecef;
+    }
+
+    .seat, .guild-boss, .frankie {
+        transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 색상 전환 */
+    }
+
+    .seat {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 0.5cqw;
+        font-size: 1.15cqw;
+        font-weight: 500;
+        color: #1a1a1a;
+        box-sizing: border-box;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .bg-g { background-color: #9ccb86; }
+    .bg-b { background-color: #c7d8ff; }
+
+    /* ✨ 형광 핑크 하이라이트 클래스 */
+    .highlight {
+        background-color: #ff1493 !important; /* DeepPink */
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.2) !important; /* 약간의 입체감 부여 */
+        z-index: 10;
+    }
+
+    .guild-boss {
+        background-color: #2b5319;
+        color: #ffeb3b;
+        font-size: 4cqw;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-area: 1 / 11 / 18 / 28;
+    }
+
+    .frankie {
+        background-color: #ff9100;
+        color: #111;
+        font-size: 2.5cqw;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-area: 23 / 17 / 28 / 22;
     }
 
     @media (max-width: 480px) {
-        .header-wrapper { margin-bottom: 30px; }
+        .header-wrapper { margin-bottom: 25px; }
         h1 { font-size: 24px; }
         .version-text { font-size: 13px; margin-bottom: 12px; }
         .subtitle { font-size: 14px; }
-        .urgent-text { font-size: 14px; padding: 6px 12px; } /* 모바일 긴급 공지 사이즈 */
-        .support-text { font-size: 13px; margin-top: 8px; }
+        .urgent-text { font-size: 14px; padding: 6px 12px; }
+        
+        /* 모바일 돋보기 유지 최적화 */
+        .search-container {
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
     }
 </style>
 </head>
@@ -174,13 +274,150 @@
         <p class="urgent-text" id="urgent-text"></p> 
     </div>
     
-    <div class="button-container">
-        <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" id="download-btn" class="download-btn">
-            💾 이미지 저장
-        </a>
+    <!-- 🔍 검색창 추가 -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="이름을 입력하세요...">
+        <button id="searchBtn">🔍</button>
     </div>
 
-    <img src="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" alt="Seating Chart">
+    <div class="button-container">
+        <a id="download-btn" class="download-btn">💾 이미지 저장</a>
+    </div>
+
+    <div class="map-wrapper">
+        <div class="seat-map" id="seatMap">
+            <!-- Merchant Guild 3 (17x17) -->
+            <div class="guild-boss">Merchant Guild 3</div>
+            
+            <!-- Frankie -->
+            <div class="frankie">Frankie</div>
+
+            <!-- Top-Left Block -->
+            <div class="seat bg-g" style="grid-area: 7 / 1 / 10 / 4;">亗21々25亗 5481</div>
+            <div class="seat bg-b" style="grid-area: 7 / 4 / 10 / 7;">Solar hehe</div>
+            <div class="seat bg-g" style="grid-area: 7 / 7 / 10 / 10;">Bờ u Buuuuuu</div>
+            <div class="seat bg-b" style="grid-area: 10 / 1 / 13 / 4;">XxxPawtownxxX</div>
+            <div class="seat bg-g" style="grid-area: 10 / 4 / 13 / 7;">Q Quỳnh</div>
+            <div class="seat bg-b" style="grid-area: 10 / 7 / 13 / 10;">Tiger • silver</div>
+            <div class="seat bg-g" style="grid-area: 13 / 1 / 16 / 4;">Cafe Sữa Đá</div>
+            <div class="seat bg-b" style="grid-area: 13 / 4 / 16 / 7;">Khan VN</div>
+            <div class="seat bg-g" style="grid-area: 13 / 7 / 16 / 10;">aloala</div>
+            <div class="seat bg-b" style="grid-area: 16 / 1 / 19 / 4;">sỏn • VN</div>
+            <div class="seat bg-g" style="grid-area: 16 / 4 / 19 / 7;">DHK 대한 킹</div>
+            <div class="seat bg-b" style="grid-area: 16 / 7 / 19 / 10;">아봉춘 abong</div>
+
+            <!-- Top-Right Block -->
+            <div class="seat bg-g" style="grid-area: 7 / 29 / 10 / 32;">Señor Crime</div>
+            <div class="seat bg-b" style="grid-area: 7 / 32 / 10 / 35;">entropy2026</div>
+            <div class="seat bg-g" style="grid-area: 7 / 35 / 10 / 38;">NsAm</div>
+            <div class="seat bg-b" style="grid-area: 10 / 29 / 13 / 32;">TOM • 鱼戏莲</div>
+            <div class="seat bg-g" style="grid-area: 10 / 32 / 13 / 35;">M HUDA</div>
+            <div class="seat bg-b" style="grid-area: 10 / 35 / 13 / 38;">Dragon -VN-</div>
+            <div class="seat bg-g" style="grid-area: 13 / 29 / 16 / 32;">Karik • 9n</div>
+            <div class="seat bg-b" style="grid-area: 13 / 32 / 16 / 35;">bobozzang</div>
+            <div class="seat bg-g" style="grid-area: 13 / 35 / 16 / 38;">-Mr-Nova-</div>
+            <div class="seat bg-b" style="grid-area: 16 / 29 / 19 / 32;">Samsuk</div>
+            <div class="seat bg-g" style="grid-area: 16 / 32 / 19 / 35;">Babicutehehe</div>
+            <div class="seat bg-b" style="grid-area: 16 / 35 / 19 / 38;">Chicken • VN</div>
+
+            <!-- Middle-Left Block -->
+            <div class="seat bg-g" style="grid-area: 21 / 1 / 24 / 4;">BlossomPo</div>
+            <div class="seat bg-b" style="grid-area: 21 / 4 / 24 / 7;">silver • grey</div>
+            <div class="seat bg-g" style="grid-area: 21 / 7 / 24 / 10;">runa159</div>
+            <div class="seat bg-b" style="grid-area: 24 / 1 / 27 / 4;">Lee Fuong</div>
+            <div class="seat bg-g" style="grid-area: 24 / 4 / 27 / 7;">Iphone Repair</div>
+            <div class="seat bg-b" style="grid-area: 24 / 7 / 27 / 10;">JiSoo</div>
+            <div class="seat bg-g" style="grid-area: 27 / 1 / 30 / 4;">Cafe muoi</div>
+            <div class="seat bg-b" style="grid-area: 27 / 4 / 30 / 7;">ZAI 자이</div>
+            <div class="seat bg-g" style="grid-area: 27 / 7 / 30 / 10;">얄룽이Yalloong</div>
+            <div class="seat bg-b" style="grid-area: 30 / 1 / 33 / 4;">ɮombi-T</div>
+            <div class="seat bg-g" style="grid-area: 30 / 4 / 33 / 7;">• The Gang •</div>
+            <div class="seat bg-b" style="grid-area: 30 / 7 / 33 / 10;">¿발룽이Balloong</div>
+
+            <!-- Middle-Right Block -->
+            <div class="seat bg-g" style="grid-area: 21 / 29 / 24 / 32;">MrHungNol</div>
+            <div class="seat bg-b" style="grid-area: 21 / 32 / 24 / 35;">hyun003002</div>
+            <div class="seat bg-g" style="grid-area: 21 / 35 / 24 / 38;">LyPhongVN</div>
+            <div class="seat bg-b" style="grid-area: 24 / 29 / 27 / 32;">Šelune \ Auers</div>
+            <div class="seat bg-g" style="grid-area: 24 / 32 / 27 / 35;">Bellā</div>
+            <div class="seat bg-b" style="grid-area: 24 / 35 / 27 / 38;">• QueenGPT</div>
+            <div class="seat bg-g" style="grid-area: 27 / 29 / 30 / 32;">Bắp Boy</div>
+            <div class="seat bg-b" style="grid-area: 27 / 32 / 30 / 35;">Bắp Girl</div>
+            <div class="seat bg-g" style="grid-area: 27 / 35 / 30 / 38;">Xicoo</div>
+            <div class="seat bg-b" style="grid-area: 30 / 29 / 33 / 32;">ricottaa</div>
+            <div class="seat bg-g" style="grid-area: 30 / 32 / 33 / 35;">MONSTER ZERO</div>
+            <div class="seat bg-b" style="grid-area: 30 / 35 / 33 / 38;">Ernawati Dewi</div>
+
+            <!-- Bottom-Left Block -->
+            <div class="seat bg-g" style="grid-area: 35 / 1 / 38 / 4;">MuSTaFaBaZzFRoM</div>
+            <div class="seat bg-b" style="grid-area: 35 / 4 / 38 / 7;">MrTu • VN</div>
+            <div class="seat bg-g" style="grid-area: 35 / 7 / 38 / 10;">Galaxy00</div>
+            <div class="seat bg-b" style="grid-area: 38 / 1 / 41 / 4;">vuahapdiem</div>
+            <div class="seat bg-g" style="grid-area: 38 / 4 / 41 / 7;">Shadow Hermit</div>
+            <div class="seat bg-b" style="grid-area: 38 / 7 / 41 / 10;">민트봉봉mint</div>
+            <div class="seat bg-g" style="grid-area: 41 / 1 / 44 / 4;">naeri</div>
+            <div class="seat bg-b" style="grid-area: 41 / 4 / 44 / 7;">MINT샤홍</div>
+            <div class="seat bg-g" style="grid-area: 41 / 7 / 44 / 10;">pikanees</div>
+
+            <!-- Bottom-Right Block -->
+            <div class="seat bg-g" style="grid-area: 35 / 29 / 38 / 32;">° • Min Hime • °</div>
+            <div class="seat bg-b" style="grid-area: 35 / 32 / 38 / 35;">N e Z h a</div>
+            <div class="seat bg-g" style="grid-area: 35 / 35 / 38 / 38;">︻デSαнıl┻</div>
+            <div class="seat bg-b" style="grid-area: 38 / 29 / 41 / 32;">Kade27</div>
+            <div class="seat bg-g" style="grid-area: 38 / 32 / 41 / 35;">°lilithVeil°</div>
+            <div class="seat bg-b" style="grid-area: 38 / 35 / 41 / 38;">woemygod</div>
+            <div class="seat bg-g" style="grid-area: 41 / 29 / 44 / 32;">Kida</div>
+            <div class="seat bg-b" style="grid-area: 41 / 32 / 44 / 35;">Tösabit</div>
+            <div class="seat bg-g" style="grid-area: 41 / 35 / 44 / 38;">益 Noyss 益</div>
+
+            <!-- Center Ring (Top) -->
+            <div class="seat bg-g" style="grid-area: 18 / 12 / 21 / 15;">Tony87 VN</div>
+            <div class="seat bg-b" style="grid-area: 18 / 15 / 21 / 18;">Wang Thanos</div>
+            <div class="seat bg-g" style="grid-area: 18 / 18 / 21 / 21;">Suho 수호</div>
+            <div class="seat bg-b" style="grid-area: 18 / 21 / 21 / 24;">DoDoHan삼형제</div>
+            <div class="seat bg-g" style="grid-area: 18 / 24 / 21 / 27;">RAINY</div>
+
+            <!-- Center Ring (Sides - Left) -->
+            <div class="seat bg-b" style="grid-area: 21 / 12 / 24 / 15;">Hisona</div>
+            <div class="seat bg-g" style="grid-area: 24 / 12 / 27 / 15;">Last ʕ•ᴥ•ʔ</div>
+            <div class="seat bg-b" style="grid-area: 27 / 12 / 30 / 15;">나는 Minsu 왕자</div>
+            
+            <!-- Center Ring (Sides - Right) -->
+            <div class="seat bg-b" style="grid-area: 21 / 24 / 24 / 27;">Lily 릴리v</div>
+            <div class="seat bg-g" style="grid-area: 24 / 24 / 27 / 27;">DDALGI 야옹</div>
+            <div class="seat bg-b" style="grid-area: 27 / 24 / 30 / 27;">Dduee 뚜에에</div>
+
+            <!-- Center Ring (Bottom) -->
+            <div class="seat bg-g" style="grid-area: 30 / 12 / 33 / 15;">Capiso</div>
+            <div class="seat bg-b" style="grid-area: 30 / 15 / 33 / 18;">ʚ Solana ɞ</div>
+            <div class="seat bg-g" style="grid-area: 30 / 18 / 33 / 21;">Kwany 38 광땡</div>
+            <div class="seat bg-b" style="grid-area: 30 / 21 / 33 / 24;">IcyBazz</div>
+            <div class="seat bg-g" style="grid-area: 30 / 24 / 33 / 27;">FBazz</div>
+
+            <!-- Bottom Center Extension Block -->
+            <div class="seat bg-g" style="grid-area: 35 / 12 / 38 / 15;">Boriato</div>
+            <div class="seat bg-b" style="grid-area: 35 / 15 / 38 / 18;">ʚKOREA 공쥬ɞ</div>
+            <div class="seat bg-g" style="grid-area: 35 / 18 / 38 / 21;">Torikato 5481 •</div>
+            <div class="seat bg-b" style="grid-area: 35 / 21 / 38 / 24;">T-Rex 5481</div>
+            <div class="seat bg-g" style="grid-area: 35 / 24 / 38 / 27;">Pepsi 5481</div>
+            
+            <div class="seat bg-b" style="grid-area: 38 / 12 / 41 / 15;">Marsaud</div>
+            <div class="seat bg-g" style="grid-area: 38 / 15 / 41 / 18;">°Laxus° 5481</div>
+            <div class="seat bg-b" style="grid-area: 38 / 18 / 41 / 21;">Huấn Hư Hỏng</div>
+            <div class="seat bg-g" style="grid-area: 38 / 21 / 41 / 24;">Cookie°Vani 5481</div>
+            <div class="seat bg-b" style="grid-area: 38 / 24 / 41 / 27;">°Elyvia°5481</div>
+
+            <div class="seat bg-g" style="grid-area: 41 / 12 / 44 / 15;">Robot Taekwon V</div>
+            <div class="seat bg-b" style="grid-area: 41 / 15 / 44 / 18;">Thomasmostwanted</div>
+            <div class="seat bg-g" style="grid-area: 41 / 18 / 44 / 21;">Elzzup</div>
+            <div class="seat bg-b" style="grid-area: 41 / 21 / 44 / 24;">• €nel •</div>
+            <div class="seat bg-g" style="grid-area: 41 / 24 / 44 / 27;">Báo Nè</div>
+
+            <div class="seat bg-g" style="grid-area: 44 / 15 / 47 / 18;">불혁1004</div>
+            <div class="seat bg-b" style="grid-area: 44 / 18 / 47 / 21;">Sam flynn</div>
+            <div class="seat bg-g" style="grid-area: 44 / 21 / 47 / 24;">Hocwaras</div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -192,21 +429,24 @@
             subtitle: " ", 
             urgentNotice: "🚨 자리 배치는 시즌 4 (2026년 9월 7일)부터 시작됩니다",
             support: "PC와 모바일 화면을 모두 지원합니다",
-            saveBtn: "💾 이미지 저장"
+            saveBtn: "💾 이미지 저장",
+            searchPlaceholder: "이름을 입력하세요..." // 검색창 플레이스홀더 다국어 추가
         },
         en: {
             title: "🗺️ Seating Chart",
             subtitle: " ", 
             urgentNotice: "🚨 Seating arrangements will begin in Season 4 (September 7, 2026)",
             support: "All screens are supported on PC and mobile",
-            saveBtn: "💾 Save Image"
+            saveBtn: "💾 Save Image",
+            searchPlaceholder: "Search name..."
         },
         vi: {
             title: "🗺️ Sơ đồ chỗ ngồi",
             subtitle: " ", 
             urgentNotice: "🚨 Việc sắp xếp chỗ ngồi sẽ bắt đầu trong Mùa 4 (Ngày 7 tháng 9 năm 2026)",
             support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động",
-            saveBtn: "💾 Lưu hình ảnh"
+            saveBtn: "💾 Lưu hình ảnh",
+            searchPlaceholder: "Tìm kiếm tên..."
         }
     };
 
@@ -238,11 +478,8 @@
         }
 
         document.getElementById('urgent-text').textContent = translations[lang].urgentNotice;
-        
-        const supportEl = document.getElementById('support-text');
-        if (supportEl) supportEl.textContent = translations[lang].support;
-        
         document.getElementById('download-btn').textContent = translations[lang].saveBtn;
+        document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder; // 검색창 다국어 적용
     }
 
     const langSelect = document.getElementById('langSelect');
@@ -257,7 +494,45 @@
     langSelect.value = savedLang;
     applyLanguage(savedLang);
 
-    document.getElementById('download-btn').setAttribute("download", `SeatingChart_${updateDate}.png`);
+    document.getElementById('download-btn').addEventListener('click', function() {
+        alert("브라우저 인쇄(Ctrl+P) 또는 화면 캡처 기능을 이용해 주세요.");
+    });
+
+    // 🔍 검색 기능 구현 로직
+    function performSearch() {
+        const input = document.getElementById('searchInput');
+        const term = input.value.trim().toLowerCase();
+        
+        // 1. 기존에 적용된 형광 핑크 하이라이트 모두 제거 (초기화)
+        const allSeats = document.querySelectorAll('.seat, .guild-boss, .frankie');
+        allSeats.forEach(seat => {
+            seat.classList.remove('highlight');
+        });
+
+        // 2. 검색어가 비어있으면 함수 종료 (초기화된 상태로 둠)
+        if (term === '') {
+            return;
+        }
+
+        // 3. 입력된 단어가 포함된 셀 찾아서 하이라이트 클래스 추가
+        allSeats.forEach(seat => {
+            const seatText = seat.textContent.toLowerCase();
+            // 부분 일치(Like) 적용
+            if (seatText.includes(term)) {
+                seat.classList.add('highlight');
+            }
+        });
+    }
+
+    // 돋보기 버튼 클릭 시 검색 실행
+    document.getElementById('searchBtn').addEventListener('click', performSearch);
+
+    // 검색창에서 엔터(Enter) 키 입력 시 검색 실행 편의성 추가
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
 
 </script>
 </body>
