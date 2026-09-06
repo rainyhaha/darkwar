@@ -3,262 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[FROM] Seating Chart</title>
+<title>길드 배치도</title>
 <style>
-    /* 공통 디자인 표준 적용 */
     body {
-        font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
-        background-color: #fafbfc; 
-        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
         margin: 0;
-        padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
+    }
+    
+    /* 상단 컨트롤 패널 */
+    .control-panel {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        box-sizing: border-box;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 800px; /* 이미지 표시를 위해 너비는 800px로 유지 */
-        margin: 0 auto;
-        position: relative;
-    }
-
-    /* 콤보박스 통일 디자인 */
-    .lang-selector {
-        display: flex;
-        justify-content: flex-end;
+        gap: 8px;
         margin-bottom: 20px;
-        width: 100%;
+        width: 300px;
     }
-    
-    .lang-selector select {
-        padding: 8px 36px 8px 12px;
-        border-radius: 8px;
-        border: 1px solid #d1d5da;
-        background-color: #ffffff;
-        font-family: inherit;
-        font-size: 14px;
-        font-weight: 600;
-        color: #333;
+    .control-panel button {
+        padding: 8px;
         cursor: pointer;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-        outline: none;
-        transition: border-color 0.2s ease;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        background-size: 14px;
+        border: 1px solid #ccc;
+        background-color: #f8f9fa;
+        border-radius: 4px;
     }
-
-    .lang-selector select:hover, .lang-selector select:focus {
-        border-color: #007bff;
-    }
-
-    .header-wrapper {
-        text-align: center;
-        margin-bottom: 40px;
-        margin-top: 0; /* 여백 통일 */
+    .control-panel button:hover { background-color: #e2e6ea; }
+    .search-box {
         display: flex;
-        flex-direction: column;
+        gap: 5px;
+    }
+    .search-box input {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    /* 그리드 레이아웃 */
+    .grid-container {
+        display: grid;
+        /* 좌측 3열, 여백 1열, 중앙 5열, 여백 1열, 우측 3열 = 총 13열 */
+        grid-template-columns: repeat(3, 90px) 30px repeat(5, 90px) 30px repeat(3, 90px);
+        grid-template-rows: repeat(13, 40px);
+        gap: 3px; 
+    }
+
+    /* 공통 셀 스타일 */
+    .cell {
+        display: flex;
         align-items: center;
-    }
-
-    h1 {
-        font-size: 28px;
-        font-weight: 800;
-        margin: 0 0 6px 0;
-        color: #1a1a1a;
-        letter-spacing: -0.5px;
-    }
-
-    .version-text {
-        font-size: 14px;
-        font-weight: 600;
-        color: #007bff; 
-        margin: 0 0 16px 0;
-        letter-spacing: 0.5px;
-    }
-    
-    /* 일반 부제목 스타일 원복 */
-    .subtitle {
-        font-size: 16px;
-        color: #333333; 
-        font-weight: 500;
-        margin: 0;
-    }
-
-    /* 💡 누락되었던 긴급 공지(빨간색 박스) 스타일 추가 */
-    .urgent-text {
-        display: inline-block;
-        font-size: 16px;
-        color: #d93025; 
-        font-weight: 700;
-        background-color: #fce8e6; 
-        padding: 8px 16px;
-        border-radius: 8px;
-        margin: 10px 0 0 0;
-        box-shadow: 0 2px 4px rgba(217, 48, 37, 0.1);
-    }
-
-    .support-text {
-        font-size: 15px;
-        color: #2e8b57; 
-        font-weight: 600;
-        margin: 10px 0 0 0;
-    }
-
-    .button-container {
+        justify-content: center;
         text-align: center;
-        margin-bottom: 30px;
+        font-size: 11px;
+        word-break: break-all;
+        padding: 2px;
+        transition: all 0.2s;
+        border-radius: 2px;
     }
 
-    .download-btn {
-        display: inline-block;
-        padding: 14px 28px;
-        background-color: #007bff;
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 15px;
-        font-weight: 700;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
-        transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
-        cursor: pointer;
+    /* 배경색 지정 */
+    .c-g { background-color: #a9d18e; color: #000; } /* 초록 */
+    .c-b { background-color: #c9daf8; color: #000; } /* 파랑 */
+    
+    /* 특수 대형 셀 */
+    .c-mg { 
+        background-color: #385723; 
+        color: #ffc000; 
+        font-size: 24px; 
+        font-weight: bold; 
+    }
+    .c-f { 
+        background-color: #ffc000; 
+        color: #000; 
+        font-size: 16px; 
+        font-weight: bold; 
     }
 
-    .download-btn:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
-    }
-
-    img {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-    }
-
-    @media (max-width: 480px) {
-        .header-wrapper { margin-bottom: 30px; }
-        h1 { font-size: 24px; }
-        .version-text { font-size: 13px; margin-bottom: 12px; }
-        .subtitle { font-size: 14px; }
-        .urgent-text { font-size: 14px; padding: 6px 12px; } /* 모바일 긴급 공지 사이즈 */
-        .support-text { font-size: 13px; margin-top: 8px; }
+    /* 검색 강조 스타일 */
+    .highlight {
+        background-color: #ff4757 !important;
+        color: #fff !important;
+        font-weight: bold;
+        transform: scale(1.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        z-index: 10;
+        border: 2px solid #2f3542;
     }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="lang-selector">
-        <select id="langSelect">
-            <option value="ko">🇰🇷 한국어</option>
-            <option value="en">🇺🇸 English</option>
-            <option value="vi">🇻🇳 Tiếng Việt</option>
-        </select>
+<div class="control-panel">
+    <button id="saveImgBtn">이미지 저장</button>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="닉네임 입력 (예: Frankie)" onkeypress="if(event.key === 'Enter') highlightCell()">
+        <button onclick="highlightCell()">🔍</button>
     </div>
+</div>
 
-    <div class="header-wrapper">
-        <h1 id="page-title">🗺️ 자리 배치도</h1>
-        <p class="version-text" id="version-text"></p>
-        <p class="subtitle" id="subtitle-text"></p>
-        <p class="urgent-text" id="urgent-text"></p> 
-    </div>
-    
-    <div class="button-container">
-        <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" id="download-btn" class="download-btn">
-            💾 이미지 저장
-        </a>
-    </div>
+<div class="grid-container" id="captureArea">
+    <!-- Row 1 -->
+    <div class="cell c-g">亗21々25亗 5481</div>
+    <div class="cell c-b">Solar hehe</div>
+    <div class="cell c-g">Bờ u Buuuuuu</div>
+    <div class="cell c-mg" style="grid-column: 5 / span 5; grid-row: 1 / span 4;">Merchant Guild 3</div>
+    <div class="cell c-g" style="grid-column: 11;">Señor Crime</div>
+    <div class="cell c-b">entropy2026</div>
+    <div class="cell c-g">NsAm</div>
 
-    <img src="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" alt="Seating Chart">
+    <!-- Row 2 -->
+    <div class="cell c-b">XxxPawtownxxX</div>
+    <div class="cell c-g">Q Quỳnh</div>
+    <div class="cell c-b">Tiger • silver</div>
+    <div class="cell c-b" style="grid-column: 11;">βεrrus︵sama</div>
+    <div class="cell c-g">M HUDA</div>
+    <div class="cell c-b">Dragon -VN-</div>
+
+    <!-- Row 3 -->
+    <div class="cell c-g">Cafe Sữa Đá</div>
+    <div class="cell c-b">Khan VN</div>
+    <div class="cell c-g">aloala</div>
+    <div class="cell c-g" style="grid-column: 11;">Karik • 9n</div>
+    <div class="cell c-b">bobozzang</div>
+    <div class="cell c-g">-Mr-Nova-</div>
+
+    <!-- Row 4 -->
+    <div class="cell c-b">sỏn • VN</div>
+    <div class="cell c-g">DHK 대한 킹</div>
+    <div class="cell c-b">아봉춘 abong</div>
+    <div class="cell c-b" style="grid-column: 11;">Samsuk</div>
+    <div class="cell c-g">Babicutehehe</div>
+    <div class="cell c-b">Chicken • VN</div>
+
+    <!-- Row 5 (Central Block Starts) -->
+    <div class="cell c-g" style="grid-column: 5;">Tony87 VN</div>
+    <div class="cell c-b">Wang Thanos</div>
+    <div class="cell c-g">Suho 수호</div>
+    <div class="cell c-b">DoDoHan삼형제</div>
+    <div class="cell c-g">RAINY</div>
+
+    <!-- Row 6 -->
+    <div class="cell c-g" style="grid-column: 1;">BlossomPo</div>
+    <div class="cell c-b">grey •</div>
+    <div class="cell c-g">runa159</div>
+    <div class="cell c-b" style="grid-column: 5;">Hisona</div>
+    <div class="cell c-f" style="grid-column: 6 / span 3; grid-row: 6 / span 2;">Frankie</div>
+    <div class="cell c-b" style="grid-column: 9;">Lily 릴리v</div>
+    <div class="cell c-g" style="grid-column: 11;">MrHungNol</div>
+    <div class="cell c-b">hyun003002</div>
+    <div class="cell c-g">LyPhongVN</div>
+
+    <!-- Row 7 -->
+    <div class="cell c-b" style="grid-column: 1;">Lee Fuong</div>
+    <div class="cell c-g">Iphone Repair</div>
+    <div class="cell c-b">JiSoo</div>
+    <div class="cell c-g" style="grid-column: 5;">Last ʕ•ᴥ•ʔ</div>
+    <div class="cell c-g" style="grid-column: 9;">DDALGI 야옹</div>
+    <div class="cell c-b" style="grid-column: 11;">Šelune \ Auers</div>
+    <div class="cell c-g">Bellā</div>
+    <div class="cell c-b">• QueenGPT</div>
+
+    <!-- Row 8 -->
+    <div class="cell c-g" style="grid-column: 1;">Cafe muoi</div>
+    <div class="cell c-b">ZAI 자이</div>
+    <div class="cell c-g">얄룽이Yalloong</div>
+    <div class="cell c-g" style="grid-column: 5;">나는 Minsu 왕자</div>
+    <div class="cell c-b" style="grid-column: 9;">Dduee 뚜에에</div>
+    <div class="cell c-g" style="grid-column: 11;">Bắp Boy</div>
+    <div class="cell c-b">Bắp Girl</div>
+    <div class="cell c-g">Xicoo</div>
+
+    <!-- Row 9 -->
+    <div class="cell c-b" style="grid-column: 1;">ɮombi-T</div>
+    <div class="cell c-g">• The Gang •</div>
+    <div class="cell c-b">¿발룽이Balloong</div>
+    <div class="cell c-g" style="grid-column: 5;">Capiso</div>
+    <div class="cell c-b">ʚ Solana ɞ</div>
+    <div class="cell c-g">Kwany 38 광땡</div>
+    <div class="cell c-b">IcyBazz</div>
+    <div class="cell c-g">FBazz</div>
+    <div class="cell c-b" style="grid-column: 11;">ricottaa</div>
+    <div class="cell c-g">MONSTER ZERO</div>
+    <div class="cell c-b">Ernawati Dewi</div>
+
+    <!-- Row 10 -->
+    <div class="cell c-b" style="grid-column: 5;">Boriato</div>
+    <div class="cell c-g">ʚKOREA 공쥬ɞ</div>
+    <div class="cell c-b">Torikato 5481 •</div>
+    <div class="cell c-g">T-Rex 5481</div>
+    <div class="cell c-b">Pepsi 5481</div>
+
+    <!-- Row 11 -->
+    <div class="cell c-g" style="grid-column: 1;">MuSTaFaBaZzFRoM</div>
+    <div class="cell c-b">MrTu • VN</div>
+    <div class="cell c-g">Galaxy00</div>
+    <div class="cell c-g" style="grid-column: 5;">Marsaud</div>
+    <div class="cell c-b">°Laxus° 5481</div>
+    <div class="cell c-g">Huấn Hư Hỏng</div>
+    <div class="cell c-b">Cookie°Vani 5481</div>
+    <div class="cell c-g">°Elyvia°5481</div>
+    <div class="cell c-g" style="grid-column: 11;">° • Min Hime • °</div>
+    <div class="cell c-b">N e Z h a</div>
+    <div class="cell c-g">︻デSαнıl┻</div>
+
+    <!-- Row 12 -->
+    <div class="cell c-b" style="grid-column: 1;">vuahapdiem</div>
+    <div class="cell c-g">Shadow Hermit</div>
+    <div class="cell c-b">민트봉봉mint</div>
+    <div class="cell c-b" style="grid-column: 5;">Robot Taekwon V</div>
+    <div class="cell c-g">• ThomasLuckiest •</div>
+    <div class="cell c-b">Elzzup</div>
+    <div class="cell c-g">• €nel •</div>
+    <div class="cell c-b">Báo Nè</div>
+    <div class="cell c-b" style="grid-column: 11;">Kade27</div>
+    <div class="cell c-g">°lilithVeil°</div>
+    <div class="cell c-b">woemygod</div>
+
+    <!-- Row 13 -->
+    <div class="cell c-g" style="grid-column: 1;">naeri</div>
+    <div class="cell c-b">MINT샤홍</div>
+    <div class="cell c-g">pikanees</div>
+    <div class="cell c-b" style="grid-column: 6;">불혁1004</div>
+    <div class="cell c-g">Sam flynn</div>
+    <div class="cell c-b">Hocwaras</div>
+    <div class="cell c-g" style="grid-column: 11;">Kida</div>
+    <div class="cell c-b">Tösabit</div>
+    <div class="cell c-g">益 Noyss 益</div>
 </div>
 
 <script>
-    const updateDate = "20260906";
+    function highlightCell() {
+        const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+        const cells = document.querySelectorAll('.cell');
+        
+        // 기존 강조 초기화
+        cells.forEach(cell => cell.classList.remove('highlight'));
+        
+        if (!keyword) return;
 
-    const translations = {
-        ko: {
-            title: "🗺️ 자리 배치도",
-            subtitle: " ", 
-            urgentNotice: "🚨 자리 배치는 시즌 4 (2026년 9월 7일)부터 시작됩니다",
-            support: "PC와 모바일 화면을 모두 지원합니다",
-            saveBtn: "💾 이미지 저장"
-        },
-        en: {
-            title: "🗺️ Seating Chart",
-            subtitle: " ", 
-            urgentNotice: "🚨 Seating arrangements will begin in Season 4 (September 7, 2026)",
-            support: "All screens are supported on PC and mobile",
-            saveBtn: "💾 Save Image"
-        },
-        vi: {
-            title: "🗺️ Sơ đồ chỗ ngồi",
-            subtitle: " ", 
-            urgentNotice: "🚨 Việc sắp xếp chỗ ngồi sẽ bắt đầu trong Mùa 4 (Ngày 7 tháng 9 năm 2026)",
-            support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động",
-            saveBtn: "💾 Lưu hình ảnh"
+        let found = false;
+        cells.forEach(cell => {
+            // 대소문자 구분 없이 입력한 단어가 포함되어 있는지 확인
+            if (cell.textContent.toLowerCase().includes(keyword)) {
+                cell.classList.add('highlight');
+                found = true;
+            }
+        });
+        
+        if(!found) {
+            alert('일치하는 닉네임이 없습니다.');
         }
-    };
-
-    function getFormattedVersionText(dateStr, lang) {
-        if (!dateStr || dateStr.length !== 8) return "";
-        const year = dateStr.substring(0, 4);
-        const monthNum = parseInt(dateStr.substring(4, 6), 10);
-        const dayNum = parseInt(dateStr.substring(6, 8), 10);
-
-        if (lang === 'ko') return `최종 업데이트: ${year}년 ${monthNum}월 ${dayNum}일`;
-        else if (lang === 'en') {
-            const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            return `Last Updated: ${monthsEn[monthNum - 1]} ${dayNum}, ${year}`;
-        } else if (lang === 'vi') return `Cập nhật lần cuối: Ngày ${dayNum} tháng ${monthNum} năm ${year}`;
-        return "";
     }
-
-    function applyLanguage(lang) {
-        document.getElementById('page-title').textContent = translations[lang].title;
-        document.getElementById('version-text').textContent = getFormattedVersionText(updateDate, lang);
-        
-        const subtitleElement = document.getElementById('subtitle-text');
-        const subtitleText = translations[lang].subtitle;
-        if (!subtitleText || subtitleText.trim() === "") {
-            subtitleElement.style.display = "none";
-        } else {
-            subtitleElement.style.display = "block";
-            subtitleElement.textContent = subtitleText;
-        }
-
-        document.getElementById('urgent-text').textContent = translations[lang].urgentNotice;
-        
-        const supportEl = document.getElementById('support-text');
-        if (supportEl) supportEl.textContent = translations[lang].support;
-        
-        document.getElementById('download-btn').textContent = translations[lang].saveBtn;
-    }
-
-    const langSelect = document.getElementById('langSelect');
-
-    langSelect.addEventListener('change', function(e) {
-        const selectedLang = e.target.value;
-        localStorage.setItem('lang', selectedLang);
-        applyLanguage(selectedLang);
-    });
-
-    const savedLang = localStorage.getItem('lang') || 'ko';
-    langSelect.value = savedLang;
-    applyLanguage(savedLang);
-
-    document.getElementById('download-btn').setAttribute("download", `SeatingChart_${updateDate}.png`);
-
 </script>
+
 </body>
 </html>
