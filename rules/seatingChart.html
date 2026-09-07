@@ -279,11 +279,11 @@
         <input type="text" id="searchInput" placeholder="이름을 입력하세요...">
         <button id="searchBtn">🔍</button>
     </div>
-
+<!--
     <div class="button-container">
         <a id="download-btn" class="download-btn">💾 이미지 저장</a>
     </div>
-
+-->
     <div class="map-wrapper">
         <div class="seat-map" id="seatMap">
             <!-- Merchant Guild 3 (17x17) -->
@@ -493,11 +493,11 @@
     const savedLang = localStorage.getItem('lang') || 'ko';
     langSelect.value = savedLang;
     applyLanguage(savedLang);
-
+/*
     document.getElementById('download-btn').addEventListener('click', function() {
         alert("브라우저 인쇄(Ctrl+P) 또는 화면 캡처 기능을 이용해 주세요.");
     });
-
+*/
     // 🔍 검색 기능 구현 로직
     function performSearch() {
         const input = document.getElementById('searchInput');
