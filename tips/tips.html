@@ -268,7 +268,7 @@
 </div>
 
 <script>
-    const updateDate = "20260906";
+    const updateDate = "20261011";
     const rainbowColors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff'];
 
     const translations = {
@@ -292,292 +292,131 @@
         }
     };
 
+    // ✨ 표 데이터를 기반으로 교체된 업그레이드 요구량 데이터
     const buildingUpgradeData = [
         {
-            type: "lv30_to_ind1",
-            title: { ko: "Lv. 30 → 산업1", en: "Lv. 30 → Industry 1", vi: "Lv. 30 → Công nghiệp 1" },
+            type: "fighter_base",
+            title: { ko: "파이터 기준", en: "Fighter Base", vi: "Tiêu chuẩn Fighter" },
             rules: {
                 ko: [
-                    { text: "[조건] 연맹센터 30, 파이터 30" },
-                    { text: "와치타워: 정밀부품 180 개" },
-                    { text: "연맹센터: 정밀부품 40 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 80 개" },
-                    { text: "연구소: 정밀부품 180 개" },
-                    { text: "연맹 단결광장: 정밀부품 30 개" },
-                    { text: "군사센터: 정밀부품 250 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 180*5=900<br>연맹센터 40*5=200<br>파이터 캠프 80*5=400<br>(총 1,500개)" }
+                    { text: "[산5 -> 6] 필요: 라이더" },
+                    { text: "요구량: 쉘터 300, 연맹 70, 파이터 120, 슈터 120" },
+                    { text: "단계 합계: 2,450" },
+                    { text: "[산6 -> 7] 필요: 파이터" },
+                    { text: "요구량: 쉘터 320, 연맹 80, 파이터 140, 슈터 140" },
+                    { text: "단계 합계: 2,700" },
+                    { text: "[산7 -> 8] 필요: 슈터" },
+                    { text: "요구량: 쉘터 350, 연맹 100, 파이터 160" },
+                    { text: "단계 합계: 4,350" },
+                    { text: "[총합] 9,500" }
                 ],
                 en: [
-                    { text: "[Condition] Alliance Center 30, Fighter 30" },
-                    { text: "Watchtower: Precision Parts 180" },
-                    { text: "Alliance Center: Precision Parts 40" },
-                    { text: "F/S/R Camp: Precision Parts 80" },
-                    { text: "Research Lab: Precision Parts 180" },
-                    { text: "Alliance Unity Square: Precision Parts 30" },
-                    { text: "Military Center: Precision Parts 250" },
-                    { text: "[Precision Parts Total]<br>Watchtower 180*5=900<br>Alliance Center 40*5=200<br>Fighter Camp 80*5=400<br>(Total 1,500)" }
+                    { text: "[T5 -> T6] Required: Rider" },
+                    { text: "Cost: Shelter 300, Alliance 70, Fighter 120, Shooter 120" },
+                    { text: "Step Total: 2,450" },
+                    { text: "[T6 -> T7] Required: Fighter" },
+                    { text: "Cost: Shelter 320, Alliance 80, Fighter 140, Shooter 140" },
+                    { text: "Step Total: 2,700" },
+                    { text: "[T7 -> T8] Required: Shooter" },
+                    { text: "Cost: Shelter 350, Alliance 100, Fighter 160" },
+                    { text: "Step Total: 4,350" },
+                    { text: "[Total Sum] 9,500" }
                 ],
                 vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh 30, Đấu sĩ 30" },
-                    { text: "Tháp canh: Bộ phận chính xác 180" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 40" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 80" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 180" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 30" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 250" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 180*5=900<br>TT Liên minh 40*5=200<br>Trại Đấu sĩ 80*5=400<br>(Tổng 1,500)" }
+                    { text: "[T5 -> T6] Yêu cầu: Rider" },
+                    { text: "Chi phí: Nơi trú ẩn 300, Liên minh 70, Fighter 120, Shooter 120" },
+                    { text: "Tổng bước: 2,450" },
+                    { text: "[T6 -> T7] Yêu cầu: Fighter" },
+                    { text: "Chi phí: Nơi trú ẩn 320, Liên minh 80, Fighter 140, Shooter 140" },
+                    { text: "Tổng bước: 2,700" },
+                    { text: "[T7 -> T8] Yêu cầu: Shooter" },
+                    { text: "Chi phí: Nơi trú ẩn 350, Liên minh 100, Fighter 160" },
+                    { text: "Tổng bước: 4,350" },
+                    { text: "[Tổng cộng] 9,500" }
                 ]
             }
         },
         {
-            type: "ind1_to_ind2",
-            title: { ko: "산업1 → 산업2", en: "Industry 1 → 2", vi: "Công nghiệp 1 → 2" },
+            type: "shooter_base",
+            title: { ko: "슈터 기준", en: "Shooter Base", vi: "Tiêu chuẩn Shooter" },
             rules: {
                 ko: [
-                    { text: "[조건] 연맹센터 산업1, 슈터 산업1" },
-                    { text: "와치타워: 정밀부품 220 개" },
-                    { text: "연맹센터: 정밀부품 50 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 90 개" },
-                    { text: "연구소: 정밀부품 220 개" },
-                    { text: "연맹 단결광장: 정밀부품 40 개" },
-                    { text: "군사센터: 정밀부품 300 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 220*5=1100<br>연맹센터 50*5=250<br>슈터 캠프 90*5=450<br>(총 1,800개)" }
+                    { text: "[산5 -> 6] 필요: 라이더" },
+                    { text: "요구량: 쉘터 300, 연맹 70, 파이터 120, 슈터 120" },
+                    { text: "단계 합계: 2,450" },
+                    { text: "[산6 -> 7] 필요: 파이터" },
+                    { text: "요구량: 쉘터 320, 연맹 80, 슈터 140" },
+                    { text: "단계 합계: 3,300" },
+                    { text: "[산7 -> 8] 필요: 슈터" },
+                    { text: "요구량: 쉘터 350, 연맹 100, 슈터 160" },
+                    { text: "단계 합계: 3,050" },
+                    { text: "[총합] 8,800" }
                 ],
                 en: [
-                    { text: "[Condition] Alliance Center Industry 1, Shooter Industry 1" },
-                    { text: "Watchtower: Precision Parts 220" },
-                    { text: "Alliance Center: Precision Parts 50" },
-                    { text: "F/S/R Camp: Precision Parts 90" },
-                    { text: "Research Lab: Precision Parts 220" },
-                    { text: "Alliance Unity Square: Precision Parts 40" },
-                    { text: "Military Center: Precision Parts 300" },
-                    { text: "[Precision Parts Total]<br>Watchtower 220*5=1100<br>Alliance Center 50*5=250<br>Shooter Camp 90*5=450<br>(Total 1,800)" }
+                    { text: "[T5 -> T6] Required: Rider" },
+                    { text: "Cost: Shelter 300, Alliance 70, Fighter 120, Shooter 120" },
+                    { text: "Step Total: 2,450" },
+                    { text: "[T6 -> T7] Required: Fighter" },
+                    { text: "Cost: Shelter 320, Alliance 80, Shooter 140" },
+                    { text: "Step Total: 3,300" },
+                    { text: "[T7 -> T8] Required: Shooter" },
+                    { text: "Cost: Shelter 350, Alliance 100, Shooter 160" },
+                    { text: "Step Total: 3,050" },
+                    { text: "[Total Sum] 8,800" }
                 ],
                 vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 1, Xạ thủ CN 1" },
-                    { text: "Tháp canh: Bộ phận chính xác 220" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 50" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 90" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 220" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 40" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 300" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 220*5=1100<br>TT Liên minh 50*5=250<br>Trại Xạ thủ 90*5=450<br>(Tổng 1,800)" }
+                    { text: "[T5 -> T6] Yêu cầu: Rider" },
+                    { text: "Chi phí: Nơi trú ẩn 300, Liên minh 70, Fighter 120, Shooter 120" },
+                    { text: "Tổng bước: 2,450" },
+                    { text: "[T6 -> T7] Yêu cầu: Fighter" },
+                    { text: "Chi phí: Nơi trú ẩn 320, Liên minh 80, Shooter 140" },
+                    { text: "Tổng bước: 3,300" },
+                    { text: "[T7 -> T8] Yêu cầu: Shooter" },
+                    { text: "Chi phí: Nơi trú ẩn 350, Liên minh 100, Shooter 160" },
+                    { text: "Tổng bước: 3,050" },
+                    { text: "[Tổng cộng] 8,800" }
                 ]
             }
         },
         {
-            type: "ind2_to_ind3",
-            title: { ko: "산업2 → 산업3", en: "Industry 2 → 3", vi: "Công nghiệp 2 → 3" },
+            type: "rider_base",
+            title: { ko: "라이더 기준", en: "Rider Base", vi: "Tiêu chuẩn Rider" },
             rules: {
                 ko: [
-                    { text: "[조건] 연맹센터 산업2, 차량(라이더) 산업2" },
-                    { text: "와치타워: 정밀부품 260 개" },
-                    { text: "연맹센터: 정밀부품 60 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 110 개" },
-                    { text: "연구소: 정밀부품 260 개" },
-                    { text: "연맹 단결광장: 정밀부품 40 개" },
-                    { text: "군사센터: 정밀부품 360 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 260*5=1300<br>연맹센터 60*5=300<br>라이더 캠프 110*5=550<br>(총 2,150개)" }
+                    { text: "[산5 -> 6] 필요: 라이더" },
+                    { text: "요구량: 쉘터 300, 연맹 70, 파이터 120, 슈터 120, 라이더 120" },
+                    { text: "단계 합계: 2,450" },
+                    { text: "[산6 -> 7] 필요: 파이터" },
+                    { text: "요구량: 쉘터 320, 연맹 80, 슈터 140, 라이더 140" },
+                    { text: "단계 합계: 3,300" },
+                    { text: "[산7 -> 8] 필요: 슈터" },
+                    { text: "요구량: 쉘터 350, 연맹 100, 라이더 160" },
+                    { text: "단계 합계: 4,350" },
+                    { text: "[총합] 10,100" }
                 ],
                 en: [
-                    { text: "[Condition] Alliance Center Industry 2, Rider Industry 2" },
-                    { text: "Watchtower: Precision Parts 260" },
-                    { text: "Alliance Center: Precision Parts 60" },
-                    { text: "F/S/R Camp: Precision Parts 110" },
-                    { text: "Research Lab: Precision Parts 260" },
-                    { text: "Alliance Unity Square: Precision Parts 40" },
-                    { text: "Military Center: Precision Parts 360" },
-                    { text: "[Precision Parts Total]<br>Watchtower 260*5=1300<br>Alliance Center 60*5=300<br>Rider Camp 110*5=550<br>(Total 2,150)" }
+                    { text: "[T5 -> T6] Required: Rider" },
+                    { text: "Cost: Shelter 300, Alliance 70, Fighter 120, Shooter 120, Rider 120" },
+                    { text: "Step Total: 2,450" },
+                    { text: "[T6 -> T7] Required: Fighter" },
+                    { text: "Cost: Shelter 320, Alliance 80, Shooter 140, Rider 140" },
+                    { text: "Step Total: 3,300" },
+                    { text: "[T7 -> T8] Required: Shooter" },
+                    { text: "Cost: Shelter 350, Alliance 100, Rider 160" },
+                    { text: "Step Total: 4,350" },
+                    { text: "[Total Sum] 10,100" }
                 ],
                 vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 2, Kỵ sĩ CN 2" },
-                    { text: "Tháp canh: Bộ phận chính xác 260" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 60" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 110" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 260" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 40" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 360" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 260*5=1300<br>TT Liên minh 60*5=300<br>Trại Kỵ sĩ 110*5=550<br>(Tổng 2,150)" }
-                ]
-            }
-        },
-        {
-            type: "ind3_to_ind4",
-            title: { ko: "산업3 → 산업4", en: "Industry 3 → 4", vi: "Công nghiệp 3 → 4" },
-            rules: {
-                ko: [
-                    { text: "[조건] 연맹센터 산업3, 파이터 산업3" },
-                    { text: "와치타워: 정밀부품 310 개" },
-                    { text: "연맹센터: 정밀부품 70 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 130 개" },
-                    { text: "연구소: 정밀부품 310 개" },
-                    { text: "연맹 단결광장: 정밀부품 50 개" },
-                    { text: "군사센터: 정밀부품 440 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 310*5=1550<br>연맹센터 70*5=350<br>파이터 캠프 130*5=650<br>(총 2,550개)" }
-                ],
-                en: [
-                    { text: "[Condition] Alliance Center Industry 3, Fighter Industry 3" },
-                    { text: "Watchtower: Precision Parts 310" },
-                    { text: "Alliance Center: Precision Parts 70" },
-                    { text: "F/S/R Camp: Precision Parts 130" },
-                    { text: "Research Lab: Precision Parts 310" },
-                    { text: "Alliance Unity Square: Precision Parts 50" },
-                    { text: "Military Center: Precision Parts 440" },
-                    { text: "[Precision Parts Total]<br>Watchtower 310*5=1550<br>Alliance Center 70*5=350<br>Fighter Camp 130*5=650<br>(Total 2,550)" }
-                ],
-                vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 3, Đấu sĩ CN 3" },
-                    { text: "Tháp canh: Bộ phận chính xác 310" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 70" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 130" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 310" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 50" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 440" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 310*5=1550<br>TT Liên minh 70*5=350<br>Trại Đấu sĩ 130*5=650<br>(Tổng 2,550)" }
-                ]
-            }
-        },
-        {
-            type: "ind4_to_ind5",
-            title: { ko: "산업4 → 산업5", en: "Industry 4 → 5", vi: "Công nghiệp 4 → 5" },
-            rules: {
-                ko: [
-                    { text: "[조건] 연맹센터 산업4, 슈터 산업4" },
-                    { text: "와치타워: 정밀부품 370 개" },
-                    { text: "연맹센터: 정밀부품 90 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 160 개" },
-                    { text: "연구소: 정밀부품 370 개" },
-                    { text: "연맹 단결광장: 정밀부품 60 개" },
-                    { text: "군사센터: 정밀부품 520 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 370*5=1850<br>연맹센터 90*5=450<br>슈터 캠프 160*5=800<br>(총 3,100개)" }
-                ],
-                en: [
-                    { text: "[Condition] Alliance Center Industry 4, Shooter Industry 4" },
-                    { text: "Watchtower: Precision Parts 370" },
-                    { text: "Alliance Center: Precision Parts 90" },
-                    { text: "F/S/R Camp: Precision Parts 160" },
-                    { text: "Research Lab: Precision Parts 370" },
-                    { text: "Alliance Unity Square: Precision Parts 60" },
-                    { text: "Military Center: Precision Parts 520" },
-                    { text: "[Precision Parts Total]<br>Watchtower 370*5=1850<br>Alliance Center 90*5=450<br>Shooter Camp 160*5=800<br>(Total 3,100)" }
-                ],
-                vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 4, Xạ thủ CN 4" },
-                    { text: "Tháp canh: Bộ phận chính xác 370" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 90" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 160" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 370" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 60" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 520" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 370*5=1850<br>TT Liên minh 90*5=450<br>Trại Xạ thủ 160*5=800<br>(Tổng 3,100)" }
-                ]
-            }
-        },
-        {
-            type: "ind5_to_ind6",
-            title: { ko: "산업5 → 산업6", en: "Industry 5 → 6", vi: "Công nghiệp 5 → 6" },
-            rules: {
-                ko: [
-                    { text: "[조건] 연맹센터 산업5, 라이더 산업5" },
-                    { text: "와치타워: 정밀부품 300 개" },
-                    { text: "연맹센터: 정밀부품 70 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 120 개" },
-                    { text: "연구소: 정밀부품 300 개" },
-                    { text: "연맹 단결광장: 정밀부품 50 개" },
-                    { text: "군사센터: 정밀부품 400 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 300*5=1500<br>연맹센터 70*5=350<br>라이더 캠프 120*5=600<br>(총 2,450개)" }
-                ],
-                en: [
-                    { text: "[Condition] Alliance Center Industry 5, Rider Industry 5" },
-                    { text: "Watchtower: Precision Parts 300" },
-                    { text: "Alliance Center: Precision Parts 70" },
-                    { text: "F/S/R Camp: Precision Parts 120" },
-                    { text: "Research Lab: Precision Parts 300" },
-                    { text: "Alliance Unity Square: Precision Parts 50" },
-                    { text: "Military Center: Precision Parts 400" },
-                    { text: "[Precision Parts Total]<br>Watchtower 300*5=1500<br>Alliance Center 70*5=350<br>Rider Camp 120*5=600<br>(Total 2,450)" }
-                ],
-                vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 5, Kỵ sĩ CN 5" },
-                    { text: "Tháp canh: Bộ phận chính xác 300" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 70" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 120" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 300" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 50" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 400" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 300*5=1500<br>TT Liên minh 70*5=350<br>Trại Kỵ sĩ 120*5=600<br>(Tổng 2,450)" }
-                ]
-            }
-        },
-        {
-            type: "ind6_to_ind7",
-            title: { ko: "산업6 → 산업7", en: "Industry 6 → 7", vi: "Công nghiệp 6 → 7" },
-            rules: {
-                ko: [
-                    { text: "[조건] 연맹센터 산업6, 파이터 산업6" },
-                    { text: "와치타워: 정밀부품 320 개" },
-                    { text: "연맹센터: 정밀부품 80 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 140 개" },
-                    { text: "연구소: 정밀부품 320 개" },
-                    { text: "연맹 단결광장: 정밀부품 60 개" },
-                    { text: "군사센터: 정밀부품 440 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 320*5=1600<br>연맹센터 80*5=400<br>파이터 캠프 140*5=700<br>(총 2,700개)" }
-                ],
-                en: [
-                    { text: "[Condition] Alliance Center Industry 6, Fighter Industry 6" },
-                    { text: "Watchtower: Precision Parts 320" },
-                    { text: "Alliance Center: Precision Parts 80" },
-                    { text: "F/S/R Camp: Precision Parts 140" },
-                    { text: "Research Lab: Precision Parts 320" },
-                    { text: "Alliance Unity Square: Precision Parts 60" },
-                    { text: "Military Center: Precision Parts 440" },
-                    { text: "[Precision Parts Total]<br>Watchtower 320*5=1600<br>Alliance Center 80*5=400<br>Fighter Camp 140*5=700<br>(Total 2,700)" }
-                ],
-                vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 6, Đấu sĩ CN 6" },
-                    { text: "Tháp canh: Bộ phận chính xác 320" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 80" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 140" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 320" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 60" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 440" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 320*5=1600<br>TT Liên minh 80*5=400<br>Trại Đấu sĩ 140*5=700<br>(Tổng 2,700)" }
-                ]
-            }
-        },
-        {
-            type: "ind7_to_ind8",
-            title: { ko: "산업7 → 산업8", en: "Industry 7 → 8", vi: "Công nghiệp 7 → 8" },
-            rules: {
-                ko: [
-                    { text: "[조건] 연맹센터 산업7, 슈터 산업7" },
-                    { text: "와치타워: 정밀부품 350 개" },
-                    { text: "연맹센터: 정밀부품 400 개" },
-                    { text: "파/슈/라 캠프: 정밀부품 160 개" },
-                    { text: "연구소: 정밀부품 350 개" },
-                    { text: "연맹 단결광장: 정밀부품 70 개" },
-                    { text: "군사센터: 정밀부품 480 개" },
-                    { text: "[정밀부품 합계]<br>와치타워 350*5=1750<br>연맹센터 100*5=500<br>슈터 캠프 160*5=800<br>(총 3,050개)" }
-                ],
-                en: [
-                    { text: "[Condition] Alliance Center Industry 7, Shooter Industry 7" },
-                    { text: "Watchtower: Precision Parts 350" },
-                    { text: "Alliance Center: Precision Parts 400" },
-                    { text: "F/S/R Camp: Precision Parts 160" },
-                    { text: "Research Lab: Precision Parts 350" },
-                    { text: "Alliance Unity Square: Precision Parts 70" },
-                    { text: "Military Center: Precision Parts 480" },
-                    { text: "[Precision Parts Total]<br>Watchtower 350*5=1750<br>Alliance Center 100*5=2000<br>Shooter Camp 160*5=800<br>(Total 3,050)" }
-                ],
-                vi: [
-                    { text: "[Điều kiện] Trung tâm Liên minh CN 7, Xạ thủ CN 7" },
-                    { text: "Tháp canh: Bộ phận chính xác 350" },
-                    { text: "Trung tâm Liên minh: Bộ phận chính xác 400" },
-                    { text: "Trại Đấu sĩ/Xạ thủ/Kỵ sĩ: Bộ phận chính xác 160" },
-                    { text: "Viện nghiên cứu: Bộ phận chính xác 350" },
-                    { text: "Quảng trường Đoàn kết: Bộ phận chính xác 70" },
-                    { text: "Trung tâm Quân sự: Bộ phận chính xác 480" },
-                    { text: "[Tổng Bộ phận chính xác]<br>Tháp canh 350*5=1750<br>TT Liên minh 100*5=2000<br>Trại Xạ thủ 160*5=800<br>(Tổng 3,050)" }
+                    { text: "[T5 -> T6] Yêu cầu: Rider" },
+                    { text: "Chi phí: Nơi trú ẩn 300, Liên minh 70, Fighter 120, Shooter 120, Rider 120" },
+                    { text: "Tổng bước: 2,450" },
+                    { text: "[T6 -> T7] Yêu cầu: Fighter" },
+                    { text: "Chi phí: Nơi trú ẩn 320, Liên minh 80, Shooter 140, Rider 140" },
+                    { text: "Tổng bước: 3,300" },
+                    { text: "[T7 -> T8] Yêu cầu: Shooter" },
+                    { text: "Chi phí: Nơi trú ẩn 350, Liên minh 100, Rider 160" },
+                    { text: "Tổng bước: 4,350" },
+                    { text: "[Tổng cộng] 10,100" }
                 ]
             }
         }
