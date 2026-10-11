@@ -11,7 +11,7 @@ font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
 background-color: #fafbfc; 
 color: #333;
 margin: 0;
-padding: 40px 20px; /* 모든 페이지 상단 여백 40px 통일 */
+padding: 40px 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -21,7 +21,7 @@ box-sizing: border-box;
 
 .container {
 width: 100%;
-max-width: 800px; /* 이미지 표시를 위해 너비는 800px로 유지 */
+max-width: 900px;
 margin: 0 auto;
 position: relative;
 }
@@ -62,8 +62,8 @@ border-color: #007bff;
 
 .header-wrapper {
 text-align: center;
-margin-bottom: 40px;
-margin-top: 0; /* 여백 통일 */
+margin-bottom: 30px;
+margin-top: 0; 
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -85,7 +85,6 @@ margin: 0 0 16px 0;
 letter-spacing: 0.5px;
 }
 
-/* 일반 부제목 스타일 원복 */
 .subtitle {
 font-size: 16px;
 color: #333333; 
@@ -93,7 +92,6 @@ font-weight: 500;
 margin: 0;
 }
 
-/* 💡 누락되었던 긴급 공지(빨간색 박스) 스타일 추가 */
 .urgent-text {
 display: inline-block;
 font-size: 16px;
@@ -113,18 +111,61 @@ font-weight: 600;
 margin: 10px 0 0 0;
 }
 
+/* 🔍 검색 영역 스타일 추가 */
+.search-container {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 20px;
+gap: 10px;
+width: 100%;
+}
+
+.search-container input {
+padding: 12px 16px;
+border: 1px solid #d1d5da;
+border-radius: 8px;
+font-size: 15px;
+width: 100%;
+max-width: 300px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+outline: none;
+transition: border-color 0.2s ease;
+}
+
+.search-container input:focus {
+border-color: #007bff;
+}
+
+.search-container button {
+padding: 12px 20px;
+background-color: #333;
+color: #fff;
+border: none;
+border-radius: 8px;
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+transition: background-color 0.2s;
+white-space: nowrap;
+}
+
+.search-container button:hover {
+background-color: #555;
+}
+
 .button-container {
 text-align: center;
-margin-bottom: 30px;
+margin-bottom: 20px;
 }
 
 .download-btn {
 display: inline-block;
-padding: 14px 28px;
+padding: 12px 24px;
 background-color: #007bff;
 color: #ffffff;
 text-decoration: none;
-font-size: 15px;
+font-size: 14px;
 font-weight: 700;
 border-radius: 8px;
 box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
@@ -138,21 +179,80 @@ transform: translateY(-2px);
 box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
 }
 
-img {
-display: block;
-margin: 0 auto;
-max-width: 100%;
+/* 테이블(자리배치도) 전용 스타일 */
+.chart-wrapper {
+width: 100%;
+overflow-x: auto;
+background-color: #ffffff;
+background-image: 
+    linear-gradient(#f0f0f0 1px, transparent 1px),
+    linear-gradient(90deg, #f0f0f0 1px, transparent 1px);
+background-size: 20px 20px;
+padding: 30px;
 border-radius: 12px;
 box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+box-sizing: border-box;
+margin-bottom: 30px;
+}
+
+.seating-table {
+width: 100%;
+min-width: 800px;
+border-collapse: collapse;
+table-layout: fixed;
+background-color: transparent;
+}
+
+.seating-table td {
+height: 55px;
+}
+
+.seat {
+border: 1px solid #333;
+background-color: #d1d5da;
+color: #1a1a1a;
+font-size: 11px;
+padding: 4px;
+vertical-align: bottom;
+text-align: left;
+word-break: break-all;
+line-height: 1.2;
+transition: background-color 0.3s ease; /* 색상 전환 효과 */
+}
+
+.frankie-seat {
+background-color: #ff9800;
+color: #000;
+font-size: 24px;
+font-weight: 900;
+text-align: center;
+vertical-align: middle;
+border: 1px solid #333;
+transition: background-color 0.3s ease;
+}
+
+.gap-col { border: none; }
+.empty-block { border: none; }
+
+/* ✨ 검색된 닉네임 강조 스타일 (연보라색) */
+.highlight-seat {
+background-color: #d1c4e9 !important; /* 연보라색 */
+color: #000 !important;
+font-weight: 800 !important;
+box-shadow: inset 0 0 0 2px #673ab7; /* 강조 테두리 효과 */
 }
 
 @media (max-width: 480px) {
-.header-wrapper { margin-bottom: 30px; }
+.header-wrapper { margin-bottom: 20px; }
 h1 { font-size: 24px; }
 .version-text { font-size: 13px; margin-bottom: 12px; }
 .subtitle { font-size: 14px; }
-.urgent-text { font-size: 14px; padding: 6px 12px; } /* 모바일 긴급 공지 사이즈 */
+.urgent-text { font-size: 14px; padding: 6px 12px; }
 .support-text { font-size: 13px; margin-top: 8px; }
+.chart-wrapper { padding: 15px; }
+.search-container { flex-direction: column; }
+.search-container input { max-width: 100%; }
+.search-container button { width: 100%; }
 }
 </style>
 </head>
@@ -171,43 +271,208 @@ h1 { font-size: 24px; }
         <h1 id="page-title">🗺️ 자리 배치도</h1>
 <p class="version-text" id="version-text"></p>
 <p class="subtitle" id="subtitle-text"></p>
-<p class="urgent-text" id="urgent-text"></p> 
+<!-- <p class="urgent-text" id="urgent-text"></p> -->
+</div>
+
+<!-- 🔍 닉네임 검색 영역 -->
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="닉네임 검색..." onkeypress="handleSearch(event)">
+    <button id="searchBtn" onclick="searchNickname()">🔍 검색</button>
 </div>
 
 <div class="button-container">
 <a href="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" id="download-btn" class="download-btn">
-💾 이미지 저장
+💾 원본 이미지 저장
 </a>
 </div>
 
-<img src="https://rainyhaha.github.io/darkwar/images/rules/seatingChart.png" alt="Seating Chart">
+<div class="chart-wrapper">
+    <table class="seating-table">
+        <colgroup>
+            <col style="width: 9%">
+            <col style="width: 9%">
+            <col style="width: 5%">
+            <col style="width: 9%">
+            <col style="width: 9%">
+            <col style="width: 9%">
+            <col style="width: 9%">
+            <col style="width: 9%">
+            <col style="width: 9%">
+            <col style="width: 5%">
+            <col style="width: 9%">
+            <col style="width: 9%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td class="seat">LyPhongVN</td>
+                <td class="seat">Sado GM 00</td>
+                <td class="gap-col" rowspan="12"></td>
+                <td class="seat">naeri</td>
+                <td class="seat">DHK 대한 킹</td>
+                <td class="seat">盆 Noyss 盆</td>
+                <td class="seat">BlossomPo</td>
+                <td class="seat">N e Z h a</td>
+                <td class="seat">Sam flynn</td>
+                <td class="gap-col" rowspan="12"></td>
+                <td class="seat"></td>
+                <td class="seat"></td>
+            </tr>
+            <tr>
+                <td class="seat">vuahapdiem</td>
+                <td class="seat">pikanees</td>
+                <td class="seat">Ernawati Dewi</td>
+                <td class="seat">ZAI 차이</td>
+                <td class="seat">hyun003002</td>
+                <td class="seat">MINT샤홍</td>
+                <td class="seat">민트봉봉mint</td>
+                <td class="seat">XxxPawtowwn</td>
+                <td class="seat">ђombi-T</td>
+                <td class="seat">¥ ℓilithVeil ¥</td>
+            </tr>
+            <tr>
+                <td class="seat">盆 Jed 盆</td>
+                <td class="seat">Hocwaras</td>
+                <td class="empty-block" colspan="6"></td>
+                <td class="seat">Thōmasmøstw</td>
+                <td class="seat">Tōsabit</td>
+            </tr>
+            <tr>
+                <td class="seat">MrTu • VN</td>
+                <td class="seat">Señor Crime</td>
+                <td class="seat">TOM • 鱼戏莲</td>
+                <td class="seat">bobozzang</td>
+                <td class="seat">ricottaa</td>
+                <td class="seat">Galaxy00</td>
+                <td class="seat">Bellā</td>
+                <td class="seat">Babicutehehe</td>
+                <td class="seat">° • Min Hime • °</td>
+                <td class="seat">Kida</td>
+            </tr>
+            <tr>
+                <td class="seat">Beru136</td>
+                <td class="seat">Bờ u Buuuuuu</td>
+                <td class="seat">Karik • ϑn</td>
+                <td class="seat">Dduee 뚜에에</td>
+                <td class="seat">FBazz</td>
+                <td class="seat">KwabiTeto 훔훼</td>
+                <td class="seat">IcyBazz</td>
+                <td class="seat">Lily 릴리v</td>
+                <td class="seat">aloala</td>
+                <td class="seat">Lý Trường Can</td>
+            </tr>
+            <tr>
+                <td class="seat">Xicoo</td>
+                <td class="seat">Kade27</td>
+                <td class="seat">Jisoo</td>
+                <td class="seat">LBazz ʕ • ᴥ • ʔ</td>
+                <td class="frankie-seat" colspan="2" rowspan="2">Frankie</td>
+                <td class="seat">Suho 수호</td>
+                <td class="seat">RAINY</td>
+                <td class="seat">M HUDA</td>
+                <td class="seat">Robot Taekwon</td>
+            </tr>
+            <tr>
+                <td class="empty-block" colspan="2"></td>
+                <td class="seat">얄룽이Yalloong</td>
+                <td class="seat">DDALGI 야옹</td>
+                <td class="seat">DoDoHan삼형제</td>
+                <td class="seat">Samsuk</td>
+                <td class="empty-block" colspan="2"></td>
+            </tr>
+            <tr>
+                <td class="seat">Chicken • VN</td>
+                <td class="seat">silver •</td>
+                <td class="seat">¿발롱이Balloon</td>
+                <td class="seat">Hisona</td>
+                <td class="seat">ʚ Solana ɞ</td>
+                <td class="seat">Capiso</td>
+                <td class="seat">나는 Minsu 왕자</td>
+                <td class="seat">Wang Thanos</td>
+                <td class="seat">Bắp Boy</td>
+                <td class="seat">Bắp Girl</td>
+            </tr>
+            <tr>
+                <td class="seat">MONSTER ZE</td>
+                <td class="seat">Báo Nè</td>
+                <td class="seat">아봉춘 abong</td>
+                <td class="seat">Runa159</td>
+                <td class="seat">ʚ KOREA 공쥬</td>
+                <td class="seat">Boriato</td>
+                <td class="seat">Cafe Sữa Đá</td>
+                <td class="seat">Tony87 VN</td>
+                <td class="seat">Khan VN</td>
+                <td class="seat">Iphone Repair</td>
+            </tr>
+            <tr>
+                <td class="seat">MuSTaFaBaZz</td>
+                <td class="seat">B L A C K Cat</td>
+                <td class="empty-block" colspan="6"></td>
+                <td class="seat">woemygod</td>
+                <td class="seat">• SweetHeart •</td>
+            </tr>
+            <tr>
+                <td class="seat">astral J</td>
+                <td class="seat">hide on bush</td>
+                <td class="seat">T-Rex 5481</td>
+                <td class="seat">HuyềnTrang °5</td>
+                <td class="seat">• Zeus • 5481</td>
+                <td class="seat">GiaoGiao 5481</td>
+                <td class="seat">쁘21々25쁘 5481</td>
+                <td class="seat">°Elyvia°5481</td>
+                <td class="seat">Huấn Hư Hỏng</td>
+                <td class="seat">︻╦╤Sahil-▅▆▇◤</td>
+            </tr>
+            <tr>
+                <td class="seat">Marsaud</td>
+                <td class="seat">Q Quỳnh</td>
+                <td class="seat">°August°5481</td>
+                <td class="seat">Dragon -VN-</td>
+                <td class="seat">Elzzup</td>
+                <td class="seat">NsAm</td>
+                <td class="seat">Lee Fuong</td>
+                <td class="seat">TheBad 5481 •</td>
+                <td class="seat">NMT VN</td>
+                <td class="seat">Poisson</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </div>
 
 <script>
-//const updateDate = "20260908";
 const updateDate = "20261005";
 
+// 다국어 데이터에 검색 관련 텍스트 추가
 const translations = {
 ko: {
             title: "🗺️ 자리 배치도",
 subtitle: " ", 
 urgentNotice: "🚨 자리 배치는 시즌 4 (2026년 9월 7일)부터 시작됩니다",
 support: "PC와 모바일 화면을 모두 지원합니다",
-saveBtn: "💾 이미지 저장"
+saveBtn: "💾 원본 이미지 저장",
+searchPlaceholder: "닉네임 검색...",
+searchBtn: "🔍 검색",
+noMatch: "일치하는 닉네임이 없습니다."
 },
 en: {
             title: "🗺️ Seating Chart",
 subtitle: " ", 
 urgentNotice: "🚨 Seating arrangements will begin in Season 4 (September 7, 2026)",
 support: "All screens are supported on PC and mobile",
-saveBtn: "💾 Save Image"
+saveBtn: "💾 Save Original Image",
+searchPlaceholder: "Search nickname...",
+searchBtn: "🔍 Search",
+noMatch: "No matching nickname found."
 },
 vi: {
             title: "🗺️ Sơ đồ chỗ ngồi",
 subtitle: " ", 
 urgentNotice: "🚨 Việc sắp xếp chỗ ngồi sẽ bắt đầu trong Mùa 4 (Ngày 7 tháng 9 năm 2026)",
 support: "Tất cả các màn hình đều được hỗ trợ trên PC và thiết bị di động",
-saveBtn: "💾 Lưu hình ảnh"
+saveBtn: "💾 Lưu hình ảnh gốc",
+searchPlaceholder: "Tìm kiếm biệt danh...",
+searchBtn: "🔍 Tìm kiếm",
+noMatch: "Không tìm thấy biệt danh phù hợp."
 }
 };
 
@@ -244,6 +509,41 @@ const supportEl = document.getElementById('support-text');
 if (supportEl) supportEl.textContent = translations[lang].support;
 
 document.getElementById('download-btn').textContent = translations[lang].saveBtn;
+document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
+document.getElementById('searchBtn').textContent = translations[lang].searchBtn;
+}
+
+// 닉네임 검색 함수
+function searchNickname() {
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    const seats = document.querySelectorAll('.seat, .frankie-seat');
+
+    // 이전 검색 결과 초기화
+    seats.forEach(seat => seat.classList.remove('highlight-seat'));
+
+    if (!query) return; // 빈칸 검색 방지
+
+    let found = false;
+    seats.forEach(seat => {
+        const text = seat.textContent.trim().toLowerCase();
+        // 빈칸 제외하고 검색어 포함 여부 확인
+        if (text && text.includes(query)) {
+            seat.classList.add('highlight-seat');
+            found = true;
+        }
+    });
+
+    if (!found) {
+        const currentLang = localStorage.getItem('lang') || 'ko';
+        alert(translations[currentLang].noMatch);
+    }
+}
+
+// 엔터키 입력 감지
+function handleSearch(event) {
+    if (event.key === 'Enter') {
+        searchNickname();
+    }
 }
 
 const langSelect = document.getElementById('langSelect');
