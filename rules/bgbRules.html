@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -242,6 +241,113 @@
         line-height: 1.5;
     }
 
+    /* 🔥 BGB 명단 현황 스타일 */
+    .roster-section {
+        margin-top: 20px; /* 여백 조정 */
+        width: 100%;
+    }
+    .roster-section h2 {
+        font-size: 22px;
+        text-align: center;
+        margin-bottom: 24px;
+        color: #1a1a1a;
+        font-weight: 800;
+    }
+    .tier-group {
+        background: #fff;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        margin-bottom: 24px;
+    }
+    .tier-header {
+        font-size: 20px;
+        font-weight: 800;
+        color: #007bff;
+        margin-bottom: 16px;
+        border-bottom: 2px solid #f0f4f8;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+    .status-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .status-card {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #eaedf0;
+    }
+    .status-header {
+        padding: 14px 16px;
+        font-weight: 700;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .status-header.checked {
+        background-color: #e6f4ea;
+        color: #1e8e3e;
+        border-bottom: 1px solid #cce8d6;
+    }
+    .status-header.unchecked {
+        background-color: #fce8e6;
+        color: #d93025;
+        border-bottom: 1px solid #fad2cf;
+    }
+    .member-list-roster {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .member-item-roster {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f5f5f5;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+    .member-item-roster:hover {
+        background-color: #f8fbff;
+    }
+    .member-item-roster:last-child {
+        border-bottom: none;
+    }
+    .member-name-roster {
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .member-name-roster .rank {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        background-color: #f1f3f5;
+        color: #888;
+        font-size: 11px;
+        font-weight: 700;
+    }
+    .member-power-roster {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #666;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .power-icon {
+        color: #fbbc04;
+        margin-right: 4px;
+        font-size: 12px;
+    }
+
     @media (max-width: 480px) {
         .header-wrapper { margin-bottom: 30px; }
         h1 { font-size: 24px; }
@@ -253,6 +359,8 @@
         .rule-item.sub-rule { padding-left: 36px; }
         .item-badge { width: 24px; height: 24px; font-size: 13px; }
         .footer-wrapper { font-size: 15px; padding: 16px; }
+        .status-grid { grid-template-columns: 1fr; }
+        .tier-group { padding: 16px; }
     }
 </style>
 <script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=1798"></script>
@@ -277,16 +385,22 @@
     
     <div id="accordion-container"></div>
 
+    <!-- 🔥 JSON 데이터를 그리는 영역을 푸터 위로 이동 -->
+    <div id="roster-container" class="roster-section"></div>
+
     <div class="footer-wrapper" id="footer-text">
-        ⚠️ 서로 하나 된 결속력으로 다 함께 BGB 승리의 기쁨을 만들어 갑시다!
+        ⚠️ 궁금한 점이 있는 경우 R4에게 문의해주세요.
     </div>
 </div>
 
 <script>
-    const updateDate = "20260603";
+    const updateDate = "20261011";
 
     const rainbowColors = [
-        '#e8f4fd' // 깔끔하고 정돈된 톤의 배경 칼라 지정
+        '#e8f4fd', // 파스텔 블루
+        '#fdf3e8', // 파스텔 오렌지
+        '#f2fde8', // 파스텔 그린
+        '#fde8f2'  // 파스텔 핑크
     ];
 
     const headerTranslations = {
@@ -294,6 +408,192 @@
         en: { title: "📊 BGB Team Selection Rules", subtitle: "All alliance members, please familiarize yourselves with the rules.", support: "Let's build an alliance of mutual respect and care." },
         vi: { title: "📊 Quy tắc chọn đội BGB", subtitle: "Tất cả các thành viên liên minh vui lòng làm quen với các quy tắc.", support: "Hãy cùng xây dựng một liên minh tôn trọng và quan tâm lẫn nhau." }
     };
+
+    const footerTranslations = {
+        ko: "⚠️ 궁금한 점이 있는 경우 R4에게 문의해주세요.",
+        en: "⚠️ If you have any questions, please contact R4.",
+        vi: "⚠️ Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với R4."
+    };
+
+    const rosterTranslations = {
+        ko: { title: "📋 BGB 참전 신청 현황 <span style='font-size: 16px; color: #666; font-weight: 500; margin-left: 6px;'>(2026년 10월 11일)</span>", checked: "✅ 참전", unchecked: "⏳ 미참전", count: "명" },
+        en: { title: "📋 BGB Application Status <span style='font-size: 16px; color: #666; font-weight: 500; margin-left: 6px;'>(Oct 11, 2026)</span>", checked: "✅ Participating", unchecked: "⏳ Not Participating", count: "" },
+        vi: { title: "📋 Trạng thái đăng ký BGB <span style='font-size: 16px; color: #666; font-weight: 500; margin-left: 6px;'>(11/10/2026)</span>", checked: "✅ Tham gia", unchecked: "⏳ Không tham gia", count: "" }
+    };
+
+    // ✨ R1/R2 그룹핑된 BGB 명단 (JSON 데이터)
+    const bgbParticipants = {
+      "R1": {
+        "checked": [
+          {"name": "Kida", "power": "11,766,151"},
+          {"name": "盆 Noyss 盆", "power": "10,411,524"}
+        ],
+        "unchecked": [
+          {"name": "N e Z h a", "power": "9,931,298"},
+          {"name": "DHK 대한 킹", "power": "6,201,163"},
+          {"name": "BlossomPo", "power": "5,710,324"}
+        ]
+      },
+      "R2": {
+        "checked": [
+          {"name": "TheBad 5481 •", "power": "31,716,490"},
+          {"name": "• SweetHeart •", "power": "21,019,354"},
+          {"name": "XxxPawtowwnXxX", "power": "19,174,859"},
+          {"name": "Thömasmøstwantëd", "power": "17,081,413"},
+          {"name": "O o D", "power": "16,135,178"},
+          {"name": "°Elyvia°5481", "power": "15,717,020"},
+          {"name": "Elzzup", "power": "13,831,694"},
+          {"name": "盆 Jed 盆", "power": "10,419,654"}
+        ],
+        "unchecked": [
+          {"name": "ChiCken • VN", "power": "15,512,626"},
+          {"name": "MrTu • VN", "power": "14,889,400"},
+          {"name": "Sado GM 00", "power": "14,198,311"},
+          {"name": "Bắp Girl", "power": "12,559,576"},
+          {"name": "MONSTER ZERO", "power": "12,517,525"},
+          {"name": "Lee Fuong", "power": "11,532,491"},
+          {"name": "Ernawati Dewi", "power": "10,834,398"},
+          {"name": "Hocwaras", "power": "10,116,241"},
+          {"name": "Tōsabit", "power": "9,977,578"},
+          {"name": "BaBy Quỳnh", "power": "8,588,735"}
+        ]
+      }
+    };
+
+    const allianceRulesData = [
+        {
+            type: "overview",
+            title: { ko: "1. BGB 안내", en: "1. BGB Guide", vi: "1. Hướng dẫn BGB" },
+            rules: {
+                ko: [
+                    { text: "BGB는 연맹원 모두의 보상을 위한 이벤트입니다. A팀 보상이 더 좋기 때문에, 전투력이 높으신 분들은 A팀에 배정됩니다." },
+                    { text: "선발 인원은 A, B팀 각 20명으로 제한되기 때문에, 선발 명단이 되기 위해서는 전투력이 높아야 합니다. 본인 전투력을 올리도록 노력해주신다면 선발 인원이 될 확률이 높아질 것입니다." },
+                    { text: "일정이 확정되면, 모두 참전 신청에 체크하여 주셔야 합니다. 전투력이 높더라도, 참전 신청을 안해주시면 BGB 명단에 배정되지 않습니다." },
+                    { text: "연맹 내 전투력 순위가 상위 20위에 들지 않을 경우, 반드시 A, B팀 둘 다 참전 신청을 해주세요.",
+                      subRules: [
+                          "A팀 예비 인원 또는 B팀 선발 인원이 될 수 있기 때문입니다.",
+                          "전투력이 다소 낮더라도 B팀에서 선발 또는 A팀 예비 인원이 되실 수도 있습니다."
+                      ]
+                    }
+                ],
+                en: [
+                    { text: "BGB is an event for the rewards of all alliance members. Since Team A's rewards are better, those with higher combat power will be assigned to Team A." },
+                    { text: "Since the starting roster is limited to 20 members each for Teams A and B, you need high combat power to be on the starting roster. If you make an effort to increase your combat power, your chances of becoming a starting member will increase." },
+                    { text: "Once the schedule is confirmed, everyone must check the participation application. Even if your combat power is high, you will not be assigned to the BGB roster if you do not apply to participate." },
+                    { text: "If your combat power ranking in the alliance is not in the top 20, please make sure to apply for both Teams A and B.",
+                      subRules: [
+                          "This is because you can become a reserve member for Team A or a starting member for Team B.",
+                          "Even if your combat power is somewhat low, you may still be selected for Team B or become a reserve member for Team A."
+                      ]
+                    }
+                ],
+                vi: [
+                    { text: "BGB là sự kiện vì phần thưởng của toàn bộ thành viên liên minh. Vì phần thưởng của Đội A tốt hơn nên những người có lực chiến cao sẽ được xếp vào Đội A." },
+                    { text: "Vì danh sách xuất phát giới hạn 20 người mỗi Đội A và B, bạn cần lực chiến cao để lọt vào danh sách. Nếu nỗ lực tăng lực chiến, cơ hội trở thành thành viên xuất phát sẽ tăng lên." },
+                    { text: "Khi lịch trình được xác nhận, mọi người phải đánh dấu vào đơn đăng ký tham gia. Ngay cả khi lực chiến cao, bạn sẽ không được xếp vào danh sách BGB nếu không đăng ký tham gia." },
+                    { text: "Nếu xếp hạng lực chiến của bạn không lọt top 20, vui lòng đảm bảo đăng ký cả Đội A và B.",
+                      subRules: [
+                          "Bởi vì bạn có thể trở thành thành viên dự bị cho Đội A hoặc thành viên xuất phát cho Đội B.",
+                          "Ngay cả khi lực chiến của bạn hơi thấp, bạn vẫn có thể được chọn vào Đội B hoặc dự bị cho Đội A."
+                      ]
+                    }
+                ]
+            }
+        },
+        {
+            type: "priority",
+            title: { ko: "2. 명단 배정 우선순위", en: "2. Roster Assignment Priority", vi: "2. Ưu tiên phân bổ danh sách" },
+            rules: {
+                ko: [
+                    { text: "1순위: 참전 신청에 체크를 한 사람" },
+                    { text: "2순위: 전투력이 높은 사람" },
+                    { text: "3순위: 참여도 및 기여도가 높은 사람" }
+                ],
+                en: [
+                    { text: "Priority 1: Those who checked the participation application" },
+                    { text: "Priority 2: Those with high combat power" },
+                    { text: "Priority 3: Those with high participation and contribution" }
+                ],
+                vi: [
+                    { text: "Ưu tiên 1: Những người đã đánh dấu đăng ký tham gia" },
+                    { text: "Ưu tiên 2: Những người có lực chiến cao" },
+                    { text: "Ưu tiên 3: Những người có mức độ tham gia và đóng góp cao" }
+                ]
+            }
+        },
+        {
+            type: "assignment_rules",
+            title: { ko: "3. 팀 배정 규칙", en: "3. Team Assignment Rules", vi: "3. Quy tắc xếp đội" },
+            rules: {
+                ko: [
+                    { text: "우선순위에 해당되는 A팀 선발 인원 배정" },
+                    { text: "우선순위에 해당되는 B팀 선발 인원 배정" },
+                    { text: "A팀에 참전 신청했지만 선발되지 않은 인원들을 B팀 선발 인원으로 배정",
+                      subRules: [
+                          "위에서 선발된 인원의 수 만큼 기존 배정했던 B팀 선발 인원은 미선발 인원으로 상태가 변경됩니다."
+                      ]
+                    },
+                    { text: "우선순위를 전제로 A팀, B팀 예비 인원 배정",
+                      subRules: [
+                          "A팀의 승패가 BGB의 보상으로 결정되기 때문에 B팀의 일부 인원은 우선순위로 인하여 영원히 BGB에 참전할 수 없는 상황이 생길 수도 있습니다.",
+                          "이를 방지하여 R2, R1 내에서 BGB 명단에 대한 로테이션 규칙을 예외적으로 적용할 예정입니다. (B팀은 제한 인원보다 참전 신청 인원의 수가 더 많기 때문에 R2, R1은 메모하여 로테이션으로 배정할 예정입니다.)"
+                      ]
+                    }
+                ],
+                en: [
+                    { text: "Assign Team A starting members based on priority" },
+                    { text: "Assign Team B starting members based on priority" },
+                    { text: "Assign those who applied for Team A but were not selected as Team B starting members",
+                      subRules: [
+                          "The status of previously assigned Team B starters will change to unselected by the number of people selected in this step."
+                      ]
+                    },
+                    { text: "Assign Team A and Team B reserve members based on priority",
+                      subRules: [
+                          "Because Team A's victory or defeat determines BGB rewards, some members of Team B might never be able to participate in BGB due to priority.",
+                          "To prevent this, we plan to exceptionally apply a rotation rule for the BGB roster among R2 and R1. (Since Team B has more applicants than the limit, R2 and R1 will be assigned on a rotation basis by taking notes.)"
+                      ]
+                    }
+                ],
+                vi: [
+                    { text: "Xếp thành viên xuất phát Đội A dựa trên ưu tiên" },
+                    { text: "Xếp thành viên xuất phát Đội B dựa trên ưu tiên" },
+                    { text: "Xếp những người đã đăng ký Đội A nhưng không được chọn thành thành viên xuất phát Đội B",
+                      subRules: [
+                          "Trạng thái của các thành viên Đội B được xếp trước đó sẽ đổi thành không được chọn bằng với số người được chọn ở bước này."
+                      ]
+                    },
+                    { text: "Xếp thành viên dự bị Đội A và Đội B dựa trên ưu tiên",
+                      subRules: [
+                          "Vì thắng bại của Đội A quyết định phần thưởng BGB nên một số thành viên Đội B có thể không bao giờ được tham gia BGB do bị ưu tiên thấp.",
+                          "Để tránh điều này, chúng tôi dự định áp dụng ngoại lệ quy tắc luân phiên danh sách BGB trong số R2 và R1. (Vì Đội B có nhiều người đăng ký hơn giới hạn, R2 và R1 sẽ được ghi chú và xếp luân phiên.)"
+                      ]
+                    }
+                ]
+            }
+        },
+        {
+            type: "etc",
+            title: { ko: "4. 기타 안내사항", en: "4. Other Notices", vi: "4. Thông báo khác" },
+            rules: {
+                ko: [
+                    { text: "이러한 규칙은 모든 이벤트에 적극 참여하고, 활발히 활동하시는 분들에게 경험을 제공하기 위해서 입니다." },
+                    { text: "추가 질의가 있으시다면, R5 또는 R4에게 연락 부탁드립니다." },
+                    { text: "PS. BGB 명단 확정은 서버시간 13시입니다." }
+                ],
+                en: [
+                    { text: "This is to provide experiences to those who actively participate in all events and are highly active." },
+                    { text: "If you have any further questions, please contact R5 or R4." },
+                    { text: "PS. The BGB roster is finalized at 13:00 server time." }
+                ],
+                vi: [
+                    { text: "Điều này nhằm cung cấp trải nghiệm cho những người tích cực tham gia mọi sự kiện và hoạt động sôi nổi." },
+                    { text: "Nếu bạn có thêm câu hỏi, vui lòng liên hệ R5 hoặc R4." },
+                    { text: "Tái bút: Danh sách BGB được chốt vào 13:00 giờ máy chủ." }
+                ]
+            }
+        }
+    ];
 
     function getFormattedVersionText(dateStr, lang) {
         if (!dateStr || dateStr.length !== 8) return "";
@@ -308,38 +608,85 @@
         return "";
     }
 
-    const footerTranslations = {
-        ko: "⚠️ 서로 하나 된 결속력으로 다 함께 BGB 승리의 기쁨을 만들어 갑시다!",
-        en: "⚠️ With united strength and solidarity, let's achieve the joy of a BGB victory together!",
-        vi: "⚠️ Với tinh thần đoàn kết đồng lòng, hãy cùng nhau tạo nên niềm vui chiến thắng BGB!"
-    };
+    // JSON 데이터를 화면에 그려주는 함수 (R2 먼저 그 다음 R1 출력 적용)
+    function renderRoster(lang) {
+        const rosterContainer = document.getElementById('roster-container');
+        rosterContainer.innerHTML = '';
 
-    const allianceRulesData = [
-        {
-            type: "bgb",
-            title: { ko: "BGB 팀 선정 규칙 안내", en: "BGB Team Selection Rules", vi: "Quy tắc chọn đội BGB" },
-            rules: {
-                ko: [
-                    { text: "원하시는 팀에 자유롭게 투표해주세요." },
-                    { text: "투표 의견을 최대한 존중하도록 하겠습니다." },
-                    { text: "만약 A팀의 인원 부족 또는 전투력 미달이라 판단되는 경우 B팀의 일부 인원을 A팀으로 배정할 예정입니다." }
-                ],
-                en: [
-                    { text: "Please feel free to vote for the team you want." },
-                    { text: "We will respect the voting results as much as possible." },
-                    { text: "If Team A is considered to be short of members or lacking in combat power, some personnel from Team B will be reassigned to Team A." }
-                ],
-                vi: [
-                    { text: "Hãy thoải mái bình chọn cho đội bạn muốn." },
-                    { text: "Chúng tôi sẽ tôn trọng ý kiến bình chọn của bạn một cách tối đa." },
-                    { text: "Nếu Đội A được cho là thiếu nhân sự hoặc không đủ lực chiến, một số thành viên từ Đội B sẽ được chuyển sang Đội A." }
-                ]
-            }
+        const title = document.createElement('h2');
+        title.innerHTML = rosterTranslations[lang].title;
+        rosterContainer.appendChild(title);
+
+        // 🔥 R2가 먼저 나오고 R1이 나오도록 순서 명시
+        const displayOrder = ['R2', 'R1'];
+
+        for (const tier of displayOrder) {
+            const data = bgbParticipants[tier];
+            if(!data) continue;
+
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'tier-group';
+
+            const header = document.createElement('div');
+            header.className = 'tier-header';
+            header.textContent = `[${tier}]`;
+            groupDiv.appendChild(header);
+
+            const gridDiv = document.createElement('div');
+            gridDiv.className = 'status-grid';
+
+            const checkedCard = createStatusCard(rosterTranslations[lang].checked, data.checked, 'checked', lang);
+            const uncheckedCard = createStatusCard(rosterTranslations[lang].unchecked, data.unchecked, 'unchecked', lang);
+            
+            gridDiv.appendChild(checkedCard);
+            gridDiv.appendChild(uncheckedCard);
+
+            groupDiv.appendChild(gridDiv);
+            rosterContainer.appendChild(groupDiv);
         }
-    ];
+    }
 
-    const container = document.getElementById('accordion-container');
-    const langSelect = document.getElementById('langSelect');
+    function createStatusCard(titleText, members, statusType, lang) {
+        const card = document.createElement('div');
+        card.className = 'status-card';
+
+        const header = document.createElement('div');
+        header.className = `status-header ${statusType}`;
+        
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = titleText;
+        
+        const countSpan = document.createElement('span');
+        const postfix = rosterTranslations[lang].count ? ` ${rosterTranslations[lang].count}` : '';
+        countSpan.textContent = `${members.length}${postfix}`;
+
+        header.appendChild(titleSpan);
+        header.appendChild(countSpan);
+        card.appendChild(header);
+
+        const ul = document.createElement('ul');
+        ul.className = 'member-list-roster';
+
+        members.forEach((member, index) => {
+            const li = document.createElement('li');
+            li.className = 'member-item-roster';
+            
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'member-name-roster';
+            nameDiv.innerHTML = `<span class="rank">${index + 1}</span> ${member.name}`;
+            
+            const powerDiv = document.createElement('div');
+            powerDiv.className = 'member-power-roster';
+            powerDiv.innerHTML = `<span class="power-icon">🛡️</span> ${member.power}`;
+
+            li.appendChild(nameDiv);
+            li.appendChild(powerDiv);
+            ul.appendChild(li);
+        });
+
+        card.appendChild(ul);
+        return card;
+    }
 
     function renderPage(lang) {
         document.getElementById('page-title').textContent = headerTranslations[lang].title;
@@ -347,7 +694,10 @@
         document.getElementById('subtitle-text').textContent = headerTranslations[lang].subtitle;
         document.getElementById('support-text').textContent = headerTranslations[lang].support;
         document.getElementById('footer-text').textContent = footerTranslations[lang];
+        
+        const container = document.getElementById('accordion-container');
         container.innerHTML = '';
+        
         allianceRulesData.forEach((group, groupIndex) => {
             const details = document.createElement('details');
             details.open = true;
@@ -399,8 +749,12 @@
             details.appendChild(ul);
             container.appendChild(details);
         });
+
+        // ✨ 명단 리스트 렌더링 호출
+        renderRoster(lang);
     }
 
+    const langSelect = document.getElementById('langSelect');
     langSelect.addEventListener('change', function(e) {
         const selectedLang = e.target.value;
         localStorage.setItem('lang', selectedLang);
